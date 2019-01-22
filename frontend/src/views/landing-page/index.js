@@ -1,6 +1,7 @@
 import defaultImagePath from "../../assets/i/default-thumbnail.png";
 import Cropper from 'cropperjs/dist/cropper.js';
 import 'cropperjs/dist/cropper.css';
+import imageListSlider from '../../components/image-list-slider.vue';
 
 export default {
   name: "landing-page",
@@ -9,27 +10,41 @@ export default {
       cropImg:null,
       selectedImage: null,
       defaultImagePath,
-      pager: {
-        pageIndex: 0,
-        pageLimit: 10,
-        pageSize: 0
-      },
       allImages: [],
-      imageList1: [],
-      imageList2: []
+      imageList: [],
+      croppedImageList:[],
     };
   },
   methods: {
-    openFile(e) {
+    async openFile(e) {
       if (e.target.files.length > 0) {
-        this.rebuildGallery(e.target.files);
+        await this.rebuildGallery(e.target.files);
+        this.onSelectFile(this.imageList[0])
       }
     },
     onSelectFile(file) {
-      this.selectedImage = file;
-      if(this.selectedImage && this.selectedImage != defaultImagePath)
+      if(file)
       {
+        this.selectedImage = file;
         this.cropper.replace(this.selectedImage,false);
+      }
+    },
+    onSelectCroppedImage(file){
+      if(file)
+      {
+        this.cropImg = file;
+      }
+    },
+    delSelectedImage(){
+      this.imageList.splice( this.imageList.indexOf(this.selectedImage), 1 );
+      if(this.imageList.length ==0)
+      {
+        this.cropper.destroy();
+        this.init();
+      }
+      else
+      {
+        this.onSelectFile(this.imageList[0]);
       }
     },
     loadImage(file) {
@@ -47,37 +62,13 @@ export default {
         }
       });
     },
-    async buildGallery(pageIndex) {
-      this.pager.pageIndex = pageIndex;
-      let start = this.pager.pageIndex * this.pager.pageLimit;
-      let end = (this.pager.pageIndex + 1) * this.pager.pageLimit;
-      if (end > this.allImages.length) {
-        end = this.allImages.length;
-      }
-      this.pager.pageSize = Math.ceil(
-        this.allImages.length / this.pager.pageLimit
-      );
-      this.imageList1 = [];
-      this.imageList2 = [];
-      for (let i = start; i < end; i++) {
+    async buildGallery() {
+      this.imageList = [];
+      for (let i = 0; i < this.allImages.length; i++) {
         let item = this.allImages[i];
-        if (this.imageList1.length < 5) {
-          let src = await this.loadImage(item);
-          this.imageList1.push(src);
-          continue;
-        }
-        if (this.imageList2.length < 5) {
-          let src = await this.loadImage(item);
-          this.imageList2.push(src);
-        }
+        let src = await this.loadImage(item);
+        this.imageList.push(src);
       }
-      while (this.imageList1.length < 5) {
-        this.imageList1.push(defaultImagePath);
-      }
-      while (this.imageList2.length < 5) {
-        this.imageList2.push(defaultImagePath);
-      }
-      //this.onSelectFile(this.imageList1[0]);
     },
     async rebuildGallery(images) {
       this.selectedImage = null;
@@ -86,16 +77,21 @@ export default {
     },
     crop(){
       this.cropImg = this.cropper.getCroppedCanvas().toDataURL();
+      if(this.croppedImageList.indexOf(this.cropImg)<0)
+      {
+        this.croppedImageList.splice(0,0,this.cropImg);
+      }
+    },
+    init(){
+      this.selectedImage = null;
+      this.imageList = [];
+      this.cropper = new Cropper(this.$refs.selectedImg,{autoCrop:false})
     }
   },
   mounted: function() {
-    this.$nextTick(function() {
-      let images = [];
-      for (let i = 0; i < this.pager.pageLimit; i++) {
-        images.push(defaultImagePath);
-      }
-      this.rebuildGallery(images);
-      this.cropper = new Cropper(this.$refs.selectedImg)
-    });
+    this.$nextTick(this.init);
+  },
+  components:{
+    imageListSlider,
   }
 };

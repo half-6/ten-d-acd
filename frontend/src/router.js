@@ -11,6 +11,16 @@ export default new Router({
       path: "/",
       name: "landing-page",
       component: require("@/views/landing-page/index.vue").default
+    },
+    {
+      path: "/about",
+      name: "about-page",
+      component: require("@/views/about-page/index.vue").default
+    },
+    {
+      path: "/list",
+      name: "list-page",
+      component: require("@/views/list-page/index.vue").default
     }
   ]
 });
