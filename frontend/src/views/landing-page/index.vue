@@ -76,7 +76,7 @@
               </div>
             </div>
             <div class="btn-group float-md-right">
-              <button class="btn btn-primary btn-save">SAVE</button>
+              <button class="btn btn-primary btn-save" :class="{disabled:croppedImageList.length == 0}" :disabled="croppedImageList.length == 0" >SAVE</button>
             </div>
           </div>
           <div class="img-container">
@@ -86,17 +86,22 @@
           </div>
           <div class="image-prediction container bottom">
             <div class="row prediction">
-              <div class="col">
+              <div class="col-md-2">
                 <div>tabby</div>
                 <div>Prediction</div>
               </div>
-              <div class="col">
+              <div class="col-md-2">
                 <div>0.6128</div>
                 <div>Probability</div>
               </div>
-              <div class="col">
+              <div class="col-md-2">
                 <div>0.17188</div>
                 <div>Processing Time</div>
+              </div>
+              <div class="col-md-6">
+                <button data-target="#roiImageList" data-slide-to="0" class="btn btn-danger float-md-right" @click="delCroppedImage()" :class="{disabled:cropImg==null}" :disabled="cropImg==null" >Delete</button>
+                <button class="btn btn-primary float-md-right" @click="recognition()" :class="{disabled:cropImg==null}" :disabled="cropImg==null" >Recognition</button>
+
               </div>
             </div>
             <div class="row">

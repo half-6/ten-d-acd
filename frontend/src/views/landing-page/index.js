@@ -35,6 +35,9 @@ export default {
         this.cropImg = file;
       }
     },
+    recognition(){
+
+    },
     delSelectedImage(){
       this.imageList.splice( this.imageList.indexOf(this.selectedImage), 1 );
       if(this.imageList.length ==0)
@@ -45,6 +48,17 @@ export default {
       else
       {
         this.onSelectFile(this.imageList[0]);
+      }
+    },
+    delCroppedImage(){
+      this.croppedImageList.splice( this.croppedImageList.indexOf(this.cropImg), 1 );
+      if(this.croppedImageList.length ==0)
+      {
+        this.cropImg = null;
+      }
+      else
+      {
+        this.onSelectCroppedImage(this.croppedImageList[0]);
       }
     },
     loadImage(file) {

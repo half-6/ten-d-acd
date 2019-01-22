@@ -64,17 +64,17 @@
 .landing-page .prediction{
   text-align: center;
 }
-.landing-page .prediction>.col>div{
+.landing-page .prediction>.col-md-2>div{
   height: 30px;
   line-height: 30px;
 }
-.landing-page .prediction>.col~.col{
+.landing-page .prediction>.col-md-2~.col-md-2{
   border-left:1px solid #EDEEF0;
 }
-.landing-page .diagnostic-type .type{
-  float: left;
-  margin-right: 10px;
+.landing-page .prediction .col-md-6 button{
+  margin-left: 10px;
 }
+
 .landing-page .btn-save{
   float: right;
   margin-bottom: 15px;
