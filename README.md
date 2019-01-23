@@ -1,7 +1,9 @@
-#Ten-D ACD System
+# Ten-D ACD System
 A web based automatic ultrasound cancer diagnosis system
 
-> ## Getting Started
+> ## Architecture
+![Ten-D ACD System](doc/tend-architecture.png)
+
 
 > ## Setup
 - install JAVA 8.0 +
@@ -9,6 +11,7 @@ A web based automatic ultrasound cancer diagnosis system
 - install Nodejs 10.15.0 +
 - install npm 6.5.0 + 
 - install MATLAB runtime R2018b (9.5)  
+- install PostgreSQL latest
 - Add /lib/Image_Recognition.jar (core cancer diagnosis library, built by MATLAB)
 
 > ## How to release and run
