@@ -4,6 +4,8 @@ import 'cropperjs/dist/cropper.css';
 import imageListSlider from '../../components/image-list-slider.vue';
 import loadingButton from '../../components/loading-button.vue';
 import _ from 'lodash';
+import uuid from 'uuid/v4';
+
 export default {
   name: "landing-page",
   data() {
@@ -12,25 +14,26 @@ export default {
       cropImg:null,
       selectedImage: null,
       defaultImagePath,
-      allImages: [],
       imageList: [],
       croppedImageList:[],
       record:{
         record_external_id:null,
         cancer_type_id:"",
         machine_type_id:"",
-        roi_image:[]
+        roi_image:[],
+        original_image:[]
       },
       cancerTypeList:[],
       machineTypeList:[],
       pathologyList:[{"key":"malignant","label":"Malignant"},{"key":"benign","label":"Benign"}],
       isRecognition:false,
+      isSaving:false,
     };
   },
   methods: {
     async openFile(e) {
       if (e.target.files.length > 0) {
-        await this.rebuildGallery(e.target.files);
+        await this.buildGallery(e.target.files);
         this.onSelectFile(this.imageList[0])
       }
     },
@@ -58,7 +61,8 @@ export default {
               currentCropImg.prediction = r.body.response;
               this.isRecognition = false;
             },err=>{
-              console.error(err)
+              console.error(err);
+              this.isRecognition = false;
             }
         )
       }
@@ -101,21 +105,14 @@ export default {
         }
       });
     },
-    onPathology(option){
-       this.cropImg.pathology = option;
-    },
-    async buildGallery() {
-      this.imageList = [];
-      for (let i = 0; i < this.allImages.length; i++) {
-        let item = this.allImages[i];
-        let src = await this.loadImage(item);
-        this.imageList.push({src});
-      }
-    },
-    async rebuildGallery(images) {
+    async buildGallery(images) {
       this.selectedImage = null;
-      this.allImages = images;
-      await this.buildGallery(0);
+      this.imageList = [];
+      for (let i = 0; i < images.length; i++) {
+        let item = images[i];
+        let src = await this.loadImage(item);
+        this.imageList.push({src,id:uuid()});
+      }
     },
     crop(){
       let tmpImg = this.cropper.getCroppedCanvas().toDataURL();
@@ -123,11 +120,51 @@ export default {
       {
         this.cropImg = {
           src:this.cropper.getCroppedCanvas().toDataURL(),
+          roi_image:uuid(),
+          original_image:this.selectedImage.id,
           prediction:null,
-          pathology:null,
-      };
+          pathology:undefined,
+        };
         this.croppedImageList.splice(0,0,this.cropImg);
       }
+    },
+    save(){
+      //build save object
+      let canSave = true;
+      this.record.original_image = [];
+      this.record.roi_image = [];
+      this.croppedImageList.forEach(image=>{
+        let oImage = _.find(this.imageList,{id:image.original_image});
+        if(oImage)
+        {
+          this.record.original_image.push(oImage);
+        }
+        else
+        {
+          canSave = false;
+        }
+        if(!image.prediction)
+        {
+          canSave = false;
+        }
+      });
+      this.record.roi_image = this.croppedImageList;
+      console.log(this.record);
+      this.isSaving = true;
+      this.$http.post('/api/image/save',this.record)
+      .then(r=>{
+            console.log(r.body);
+            alert("Save success");
+            this.isSaving = false;
+          },err=>{
+            console.error(err);
+            alert("Save failed" + err.toString());
+            this.isSaving = false;
+          }
+      )
+    },
+    enableSaveButton(){
+        return this.record.record_external_id && this.record.cancer_type_id && this.record.machine_type_id && this.croppedImageList.length > 0 && _.filter(this.croppedImageList,img=>{return img.prediction}).length === this.croppedImageList.length;
 
     },
     init(){

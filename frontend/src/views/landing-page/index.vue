@@ -57,7 +57,9 @@
               </div>
             </div>
             <div class="btn-group float-md-right">
-              <button class="btn btn-primary btn-save" :class="{disabled:croppedImageList.length == 0}" :disabled="croppedImageList.length == 0" >SAVE</button>
+              <!--<button class="btn btn-primary btn-save" @click="save()" :class="{disabled:!enableSaveButton()}" :disabled="!enableSaveButton()" >SAVE</button>-->
+              <loading-button v-on:click="save" :disabled="!enableSaveButton()" value="SAVE" :isLoading="isSaving" />
+
             </div>
           </div>
           <div class="img-container">

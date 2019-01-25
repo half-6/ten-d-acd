@@ -29,7 +29,3 @@ A web based automatic ultrasound cancer diagnosis system
 - execute table.sql and data.sql on PostgreSQL
 - java -jar backend\target\com.tend.acd.backend-0.0.1-SNAPSHOT.jar
 - start http://localhost:8080/
-
-
-> ## Image Cropper
-https://fengyuanchen.github.io/cropperjs/

@@ -42,6 +42,7 @@ CREATE TABLE public.record(
 DROP TABLE IF EXISTS public.roi_image cascade;
 CREATE TABLE public.roi_image(
   roi_image_id  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  record_id UUID references record NOT NULL ,
   original_image UUID NOT NULL,
   roi_image UUID NOT NULL,
 
