@@ -24,5 +24,3 @@ A web based automatic ultrasound cancer diagnosis system
 - mvn spring-boot:run -f backend/pom.xml
 - start http://localhost:3000/
 
-> ## Image Cropper
-https://fengyuanchen.github.io/cropperjs/
