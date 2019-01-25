@@ -7,7 +7,6 @@ import com.tend.acd.Util;
 import com.tend.acd.model.response.ResponseImageRecognitionEntity;
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +24,7 @@ public class ImageRecognitionRepositoryTest extends ApplicationTests {
   @Test
   public void recognition() throws IOException, MWException {
     File testImage = ResourceUtils.getFile(this.getClass().getResource("/Cat.jpg"));
-    List<ResponseImageRecognitionEntity> test = imageRecognitionRepository.recognition(testImage.getAbsolutePath());
+    ResponseImageRecognitionEntity test = imageRecognitionRepository.recognition(testImage.getAbsolutePath());
     Util.logger.trace("recognizing " + Utility.toJson(test));
   }
   @Test

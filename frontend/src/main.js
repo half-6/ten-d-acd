@@ -10,8 +10,10 @@ import 'bootstrap';
 import "./assets/css/source-sans-pro/source-sans-pro.css";
 import "./assets/css/app.css";
 import VueResource from 'vue-resource';
+import BootstrapVue from 'bootstrap-vue'
 
 Vue.use(VueResource);
+Vue.use(BootstrapVue);
 
 Vue.config.productionTip = false;
 new Vue({

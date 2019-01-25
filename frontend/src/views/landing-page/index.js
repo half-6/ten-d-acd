@@ -1,4 +1,3 @@
-import defaultImagePath from "../../assets/i/default-thumbnail.png";
 import Cropper from 'cropperjs/dist/cropper.js';
 import 'cropperjs/dist/cropper.css';
 import imageListSlider from '../../components/image-list-slider.vue';
@@ -10,10 +9,9 @@ export default {
   name: "landing-page",
   data() {
     return {
-      picked:null,
+      message:null,
       cropImg:null,
       selectedImage: null,
-      defaultImagePath,
       imageList: [],
       croppedImageList:[],
       record:{
@@ -62,6 +60,8 @@ export default {
               this.isRecognition = false;
             },err=>{
               console.error(err);
+              this.message = "Recognition failed,Please try again";
+              this.$refs.errModal.show();
               this.isRecognition = false;
             }
         )
@@ -92,10 +92,6 @@ export default {
     },
     loadImage(file) {
       return new Promise(resolve => {
-        if (file === defaultImagePath) {
-          resolve(file);
-          return;
-        }
         if (FileReader && file.type.indexOf("image") >= 0) {
           var fr = new FileReader();
           fr.onload = function() {
@@ -120,8 +116,8 @@ export default {
       {
         this.cropImg = {
           src:this.cropper.getCroppedCanvas().toDataURL(),
-          roi_image:uuid(),
-          original_image:this.selectedImage.id,
+          roi_image_id:uuid(),
+          original_image_id:this.selectedImage.id,
           prediction:null,
           pathology:undefined,
         };
@@ -134,32 +130,41 @@ export default {
       this.record.original_image = [];
       this.record.roi_image = [];
       this.croppedImageList.forEach(image=>{
-        let oImage = _.find(this.imageList,{id:image.original_image});
+        let oImage = _.find(this.imageList,{id:image.original_image_id});
         if(oImage)
         {
           this.record.original_image.push(oImage);
         }
         else
         {
-          canSave = false;
+          this.message = "Original image has been deleted, you can't save now";
+          this.$refs.errModal.show();
+          return;
         }
-        if(!image.prediction)
-        {
-          canSave = false;
-        }
+        this.record.roi_image.push({
+          src:image.src,
+          roi_image_id:image.roi_image_id,
+          original_image_id:image.original_image_id,
+          pathology:image.pathology,
+          prediction:_.get(image.prediction,"Prediction"),
+          probability:_.get(image.prediction,"Probability"),
+          processing_time:_.get(image.prediction,"ProcessingTime"),
+        })
       });
-      this.record.roi_image = this.croppedImageList;
       console.log(this.record);
       this.isSaving = true;
       this.$http.post('/api/image/save',this.record)
       .then(r=>{
+            this.isSaving = false;
             console.log(r.body);
-            alert("Save success");
-            this.isSaving = false;
+            this.reset();
+            this.message = "Save success";
+            this.$refs.errModal.show();
           },err=>{
-            console.error(err);
-            alert("Save failed" + err.toString());
             this.isSaving = false;
+            console.error(err);
+            this.message = "Save failed";
+            this.$refs.errModal.show();
           }
       )
     },
@@ -168,11 +173,14 @@ export default {
 
     },
     init(){
-      this.selectedImage = null;
-      this.imageList = [];
+      if(this.cropper) this.cropper.destroy();
       this.cropper = new Cropper(this.$refs.selectedImg,{autoCrop:false});
       this.$http.get('/api/db/public.cancer_type').then(r=>this.cancerTypeList = r.body.response.data)
       this.$http.get('/api/db/public.machine_type').then(r=>this.machineTypeList = r.body.response.data)
+    },
+    reset(){
+      Object.assign(this.$data, this.$options.data())
+      this.init();
     }
   },
   mounted: function() {

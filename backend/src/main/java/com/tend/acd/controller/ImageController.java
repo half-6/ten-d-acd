@@ -6,7 +6,6 @@ import com.tend.acd.model.response.ResponseImageRecognitionEntity;
 import com.tend.acd.service.ImageRecognitionService;
 import com.tend.acd.service.RecordService;
 import java.io.IOException;
-import java.util.List;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,7 +29,7 @@ public class ImageController {
     RecordService recordService;
 
     @PostMapping(value="/recognition")
-    public ResponseBaseEntity<List<ResponseImageRecognitionEntity>> create(@RequestParam(value = "image") String image)
+    public ResponseBaseEntity<ResponseImageRecognitionEntity> create(@RequestParam(value = "image") String image)
         throws IOException, MWException {
         return new ResponseBaseEntity<>(imageRecognitionService.recognize(image));
     }

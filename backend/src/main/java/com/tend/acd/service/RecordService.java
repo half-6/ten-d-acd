@@ -21,9 +21,8 @@ public class RecordService {
     {
       JSONArray originalImageList =  input.getJSONArray("original_image");
       JSONArray oriImage = input.getJSONArray("roi_image");
-      input.remove("original_image");
-      input.remove("roi_image");
       Object id = dbHelper.insert("record",input);
+      Util.logger.trace("save record success," + id);
       for(int i=0;i<originalImageList.length();i++)
       {
          JSONObject item = originalImageList.getJSONObject(i);
@@ -36,12 +35,11 @@ public class RecordService {
         File img = Util.saveBase64Image(item.getString("src"));
         item.put("record_id",id.toString());
         item.put("roi_image",Util.stripExtension(img.getName()));
-        item.put("original_image",findNewId(originalImageList,item.getString("original_image")));
-        item.remove("prediction");
+        item.put("original_image",findNewId(originalImageList,item.getString("original_image_id")));
         Object roiImageId = dbHelper.insert("roi_image",item);
-        Util.logger.trace("save roi success," + roiImageId);
+        Util.logger.trace("save roi image success," + roiImageId);
       }
-      Util.logger.trace("save all record success," + id);
+      Util.logger.trace("save all success," + id);
       return true;
     }
   }

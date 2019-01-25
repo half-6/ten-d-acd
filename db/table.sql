@@ -4,7 +4,7 @@ CREATE EXTENSION IF NOT EXISTS "pgcrypto";
 CREATE EXTENSION IF NOT EXISTS "chkpass";
 
 DROP TYPE IF EXISTS tp_pathology_status cascade;
-CREATE TYPE tp_pathology_status AS ENUM ('Malignant','Benign');
+CREATE TYPE tp_pathology_status AS ENUM ('malignant','benign');
 
 DROP TABLE IF EXISTS public.cancer_type cascade;
 CREATE TABLE public.cancer_type(

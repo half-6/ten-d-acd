@@ -6,7 +6,6 @@ import com.tend.acd.model.response.ResponseImageRecognitionEntity;
 import com.tend.acd.repository.ImageRecognitionRepository;
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,9 +18,11 @@ public class ImageRecognitionService {
   @Autowired
   ImageRecognitionRepository imageRecognitionRepository;
 
-  public List<ResponseImageRecognitionEntity> recognize(String base64Image)
+  public ResponseImageRecognitionEntity recognize(String base64Image)
       throws IOException, MWException {
     File img = Util.saveBase64Image(base64Image);
-    return imageRecognitionRepository.recognition(img.getAbsolutePath());
+    ResponseImageRecognitionEntity output =  imageRecognitionRepository.recognition(img.getAbsolutePath());
+    img.delete();
+    return output;
   }
 }

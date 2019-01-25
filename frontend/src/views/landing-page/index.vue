@@ -36,7 +36,7 @@
                   </li>
                 </ul>
                 <div class="float-md-right">
-                  <button data-target="#imageList" data-slide-to="0" class="btn btn-danger" @click="delSelectedImage()" :class="{disabled:selectedImage==null}" :disabled="selectedImage==null" >Delete</button>
+                  <button data-target="#imageList" data-slide-to="0" class="btn btn-danger" v-b-modal.delModalSelectedImage :class="{disabled:selectedImage==null}" :disabled="selectedImage==null" >Delete</button>
                 </div>
               </div>
             </div>
@@ -57,9 +57,8 @@
               </div>
             </div>
             <div class="btn-group float-md-right">
-              <!--<button class="btn btn-primary btn-save" @click="save()" :class="{disabled:!enableSaveButton()}" :disabled="!enableSaveButton()" >SAVE</button>-->
               <loading-button v-on:click="save" :disabled="!enableSaveButton()" value="SAVE" :isLoading="isSaving" />
-
+              <!--<loading-button v-on:click="reset" value="RESET" />-->
             </div>
           </div>
           <div class="img-container">
@@ -71,16 +70,16 @@
               <div class="col">
                 <div class="d-flex justify-content-between">
                   <div class="pb-2 d-flex align-items-end">
-                    <loading-button v-on:click="recognition" :disabled="cropImg==null" value="Recognition" :isLoading="isRecognition" />
+                    <loading-button v-on:click="recognition" :disabled="cropImg==null || cropImg.prediction" value="Recognition" :isLoading="isRecognition" />
                   </div>
                   <div class="pb-2" v-if="cropImg">
-                    <div v-for="item in cropImg.prediction" class="prediction" >
-                      <div>{{item.Value}}</div>
-                      <div>{{item.Attribute}}</div>
+                    <div v-for="(value, propertyName) in cropImg.prediction" class="prediction" >
+                      <div>{{value}}</div>
+                      <div>{{propertyName}}</div>
                     </div>
                   </div>
                   <div class="pb-2 d-flex align-items-end">
-                    <button data-target="#roiImageList" data-slide-to="0" class="btn btn-danger float-md-right" @click="delCroppedImage()" :class="{disabled:cropImg==null}" :disabled="cropImg==null" >Delete</button>
+                    <button data-target="#roiImageList" data-slide-to="0" class="btn btn-danger float-md-right" v-b-modal.delModalCroppedImage :class="{disabled:cropImg==null}" :disabled="cropImg==null" >Delete</button>
                   </div>
                 </div>
               </div>
@@ -92,6 +91,16 @@
         </div>
       </div>
     </div>
+
+    <b-modal id="delModalSelectedImage" title="Confirm Deletion" @ok="delSelectedImage">
+      <p class="my-4">Are you sure you want to permanently remove this item?</p>
+    </b-modal>
+    <b-modal id="delModalCroppedImage" title="Confirm Deletion" @ok="delCroppedImage">
+      <p class="my-4">Are you sure you want to permanently remove this item?</p>
+    </b-modal>
+    <b-modal id="errModal" ref="errModal" title="Information" ok-only>
+      <p class="my-4">{{message}}</p>
+    </b-modal>
   </div>
 </template>
 <style src="./index.css"></style>
