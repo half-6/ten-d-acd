@@ -55,3 +55,4 @@ CREATE TABLE public.roi_image(
 ) WITH (
     OIDS = FALSE
 );
+

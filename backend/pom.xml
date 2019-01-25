@@ -58,7 +58,29 @@
 			<artifactId>javabuilder</artifactId>
 			<version>R2015b</version>
 		</dependency>
-
+		<!--********************************************************************-->
+		<!--DB																																	-->
+		<!--********************************************************************-->
+    <dependency>
+      <groupId>commons-beanutils</groupId>
+      <artifactId>commons-beanutils</artifactId>
+      <version>1.9.2</version>
+    </dependency>
+		<dependency>
+			<groupId>net.linkfuture</groupId>
+			<artifactId>linkfuture.db.api</artifactId>
+			<version>2.2.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>9.4-1206-jdbc42</version>
+		</dependency>
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20160212</version>
+		</dependency>
 		<!--********************************************************************-->
 		<!--Test																																-->
 		<!--********************************************************************-->
@@ -129,6 +151,21 @@
 							<version>1.0</version>
 							<packaging>jar</packaging>
 							<file>${basedir}/lib/Image_Recognition.jar</file>
+							<generatePom>true</generatePom>
+						</configuration>
+					</execution>
+					<execution>
+						<id>install-db-api</id>
+						<goals>
+							<goal>install-file</goal>
+						</goals>
+						<phase>validate</phase>
+						<configuration>
+							<groupId>net.linkfuture</groupId>
+							<artifactId>linkfuture.db.api</artifactId>
+							<version>2.2.1</version>
+							<packaging>jar</packaging>
+							<file>${basedir}/lib/linkfuture.db.api-2.2.1.jar</file>
 							<generatePom>true</generatePom>
 						</configuration>
 					</execution>

@@ -9,7 +9,9 @@ import "popper.js";
 import 'bootstrap';
 import "./assets/css/source-sans-pro/source-sans-pro.css";
 import "./assets/css/app.css";
+import VueResource from 'vue-resource';
 
+Vue.use(VueResource);
 
 Vue.config.productionTip = false;
 new Vue({

@@ -2,7 +2,7 @@
   <div :id="id" class="carousel slide carouselSlider" data-ride="carousel" data-interval="false" data-wrap="false">
     <div class="carousel-inner" v-if="imageList.length>0">
       <div class="carousel-item" v-for="i in Math.ceil(imageList.length / 5)" :class="{active:i==1}">
-        <img class="w-20" :src="item" v-for="item in imageList.slice((i - 1) * 5, i * 5)" :alt="i" v-on:click="$emit('select-image',item)" :class="{active:selectedImage==item}">
+        <img class="w-20" :src="item.src" v-for="item in imageList.slice((i - 1) * 5, i * 5)" :alt="i" v-on:click="$emit('select-image',item)" :class="{active:selectedImage==item}">
       </div>
     </div>
     <div class="carousel-inner" v-else>

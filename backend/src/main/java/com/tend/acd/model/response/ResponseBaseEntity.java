@@ -20,7 +20,7 @@ public class ResponseBaseEntity<T> {
     }
     public ResponseBaseEntity(T data)
     {
-        this.data = data;
+        this.response = data;
     }
     @JsonProperty("code")
     public Integer code = 200;
@@ -31,6 +31,6 @@ public class ResponseBaseEntity<T> {
     @JsonProperty("timestamp")
     private Date timestamp = new Date();
 
-    @JsonProperty("data")
-    public T data;
+    @JsonProperty("response")
+    public T response;
 }

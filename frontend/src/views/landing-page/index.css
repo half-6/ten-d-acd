@@ -63,16 +63,15 @@
 }
 .landing-page .prediction{
   text-align: center;
+  float:left;
+  padding:0 20px;
 }
-.landing-page .prediction>.col-md-2>div{
+.landing-page .prediction>div{
   height: 30px;
   line-height: 30px;
 }
-.landing-page .prediction>.col-md-2~.col-md-2{
+.landing-page .prediction~.prediction{
   border-left:1px solid #EDEEF0;
-}
-.landing-page .prediction .col-md-6 button{
-  margin-left: 10px;
 }
 
 .landing-page .btn-save{

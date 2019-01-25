@@ -11,15 +11,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ResponseImageRecognitionEntity {
-    @JsonProperty("prediction")
-    public String prediction;
+    @JsonProperty("Value")
+    public Object value;
 
-    @JsonProperty("processTime")
-    public String processTime;
-
-    @JsonProperty("probability")
-    public String probability;
-
-    @JsonProperty("pathology")
-    public String pathology;
+    @JsonProperty("Attribute")
+    public String attribute;
 }

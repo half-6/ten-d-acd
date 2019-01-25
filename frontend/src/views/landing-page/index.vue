@@ -5,25 +5,21 @@
         <div class="col-md-6 left">
           <div class="btn-toolbar">
             <div class="btn-group" role="group" aria-label="First group">
-              <input class="form-control" placeholder="Please enter ID">
-              <select class="custom-select ml-1">
-                <option selected>Please select cancer type</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
+              <input class="form-control" placeholder="Please enter ID" v-model="record.record_external_id">
+              <select class="custom-select ml-1" v-model="record.cancer_type_id">
+                <option selected value="">Please select cancer type</option>
+                <option v-for="item in cancerTypeList" :value="item.cancer_type_id">{{item.cancer_type_name}}</option>
               </select>
-              <select class="custom-select ml-1">
-                <option selected>Please select machine type</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
+              <select class="custom-select ml-1" v-model="record.machine_type_id">
+                <option selected value="">Please select machine type</option>
+                <option v-for="item in machineTypeList" :value="item.machine_type_id">{{item.machine_type_name}}</option>
               </select>
             </div>
           </div>
           <div class="img-container">
               <div class="img-rounded rounded fill">
                 <div class="center text-center" v-if="imageList.length==0">Please click "Import Image" button to choose a b-model image</div>
-                <img v-show="selectedImage" :src="selectedImage"  ref="selectedImg">
+                <img v-show="selectedImage" :src="selectedImage?selectedImage.src:''"  ref="selectedImg">
               </div>
            </div>
           <div class="container bottom">
@@ -50,29 +46,14 @@
           </div>
         </div>
         <div class="col-md-6 right line">
-          <!--<h2>Extracted Region</h2>-->
           <div class="btn-toolbar">
             <div class="btn-group float-md-left">
-              <div class="diagnostic-type">
-                <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                  <label class="btn btn-secondary">
-                    <input type="radio" name="options" autocomplete="off" checked> Malignant
-                  </label>
-                  <label class="btn btn-secondary">
-                    <input type="radio" name="options" autocomplete="off"> Benign
+              <div class="diagnostic-type" v-if="cropImg">
+                <div class="btn-group btn-group-toggle">
+                  <label class="btn btn-secondary" v-for="item in pathologyList" :class="{active:item.key == cropImg.pathology}">
+                    <input type="radio" name="options" :value="item.key"  v-model="cropImg.pathology">{{item.label}}
                   </label>
                 </div>
-                <!--<div class="type">-->
-                  <!--Type-->
-                <!--</div>-->
-                <!--<div class="custom-control custom-radio custom-control-inline">-->
-                  <!--<input type="radio" id="customRadioInline1" name="customRadioInline1" class="custom-control-input">-->
-                  <!--<label class="custom-control-label" for="customRadioInline1">Malignant</label>-->
-                <!--</div>-->
-                <!--<div class="custom-control custom-radio custom-control-inline">-->
-                  <!--<input type="radio" id="customRadioInline2" name="customRadioInline1" class="custom-control-input">-->
-                  <!--<label class="custom-control-label" for="customRadioInline2">Benign</label>-->
-                <!--</div>-->
               </div>
             </div>
             <div class="btn-group float-md-right">
@@ -80,28 +61,26 @@
             </div>
           </div>
           <div class="img-container">
-            <!--<div v-if="cropImg" class="img-rounded rounded fill cropImg" :style="{ 'background-image': 'url(' + cropImg + ')' }"></div>-->
-            <img v-if="cropImg" class="img-rounded rounded fill cropImg"  :src="cropImg">
+            <img v-if="cropImg" class="img-rounded rounded fill cropImg"  :src="cropImg.src">
             <div class="center text-center img-rounded rounded" v-else>Please click "Cut ROI Image" button on the bottom of the left image to cut an ROI image</div>
           </div>
           <div class="image-prediction container bottom">
-            <div class="row prediction">
-              <div class="col-md-2">
-                <div>tabby</div>
-                <div>Prediction</div>
-              </div>
-              <div class="col-md-2">
-                <div>0.6128</div>
-                <div>Probability</div>
-              </div>
-              <div class="col-md-2">
-                <div>0.17188</div>
-                <div>Processing Time</div>
-              </div>
-              <div class="col-md-6">
-                <button data-target="#roiImageList" data-slide-to="0" class="btn btn-danger float-md-right" @click="delCroppedImage()" :class="{disabled:cropImg==null}" :disabled="cropImg==null" >Delete</button>
-                <button class="btn btn-primary float-md-right" @click="recognition()" :class="{disabled:cropImg==null}" :disabled="cropImg==null" >Recognition</button>
-
+            <div class="row">
+              <div class="col">
+                <div class="d-flex justify-content-between">
+                  <div class="pb-2 d-flex align-items-end">
+                    <loading-button v-on:click="recognition" :disabled="cropImg==null" value="Recognition" :isLoading="isRecognition" />
+                  </div>
+                  <div class="pb-2" v-if="cropImg">
+                    <div v-for="item in cropImg.prediction" class="prediction" >
+                      <div>{{item.Value}}</div>
+                      <div>{{item.Attribute}}</div>
+                    </div>
+                  </div>
+                  <div class="pb-2 d-flex align-items-end">
+                    <button data-target="#roiImageList" data-slide-to="0" class="btn btn-danger float-md-right" @click="delCroppedImage()" :class="{disabled:cropImg==null}" :disabled="cropImg==null" >Delete</button>
+                  </div>
+                </div>
               </div>
             </div>
             <div class="row">
