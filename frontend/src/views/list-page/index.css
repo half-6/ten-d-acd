@@ -1,3 +1,15 @@
-.list-page h1{
-  margin-top: 50px !important;
+.list-page{
+  margin-top: 65px !important;
+}
+
+.list-page table img{
+   height: 50px;
+}
+
+.list-page .search-bar{
+  width: 400px;
+}
+
+.list-page .filter-bar{
+  width: 600px;
 }

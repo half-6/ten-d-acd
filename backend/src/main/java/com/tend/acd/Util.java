@@ -44,13 +44,19 @@ public class Util {
     }
 
     private static Path getFilePath(String fileName){
-        ApplicationHome home = new ApplicationHome(Application.class);
-        String realPathToUploads = Paths.get(home.getDir().getAbsolutePath(),"uploads").toString();
+        String realPathToUploads = getAppUploadPath();
         if(! new File(realPathToUploads).exists())
         {
             new File(realPathToUploads).mkdir();
         }
         return Paths.get(realPathToUploads, fileName);
+    }
+    public static String getAppUploadPath(){
+        return Paths.get(getAppStaticPath().toString(),"uploads").toString();
+    }
+    public static Path getAppStaticPath(){
+        ApplicationHome home = new ApplicationHome(Application.class);
+        return Paths.get(home.getDir().getAbsolutePath(),"static");
     }
 
     public static String stripExtension (String fileName){

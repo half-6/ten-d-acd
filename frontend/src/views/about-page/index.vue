@@ -1,9 +1,16 @@
 <template>
   <div class="wrapper about-page">
     <div class="container-fluid">
-      <div class="row">
+      <div class="row justify-content-center">
         <div class="col">
-          <h1>this is about page</h1>
+          <h1></h1>
+          <div class="jumbotron">
+            <h1 class="display-4">Ten-D ACD System</h1>
+            <p class="lead">A web based automatic ultrasound cancer diagnosis system</p>
+            <hr class="my-4">
+            <p>Version number:0.0.1-SNAPSHOT</p>
+            <!--<a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>-->
+          </div>
         </div>
       </div>
     </div>
