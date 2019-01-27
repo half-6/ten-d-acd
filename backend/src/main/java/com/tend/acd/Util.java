@@ -47,7 +47,7 @@ public class Util {
         String realPathToUploads = getAppUploadPath();
         if(! new File(realPathToUploads).exists())
         {
-            new File(realPathToUploads).mkdir();
+            new File(realPathToUploads).mkdirs();
         }
         return Paths.get(realPathToUploads, fileName);
     }
