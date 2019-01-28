@@ -49,15 +49,14 @@
           <div class="btn-toolbar">
             <div class="btn-group float-md-left">
               <div class="diagnostic-type" v-if="cropImg">
-                <div class="btn-group btn-group-toggle">
-                  <label class="btn btn-secondary" v-for="item in pathologyList" :class="{active:item.key == cropImg.pathology}">
-                    <input type="radio" name="options" :value="item.key"  v-model="cropImg.pathology">{{item.label}}
-                  </label>
-                </div>
+                <b-form-radio-group buttons
+                                    button-variant="outline-primary"
+                                    v-model="cropImg.pathology"
+                                    :options="pathologyList" />
               </div>
             </div>
             <div class="btn-group float-md-right">
-              <loading-button v-on:click="save" :disabled="!enableSaveButton()" value="SAVE" :isLoading="isSaving" />
+              <loading-button v-on:click="save" :disabled="!enableSaveButton()" value="SAVE" :isLoading="isSaving" loadingLabel="Saving..." />
               <!--<loading-button v-on:click="reset" value="RESET" />-->
             </div>
           </div>
@@ -70,7 +69,7 @@
               <div class="col">
                 <div class="d-flex justify-content-between">
                   <div class="pb-2 d-flex align-items-end">
-                    <loading-button v-on:click="recognition" :disabled="cropImg==null || cropImg.prediction" value="Recognition" :isLoading="isRecognition" />
+                    <loading-button v-on:click="recognition" :disabled="cropImg==null || cropImg.prediction" value="Recognition" :isLoading="isRecognition" loadingLabel="Recognising..." />
                   </div>
                   <div class="pb-2" v-if="cropImg">
                     <div v-for="(value, propertyName) in cropImg.prediction" class="prediction" >

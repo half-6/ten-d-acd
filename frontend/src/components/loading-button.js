@@ -1,4 +1,14 @@
 export default {
   name: 'loading-button',
-  props: ['isLoading','value','id','disabled']
+  props: {
+    isLoading:Object,
+    disabled:Object,
+    value:String,
+    id:String,
+    loadingLabel:{
+      type:String,
+      default:"Loading..."
+    },
+  },
+
 }

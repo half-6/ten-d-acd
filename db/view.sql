@@ -3,5 +3,6 @@ CREATE VIEW v_roi_image AS  SELECT record_external_id, roi_image.*,cancer_type_n
 from roi_image
 left join record using(record_id)
 left join cancer_type using (cancer_type_id)
-left join machine_type using (machine_type_id);
+left join machine_type using (machine_type_id)
+where roi_image.status = 'active'
 ;

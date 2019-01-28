@@ -24,7 +24,7 @@
         <Logger name="com.tend.acd" level="ALL" additivity="false">
             <AppenderRef ref="ConsoleAppender" />
         </Logger>
-        <Logger name="LinkFuture.DB" level="ALL" additivity="false">
+        <Logger name="LinkFuture DB API" level="ALL" additivity="false">
             <AppenderRef ref="ConsoleAppender" />
         </Logger>
         <Root level="WARN">

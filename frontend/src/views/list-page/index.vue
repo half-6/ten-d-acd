@@ -27,7 +27,7 @@
              <div class="form-group col-md-4">
                <select class="custom-select" v-model="search.pathology">
                  <option selected value="">Select pathology</option>
-                 <option v-for="item in pathologyList" :value="item.key">{{item.label}}</option>
+                 <option v-for="item in pathologyList" :value="item.value">{{item.text}}</option>
                </select>
              </div>
            </div>
@@ -47,7 +47,7 @@
               <th scope="col">Prediction</th>
               <th scope="col">Probability</th>
               <th scope="col">Date</th>
-              <!--<th scope="col">Operation</th>-->
+              <th scope="col">Operation</th>
             </tr>
             </thead>
             <tbody>
@@ -57,11 +57,22 @@
                 <td><img class="img-thumbnail" :src="getImageUrl(item.roi_image)"/></td>
                 <td>{{item.cancer_type_name}}</td>
                 <td>{{item.machine_type_name}}</td>
-                <td>{{item.pathology}}</td>
+                <td v-if="!item.$edit">{{item.pathology}}</td>
+                <td v-else>
+                  <b-form-radio-group buttons
+                                      button-variant="outline-primary"
+                                      v-model="item.pathology"
+                                      :options="pathologyList" />
+                </td>
                 <td>{{item.prediction}}</td>
                 <td>{{item.probability}}</td>
                 <td>{{item.date_registered}}</td>
-                <!--<td>Edit</td>-->
+                <td class="operation">
+                  <button v-if="!item.$edit" @click="edit(item)" type="button" class="btn btn-outline btn-primary btn-sm pl-1"><i class="fa fa-edit fa-fw"></i>Edit</button>
+                  <button v-else @click="save(item)" type="button" class="btn btn-outline btn-primary btn-sm pl-1"><i class="fa fa-edit fa-fw"></i>Save</button>
+                  <button v-if="!item.$edit" @click="del(item)" type="button" class="btn btn-outline btn-danger btn-sm pl-1"><i class="fa fa-edit fa-fw"></i>Delete</button>
+                  <button v-else @click="cancel(item)" type="button" class="btn btn-outline btn-secondary btn-sm pl-1"><i class="fa fa-edit fa-fw"></i>Cancel</button>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -81,6 +92,12 @@
         </div>
       </div>
     </div>
+    <b-modal ref="delModal" title="Confirm Deletion" @ok="delRoiImage">
+      <p class="my-4">Are you sure you want to permanently remove this item?</p>
+    </b-modal>
+    <b-modal ref="errModal" title="Information" ok-only>
+      <p class="my-4">{{message}}</p>
+    </b-modal>
   </div>
 </template>
 <style src="./index.css"></style>

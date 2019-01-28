@@ -13,3 +13,6 @@
 .list-page .filter-bar{
   width: 600px;
 }
+.list-page .operation>button{
+  margin-left:5px;
+}

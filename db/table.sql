@@ -6,6 +6,9 @@ CREATE EXTENSION IF NOT EXISTS "chkpass";
 DROP TYPE IF EXISTS tp_pathology_status cascade;
 CREATE TYPE tp_pathology_status AS ENUM ('malignant','benign');
 
+DROP TYPE IF EXISTS tp_status cascade;
+CREATE TYPE tp_status AS ENUM ('active','deleted');
+
 DROP TABLE IF EXISTS public.cancer_type cascade;
 CREATE TABLE public.cancer_type(
   cancer_type_id  SERIAL PRIMARY KEY,
@@ -51,6 +54,7 @@ CREATE TABLE public.roi_image(
   processing_time decimal,
 
   pathology tp_pathology_status,
+  status tp_status default 'active',
   date_registered TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
   date_updated TIMESTAMP WITH TIME ZONE
 ) WITH (

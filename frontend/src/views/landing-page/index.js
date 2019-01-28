@@ -23,7 +23,7 @@ export default {
       },
       cancerTypeList:[],
       machineTypeList:[],
-      pathologyList:[{"key":"malignant","label":"Malignant"},{"key":"benign","label":"Benign"}],
+      pathologyList:[{"value":"malignant","text":"Malignant"},{"value":"benign","text":"Benign"}],
       isRecognition:false,
       isSaving:false,
     };
@@ -133,7 +133,10 @@ export default {
         let oImage = _.find(this.imageList,{id:image.original_image_id});
         if(oImage)
         {
-          this.record.original_image.push(oImage);
+          if(this.record.original_image.indexOf(oImage)<0)
+          {
+            this.record.original_image.push(oImage);
+          }
         }
         else
         {
