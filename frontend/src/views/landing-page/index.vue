@@ -7,11 +7,11 @@
             <div class="btn-group" role="group" aria-label="First group">
               <input class="form-control" placeholder="Please enter ID" v-model="record.record_external_id">
               <select class="custom-select ml-1" v-model="record.cancer_type_id">
-                <option selected value="">Please select cancer type</option>
+                <option selected value="">Cancer type</option>
                 <option v-for="item in cancerTypeList" :value="item.cancer_type_id">{{item.cancer_type_name}}</option>
               </select>
               <select class="custom-select ml-1" v-model="record.machine_type_id">
-                <option selected value="">Please select machine type</option>
+                <option selected value="">Machine type</option>
                 <option v-for="item in machineTypeList" :value="item.machine_type_id">{{item.machine_type_name}}</option>
               </select>
             </div>
@@ -56,7 +56,7 @@
               </div>
             </div>
             <div class="btn-group float-md-right">
-              <loading-button v-on:click="save" :disabled="!enableSaveButton()" value="SAVE" :isLoading="isSaving" loadingLabel="Saving..." />
+              <loading-button v-on:click="save" :disabled="!enableSaveButton()" value="Save record" :isLoading="isSaving" loadingLabel="Saving..." />
               <!--<loading-button v-on:click="reset" value="RESET" />-->
             </div>
           </div>
@@ -69,7 +69,7 @@
               <div class="col">
                 <div class="d-flex justify-content-between">
                   <div class="pb-2 d-flex align-items-end">
-                    <loading-button v-on:click="recognition" :disabled="cropImg==null || cropImg.prediction" value="Recognition" :isLoading="isRecognition" loadingLabel="Recognising..." />
+                    <loading-button v-on:click="recognition" :disabled="cropImg==null || cropImg.prediction" value="Start detecting" :isLoading="isRecognition" loadingLabel="Start detecting..." />
                   </div>
                   <div class="pb-2" v-if="cropImg">
                     <div v-for="(value, propertyName) in cropImg.prediction" class="prediction" >

@@ -52,3 +52,7 @@ body {
 .header .nav a{
   color: white !important;
 }
+
+.header h1{
+  margin: .2rem 0;
+}

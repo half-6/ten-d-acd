@@ -3,32 +3,30 @@
     <div class="container-fluid">
       <form class="row" v-on:submit.prevent="searchImage">
         <div class="col">
-           <div class="float-md-left search-bar row">
-             <div class="form-group col-md-6">
-               <input type="text" class="form-control" v-model="search.id" placeholder="Search by ID">
-             </div>
-             <div class="form-group col-md-6">
-               <loading-button v-on:click="searchImage" value="Search" :isLoading="isSearching" />
-             </div>
-           </div>
-           <div class="float-md-right filter-bar row">
-             <div class="form-group col-md-4">
+           <div class="search-bar row">
+             <div class="form-group col-md-2">
                <select class="custom-select" v-model="search.machine_type_id">
-                 <option selected value="">Select machine type</option>
+                 <option selected value="">Machine type</option>
                  <option v-for="item in machineTypeList" :value="item.machine_type_id">{{item.machine_type_name}}</option>
                </select>
              </div>
-             <div class="form-group col-md-4">
+             <div class="form-group col-md-2">
                <select class="custom-select" v-model="search.cancer_type_id">
-                 <option selected value="">Select cancer type</option>
+                 <option selected value="">Cancer type</option>
                  <option v-for="item in cancerTypeList" :value="item.cancer_type_id">{{item.cancer_type_name}}</option>
                </select>
              </div>
-             <div class="form-group col-md-4">
+             <div class="form-group col-md-2">
                <select class="custom-select" v-model="search.pathology">
-                 <option selected value="">Select pathology</option>
+                 <option selected value="">Pathology</option>
                  <option v-for="item in pathologyList" :value="item.value">{{item.text}}</option>
                </select>
+             </div>
+             <div class="form-group col-md-2">
+               <input type="text" class="form-control" v-model="search.id" placeholder="Search by ID">
+             </div>
+             <div class="form-group col-md-2">
+               <loading-button v-on:click="searchImage" value="Search" :isLoading="isSearching" />
              </div>
            </div>
         </div>
