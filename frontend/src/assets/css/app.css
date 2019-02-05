@@ -18,6 +18,15 @@ body {
 .p-t25{padding-top: 25px;}
 .p-t30{padding-top: 30px;}
 
+.m-t5{ margin-top: 5px;}
+.m-l5{ margin-left: 5px;}
+.m-t10{margin-top: 10px;}
+.m-l10{margin-left: 10px;}
+.m-t15{margin-top: 15px;}
+.m-t20{margin-top: 20px;}
+.m-t25{margin-top: 25px;}
+.m-t30{margin-top: 30px;}
+
 .w-20 {width: 20% !important;}
 .w-30 {width: 30% !important;}
 .w-40 {width: 40% !important;}
@@ -55,4 +64,8 @@ body {
 
 .header h1{
   margin: .2rem 0;
+}
+
+a.btn.disabled{
+  color:white;
 }

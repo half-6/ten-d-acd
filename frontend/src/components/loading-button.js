@@ -1,8 +1,8 @@
 export default {
   name: 'loading-button',
   props: {
-    isLoading:Object,
-    disabled:Object,
+    isLoading:Boolean,
+    disabled:Boolean,
     value:String,
     id:String,
     loadingLabel:{

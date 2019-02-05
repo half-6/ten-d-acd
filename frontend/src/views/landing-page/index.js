@@ -1,7 +1,5 @@
 import Cropper from 'cropperjs/dist/cropper.js';
 import 'cropperjs/dist/cropper.css';
-import imageListSlider from '../../components/image-list-slider.vue';
-import loadingButton from '../../components/loading-button.vue';
 import _ from 'lodash';
 import uuid from 'uuid/v4';
 
@@ -188,9 +186,5 @@ export default {
   },
   mounted: function() {
     this.$nextTick(this.init);
-  },
-  components:{
-    imageListSlider,
-    loadingButton
   }
 };

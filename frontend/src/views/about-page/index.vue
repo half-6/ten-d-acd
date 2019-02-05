@@ -9,6 +9,7 @@
             <p class="lead">A web based automatic ultrasound cancer diagnosis system</p>
             <hr class="my-4">
             <p>Version number:0.0.1-SNAPSHOT</p>
+            <p class="power"><img :src="require('../../assets/i/logo.png')" >Powered by The University of Buckingham</p>
             <!--<a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>-->
           </div>
         </div>

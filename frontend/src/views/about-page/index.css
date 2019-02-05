@@ -1,3 +1,7 @@
 .about-page .jumbotron{
   margin-top: 70px !important;
 }
+.about-page .power img{
+  width: 50px;
+  margin-right:10px;
+}

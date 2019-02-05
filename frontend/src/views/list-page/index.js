@@ -1,7 +1,4 @@
-import loadingButton from '../../components/loading-button.vue';
 import _ from 'lodash'
-import BootstrapDialog from 'bootstrap3-dialog';
-
 export default {
   name: "list-page",
   data() {
@@ -108,8 +105,5 @@ export default {
   },
   mounted: function() {
     this.$nextTick(this.init);
-  },
-  components:{
-    loadingButton
   }
 };

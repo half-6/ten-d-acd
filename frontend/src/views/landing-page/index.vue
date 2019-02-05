@@ -70,6 +70,7 @@
                 <div class="d-flex justify-content-between">
                   <div class="pb-2 d-flex align-items-end">
                     <loading-button v-on:click="recognition" :disabled="cropImg==null || cropImg.prediction" value="Start detecting" :isLoading="isRecognition" loadingLabel="Start detecting..." />
+                    <a :href="cropImg && cropImg.src" class="btn btn-primary m-l10" download="crop.png" :class="{disabled:!cropImg}">Export</a>
                   </div>
                   <div class="pb-2" v-if="cropImg">
                     <div v-for="(value, propertyName) in cropImg.prediction" class="prediction" >

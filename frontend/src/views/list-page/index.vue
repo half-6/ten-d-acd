@@ -51,8 +51,8 @@
             <tbody>
               <tr v-for="item in roiImageList">
                 <td scope="row">{{item.record_external_id}}</td>
-                <td><img class="img-thumbnail" :src="getImageUrl(item.original_image)"/></td>
-                <td><img class="img-thumbnail" :src="getImageUrl(item.roi_image)"/></td>
+                <td><a :href="getImageUrl(item.original_image)" target="_blank"><img class="img-thumbnail" :src="getImageUrl(item.original_image)"/></a></td>
+                <td><a :href="getImageUrl(item.roi_image)" target="_blank"><img class="img-thumbnail" :src="getImageUrl(item.roi_image)"/></a></td>
                 <td>{{item.cancer_type_name}}</td>
                 <td>{{item.machine_type_name}}</td>
                 <td v-if="!item.$edit">{{item.pathology}}</td>
@@ -64,7 +64,7 @@
                 </td>
                 <td>{{item.prediction}}</td>
                 <td>{{item.probability}}</td>
-                <td>{{item.date_registered}}</td>
+                <td>{{item.date_registered | date-format('YYYY-MM-DD HH:mm')}}</td>
                 <td class="operation">
                   <button v-if="!item.$edit" @click="edit(item)" type="button" class="btn btn-outline btn-primary btn-sm pl-1"><i class="fa fa-edit fa-fw"></i>Edit</button>
                   <button v-else @click="save(item)" type="button" class="btn btn-outline btn-primary btn-sm pl-1"><i class="fa fa-edit fa-fw"></i>Save</button>
