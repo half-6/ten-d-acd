@@ -1,13 +1,17 @@
 package com.tend.acd;
 
+import Image_Recognition.Class1;
+import com.mathworks.toolbox.javabuilder.MWException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Properties;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Scope;
 
 @SpringBootApplication
 public class Application {
@@ -33,5 +37,11 @@ public class Application {
     srb.setInitParameters(initParameters);
     return srb;
   }
-
+  @Bean("imageService")
+  @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
+  public Class1 getImageService() throws MWException {
+    Class1 imageService =  new Class1();
+    Util.logger.trace("init image service success");
+    return imageService;
+  }
 }
