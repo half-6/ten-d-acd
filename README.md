@@ -15,7 +15,9 @@ A web based automatic ultrasound cancer diagnosis system
 - Add /lib/Image_Recognition.jar (core cancer diagnosis library, built by MATLAB)
 
 > ## How to run local
+- under frontend folder
 - npm run serve --prefix frontend
+- under backend folder
 - mvn spring-boot:run -f backend/pom.xml
 - start http://localhost:3000/
 
@@ -25,6 +27,9 @@ A web based automatic ultrasound cancer diagnosis system
 - install PostgreSQL  9.5.3 +
 
 > ## How to release to production and run
+- under backend folder
+- mvn validate
+- under application root folder
 - mvn package //create release package
 - execute table.sql and data.sql on PostgreSQL
 - java -jar backend\target\com.tend.acd.backend-0.0.2-SNAPSHOT.jar
