@@ -38,7 +38,6 @@ public class Util {
         String fileName = UUID.randomUUID().toString();
         Path imgPath = getFilePath(fileName + ".png");
         File f = new File(imgPath.toString());
-        ImageIO.read(new ByteArrayInputStream(imageByte));
         ImageIO.write(image,"png",f);
         return f;
     }

@@ -18,7 +18,7 @@ A web based automatic ultrasound cancer diagnosis system
 - under frontend folder
 - npm run serve --prefix frontend
 - under backend folder
-- mvn spring-boot:run -f backend/pom.xml
+- mvn spring-boot:run
 - start http://localhost:3000/
 
 > ## Setup production environment

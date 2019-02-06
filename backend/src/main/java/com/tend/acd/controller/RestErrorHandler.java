@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
  * Project Name: feifanuniv-search-api
  * Created by Cyokin on 5/30/2018
  */
+@SuppressWarnings("unused")
 @RestControllerAdvice
 public class RestErrorHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)

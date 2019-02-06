@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
  * Created by Cyokin
  * on 3/25/2016.
  */
+@SuppressWarnings("unused")
 @RestController
 @RequestMapping("/api/image")
 public class ImageController {
