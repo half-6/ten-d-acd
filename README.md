@@ -27,8 +27,8 @@ A web based automatic ultrasound cancer diagnosis system
 > ## How to release to production and run
 - mvn package //create release package
 - execute table.sql and data.sql on PostgreSQL
-- java -jar backend\target\com.tend.acd.backend-0.0.1-SNAPSHOT.jar
+- java -jar backend\target\com.tend.acd.backend-0.0.2-SNAPSHOT.jar
 - start http://localhost:8080/
 
 > ## How to run as demo
-- java -jar backend\target\com.tend.acd.backend-0.0.1-SNAPSHOT.jar --spring.profiles.active=demo
+- java -jar backend\target\com.tend.acd.backend-0.0.2-SNAPSHOT.jar --spring.profiles.active=demo

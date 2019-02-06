@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>com.tend</groupId>
 		<artifactId>com.tend.acd</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>0.0.2-SNAPSHOT</version>
 	</parent>
 
 	<properties>
