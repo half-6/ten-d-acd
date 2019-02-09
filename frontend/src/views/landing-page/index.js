@@ -21,6 +21,8 @@ export default {
       },
       cancerTypeList:[],
       machineTypeList:[],
+      queue:[],
+      queueRunning:false,
       pathologyList:[{"value":"malignant","text":"Malignant"},{"value":"benign","text":"Benign"}],
       isRecognition:false,
       isSaving:false,
@@ -51,18 +53,22 @@ export default {
       {
         this.isRecognition = true;
         let currentCropImg = this.cropImg;
-        this.$http.post('/api/image/recognition',{image:this.cropImg.src},{emulateJSON:true,timeout:0})
-        .then(r=>{
-              console.log(r.body)
-              currentCropImg.prediction = r.body.response;
-              this.isRecognition = false;
-            },err=>{
-              console.error(err);
-              this.message = "Recognition failed,Please try again";
-              this.$refs.errModal.show();
-              this.isRecognition = false;
-            }
-        )
+        if(this.queue.indexOf(currentCropImg) >= 0)
+        {
+          this.queue.splice(this.queue.indexOf(currentCropImg),1);
+        }
+        currentCropImg.isAsking = true;
+        this.detect(currentCropImg)
+          .then(r=>{
+                currentCropImg.prediction = currentCropImg.p_prediction;
+                this.isRecognition = false;
+              },err=>{
+                console.error(err);
+                this.message = "Recognition failed,Please try again";
+                this.$refs.errModal.show();
+                this.isRecognition = false;
+              }
+          )
       }
     },
     delSelectedImage(){
@@ -78,7 +84,8 @@ export default {
       }
     },
     delCroppedImage(){
-      this.croppedImageList.splice( this.croppedImageList.indexOf(this.cropImg), 1 );
+      this.croppedImageList.splice(this.croppedImageList.indexOf(this.cropImg), 1 );
+      this.queue.splice(this.queue.indexOf(this.cropImg), 1 );
       if(this.croppedImageList.length ==0)
       {
         this.cropImg = null;
@@ -120,11 +127,44 @@ export default {
           pathology:undefined,
         };
         this.croppedImageList.splice(0,0,this.cropImg);
+        this.queue.push(this.cropImg);
+        this.backendJob();
+      }
+    },
+    async backendJob(){
+      if(!this.queueRunning)
+      {
+        while(this.queue.length>0)
+        {
+          this.queueRunning = true;
+          let img = this.queue.shift();
+          await this.detect(img);
+        }
+        this.queueRunning = false;
+      }
+    },
+    async detect(img){
+      if(!img.isDetecting && !img.p_prediction)
+      {
+        console.log("detecting " + img.roi_image_id);
+        img.isDetecting = true;
+        try{
+          let result =  await this.$http.post('/api/image/recognition',{image:img.src},{emulateJSON:true,timeout:0});
+          img.p_prediction = result.body.response;
+          img.isDetecting = false;
+          if(img.isAsking){
+            img.prediction = img.p_prediction;
+          }
+          console.log("detected " + img.roi_image_id + ">" + JSON.stringify(img.p_prediction));
+        }
+        catch (e) {
+          img.isDetecting = false;
+          console.error("detect failed");
+        }
       }
     },
     save(){
       //build save object
-      let canSave = true;
       this.record.original_image = [];
       this.record.roi_image = [];
       this.croppedImageList.forEach(image=>{
