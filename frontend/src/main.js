@@ -6,7 +6,8 @@ import store from "./store";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "popper.js";
-//import 'bootstrap';
+import 'bootstrap';
+import 'jquery';
 import "./assets/css/source-sans-pro/source-sans-pro.css";
 import "./assets/css/app.css";
 import VueResource from 'vue-resource';
