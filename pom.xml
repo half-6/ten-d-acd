@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.tend</groupId>
 	<artifactId>com.tend.acd</artifactId>
-	<version>0.0.2-SNAPSHOT</version>
+	<version>0.0.3-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>Tan-D ACD System</name>
 	<description>Automatic Ultrasound Cancer Diagnosis System</description>

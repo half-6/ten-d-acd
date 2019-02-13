@@ -8,7 +8,7 @@
 	<parent>
 		<groupId>com.tend</groupId>
 		<artifactId>com.tend.acd</artifactId>
-		<version>0.0.2-SNAPSHOT</version>
+		<version>0.0.3-SNAPSHOT</version>
 	</parent>
 
 	<properties>
@@ -67,6 +67,11 @@
       <version>1.9.2</version>
     </dependency>
 		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.6</version>
+		</dependency>
+		<dependency>
 			<groupId>net.linkfuture</groupId>
 			<artifactId>linkfuture.db.api</artifactId>
 			<version>2.2.1</version>
@@ -120,7 +125,7 @@
 							<artifactId>com.tend.test</artifactId>
 							<version>1.0</version>
 							<packaging>jar</packaging>
-							<file>${basedir}/lib/makesqr.jar</file>
+							<file>${basedir}/lib/matlab-test.jar</file>
 							<generatePom>true</generatePom>
 						</configuration>
 					</execution>

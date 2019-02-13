@@ -8,7 +8,7 @@
             <h1 class="display-4">Ten-D ACD System</h1>
             <p class="lead">A web based automatic ultrasound cancer diagnosis system</p>
             <hr class="my-4">
-            <p>Version number:0.0.2-SNAPSHOT</p>
+            <p>Version number:0.0.3-SNAPSHOT</p>
             <p class="power pt-3"><img :src="require('../../assets/i/logo.png')" >Powered by The University of Buckingham</p>
             <!--<a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>-->
           </div>

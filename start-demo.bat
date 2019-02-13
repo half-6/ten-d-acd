@@ -1,1 +1,1 @@
-"C:\Program Files\Java\jdk1.8.0_51\bin\java.exe" -jar backend\target\com.tend.acd.backend-0.0.2-SNAPSHOT.jar --spring.profiles.active=demo
+"C:\Program Files\Java\jdk1.8.0_51\bin\java.exe" -jar backend\target\com.tend.acd.backend-0.0.3-SNAPSHOT.jar --spring.profiles.active=demo

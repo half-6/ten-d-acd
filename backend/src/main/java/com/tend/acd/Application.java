@@ -1,10 +1,18 @@
 package com.tend.acd;
 
-import Image_Recognition.Class1;
+import Thyroid_Img_Recognition.Class1;
 import com.mathworks.toolbox.javabuilder.MWException;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.Properties;
+
+import com.tend.acd.model.response.ResponseImageRecognitionEntity;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.boot.SpringApplication;
@@ -12,6 +20,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Scope;
+import org.springframework.util.ResourceUtils;
 
 @SpringBootApplication
 public class Application {
@@ -39,8 +48,13 @@ public class Application {
   }
   @Bean("imageService")
   @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
-  public Class1 getImageService() throws MWException {
+  public Class1 getImageService() throws MWException, IOException {
     Class1 imageService =  new Class1();
+    Object[] result =  imageService.Thyroid_Img_Recognition(1,"","0");
+    Util.logger.trace("image service warming up success =>" + result[0].toString());
+    String base64String = Util.getBase64String("/init.jpg");
+    result = imageService.Thyroid_Img_Recognition(1,base64String,"1");
+    Util.logger.trace("image service first call success =>" + result[0].toString());
     Util.logger.trace("init image service success");
     return imageService;
   }

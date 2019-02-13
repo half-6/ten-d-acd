@@ -6,7 +6,10 @@ import com.tend.acd.ApplicationTests;
 import com.tend.acd.Util;
 import com.tend.acd.model.response.ResponseImageRecognitionEntity;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.concurrent.ThreadLocalRandom;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,15 +26,17 @@ public class ImageRecognitionRepositoryTest extends ApplicationTests {
 
   @Test
   public void recognition() throws IOException, MWException {
-    File testImage = ResourceUtils.getFile(this.getClass().getResource("/Cat.jpg"));
-    ResponseImageRecognitionEntity test = imageRecognitionRepository.recognition(testImage.getAbsolutePath());
+    String base64String = Util.getBase64String("/Cat.jpg");
+    ResponseImageRecognitionEntity test = imageRecognitionRepository.recognition(base64String);
     Util.logger.trace("recognizing " + Utility.toJson(test));
   }
-  @Test
-  public void testJar() throws MWException {
-    int randomNum = ThreadLocalRandom.current().nextInt(5, 10 + 1);
-    imageRecognitionRepository.testJar(randomNum);
-  }
+//  @Test
+//  public void testJar() throws MWException, IOException {
+//    String base64String = Util.getBase64String("/M180.jpg");
+//    Util.saveBase64Image(base64String);
+//    String filePath = testImage.getAbsolutePath();
+//    imageRecognitionRepository.testJar(base64String,filePath);
+//  }
   @Test
   public void testJarPerformance() throws IOException, MWException {
     System.out.println("start time");

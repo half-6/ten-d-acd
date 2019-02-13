@@ -1,18 +1,21 @@
 package com.tend.acd;
 
 
+import org.apache.commons.io.IOUtils;
+import org.slf4j.LoggerFactory;
+import org.springframework.boot.system.ApplicationHome;
+
+import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Base64;
 import java.util.Optional;
 import java.util.UUID;
-import javax.imageio.ImageIO;
-import org.apache.tomcat.util.codec.binary.Base64;
-import org.slf4j.LoggerFactory;
-import org.springframework.boot.system.ApplicationHome;
 
 /**
  * Created by Cyokin
@@ -21,15 +24,41 @@ import org.springframework.boot.system.ApplicationHome;
 public class Util {
     public final static org.slf4j.Logger logger = LoggerFactory.getLogger("com.tend.acd.backend");
 
+    @SuppressWarnings("unused")
     public static String getExtensionByStringHandling(String filename) {
         return Optional.ofNullable(filename)
             .filter(f -> f.contains("."))
             .map(f -> f.substring(filename.lastIndexOf(".") + 1)).get();
     }
 
+    @SuppressWarnings("unused")
+    public static void readRGB(BufferedImage image)
+    {
+        //get RGB
+        int[] ARGB = image.getRGB(0,0,image.getWidth(),image.getHeight(),null,0,image.getWidth());
+        int[] R = new int[ARGB.length];
+        int[] G = new int[ARGB.length];
+        int[] B = new int[ARGB.length];
+        for(int i=0;i<ARGB.length;i++)
+        {
+            Color c = new Color(ARGB[i]);
+            R[i] = c.getRed();
+            G[i] = c.getGreen();
+            B[i] = c.getBlue();
+        }
+    }
+    public static String getBase64FromImage(String base64Image)
+    {
+        if(base64Image.contains("base64,"))
+        {
+            return base64Image.substring(base64Image.indexOf("base64,") + "base64,".length());
+        }
+        return base64Image;
+    }
+
     public static File saveBase64Image(String base64Image) throws IOException {
-        String imageString = base64Image.substring(base64Image.indexOf("base64,") + "base64,".length());
-        byte[] imageByte= Base64.decodeBase64(imageString);
+        base64Image = getBase64FromImage(base64Image);
+        byte[] imageByte= Base64.getDecoder().decode(base64Image);
         BufferedImage image  =  ImageIO.read(new ByteArrayInputStream(imageByte));
         if(image==null)
         {
@@ -39,21 +68,29 @@ public class Util {
         Path imgPath = getFilePath(fileName + ".png");
         File f = new File(imgPath.toString());
         ImageIO.write(image,"png",f);
+        Util.logger.trace("saved image to " + f.getAbsolutePath());
         return f;
+    }
+
+    public static String getBase64String(String resourceFilePath) throws IOException {
+        byte [] bytes  = IOUtils.toByteArray( Util.class.getClassLoader().getResourceAsStream(resourceFilePath));
+        logger.trace("got resource file " + resourceFilePath + " size is " + bytes.length);
+        return Base64.getEncoder().encodeToString(bytes);
     }
 
     private static Path getFilePath(String fileName){
         String realPathToUploads = getAppUploadPath();
         if(! new File(realPathToUploads).exists())
         {
+            //noinspection ResultOfMethodCallIgnored
             new File(realPathToUploads).mkdirs();
         }
         return Paths.get(realPathToUploads, fileName);
     }
-    public static String getAppUploadPath(){
+    private static String getAppUploadPath(){
         return Paths.get(getAppStaticPath().toString(),"uploads").toString();
     }
-    public static Path getAppStaticPath(){
+    static Path getAppStaticPath(){
         ApplicationHome home = new ApplicationHome(Application.class);
         return Paths.get(home.getDir().getAbsolutePath(),"static");
     }

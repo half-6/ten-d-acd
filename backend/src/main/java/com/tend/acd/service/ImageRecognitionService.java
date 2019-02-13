@@ -20,9 +20,8 @@ public class ImageRecognitionService {
 
   public ResponseImageRecognitionEntity recognize(String base64Image)
       throws IOException, MWException {
-    File img = Util.saveBase64Image(base64Image);
-    ResponseImageRecognitionEntity output =  imageRecognitionRepository.recognition(img.getAbsolutePath());
-    img.delete();
+    base64Image = Util.getBase64FromImage(base64Image);
+    ResponseImageRecognitionEntity output =  imageRecognitionRepository.recognition(base64Image);
     return output;
   }
 }

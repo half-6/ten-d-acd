@@ -1,1 +1,1 @@
-java -jar backend\target\com.tend.acd.backend-0.0.2-SNAPSHOT.jar
+java -jar backend\target\com.tend.acd.backend-0.0.3-SNAPSHOT.jar
