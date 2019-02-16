@@ -98,6 +98,20 @@ export default {
           }
       )
     },
+      download(){
+          let query = {
+              $where:{
+                  cancer_type_id:this.search.cancer_type_id?this.search.cancer_type_id:undefined,
+                  machine_type_id:this.search.machine_type_id?this.search.machine_type_id:undefined,
+                  pathology:this.search.pathology?this.search.pathology:undefined,
+                  record_external_id:this.search.id?{$like: "%"+ this.search.id + "%"}:undefined,
+              },
+              $limit:this.page.limit,
+              $offset:(this.page.page_index -1) * this.page.limit,
+              $sort:{date_registered:"DESC"}
+          };
+          window.open(`/api/image/download?input=${encodeURIComponent(JSON.stringify(query))}`);
+      },
     cancel(item){
       item.pathology = item.$back;
       item.$edit = false;

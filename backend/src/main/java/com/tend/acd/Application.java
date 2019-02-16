@@ -52,7 +52,7 @@ public class Application {
     Class1 imageService =  new Class1();
     Object[] result =  imageService.Thyroid_Img_Recognition(1,"","0");
     Util.logger.trace("image service warming up success =>" + result[0].toString());
-    String base64String = Util.getBase64String("/init.jpg");
+    String base64String = Util.getBase64String("init.jpg");
     result = imageService.Thyroid_Img_Recognition(1,base64String,"1");
     Util.logger.trace("image service first call success =>" + result[0].toString());
     Util.logger.trace("init image service success");

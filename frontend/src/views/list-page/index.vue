@@ -28,6 +28,9 @@
              <div class="form-group col-md-2">
                <loading-button v-on:click="searchImage" value="Search" :isLoading="isSearching" />
              </div>
+             <div class="form-group col-md-2">
+               <loading-button v-on:click="download" value="Download" class="float-right"  />
+             </div>
            </div>
         </div>
       </form>

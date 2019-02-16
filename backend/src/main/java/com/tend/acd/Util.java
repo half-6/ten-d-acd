@@ -78,7 +78,7 @@ public class Util {
         return Base64.getEncoder().encodeToString(bytes);
     }
 
-    private static Path getFilePath(String fileName){
+    public static Path getFilePath(String fileName){
         String realPathToUploads = getAppUploadPath();
         if(! new File(realPathToUploads).exists())
         {

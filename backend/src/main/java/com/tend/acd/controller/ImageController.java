@@ -5,14 +5,16 @@ import com.tend.acd.model.response.ResponseBaseEntity;
 import com.tend.acd.model.response.ResponseImageRecognitionEntity;
 import com.tend.acd.service.ImageRecognitionService;
 import com.tend.acd.service.RecordService;
+
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+
+import org.apache.commons.io.IOUtils;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Created by Cyokin
@@ -39,5 +41,10 @@ public class ImageController {
     public ResponseBaseEntity<Boolean> save(@RequestBody String input)
         throws Exception {
         return new ResponseBaseEntity<>(recordService.save(new JSONObject(input)));
+    }
+    @GetMapping(value = "/download",produces="application/zip")
+    public void download(String input, HttpServletResponse response)
+            throws Exception {
+        recordService.download(new JSONObject(input),response);
     }
 }
