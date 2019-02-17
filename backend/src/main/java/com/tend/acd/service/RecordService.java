@@ -74,7 +74,7 @@ public class RecordService {
               Path filePath = Util.getFilePath(imageName);
               if(Files.exists(filePath))
               {
-                ZipEntry entry = new ZipEntry(imageName);
+                ZipEntry entry = new ZipEntry(buildImageNameInZip(item));
                 zos.putNextEntry(entry);
                 zos.write(Files.readAllBytes(Util.getFilePath(imageName)));
                 zos.closeEntry();
@@ -82,8 +82,14 @@ public class RecordService {
             }
           }
         }
-
     }
+  }
+  private String buildImageNameInZip(JSONObject item){
+    return Util.fileNameFormat(item.getString("cancer_type_name")
+    + "_"  + item.getString("machine_type_name")
+    + "_"  + (item.has("pathology")?item.getString("pathology"):"")
+    + "_"  + item.getString("prediction")
+    + "_"  + item.get("roi_image").toString() + ".png");
   }
   private String findNewId(JSONArray originalImageList,String oldId){
     for(int i=0;i<originalImageList.length();i++)

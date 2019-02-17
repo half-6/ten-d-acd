@@ -101,4 +101,8 @@ public class Util {
         if (pos == -1) return fileName;
         return fileName.substring(0, pos);
     }
+
+    public static String fileNameFormat(String input){
+        return input.replaceAll("[^a-zA-Z0-9_\\-\\S+]", "");
+    }
 }
