@@ -7,6 +7,7 @@ export default {
       cancerTypeList:null,
       machineTypeList:null,
       pathologyList:[{"value":"malignant","text":"Malignant"},{"value":"benign","text":"Benign"}],
+      predictionList:[{"value":"malignant","text":"Malignant"},{"value":"benign","text":"Benign"}],
       isSearching:false,
       message:null,
       selectedRoiImage:null,
@@ -14,6 +15,7 @@ export default {
         machine_type_id:"",
         cancer_type_id:"",
         pathology:"",
+        prediction:"",
         id:""
       },
       page:{
@@ -34,17 +36,7 @@ export default {
     },
     searchImage(){
       this.isSearching=true;
-      var query = {
-        $where:{
-              cancer_type_id:this.search.cancer_type_id?this.search.cancer_type_id:undefined,
-              machine_type_id:this.search.machine_type_id?this.search.machine_type_id:undefined,
-              pathology:this.search.pathology?this.search.pathology:undefined,
-              record_external_id:this.search.id?{$like: "%"+ this.search.id + "%"}:undefined,
-            },
-        $limit:this.page.limit,
-        $offset:(this.page.page_index -1) * this.page.limit,
-        $sort:{date_registered:"DESC"}
-      };
+      let query = this.buildWhere();
       this.$http.get('/api/db/v_roi_image',{params:{q:JSON.stringify(query)}} )
           .then(r=>{
             if(r.body.response)
@@ -98,20 +90,29 @@ export default {
           }
       )
     },
-      download(){
-          let query = {
-              $where:{
-                  cancer_type_id:this.search.cancer_type_id?this.search.cancer_type_id:undefined,
-                  machine_type_id:this.search.machine_type_id?this.search.machine_type_id:undefined,
-                  pathology:this.search.pathology?this.search.pathology:undefined,
-                  record_external_id:this.search.id?{$like: "%"+ this.search.id + "%"}:undefined,
-              },
-              $limit:this.page.limit,
-              $offset:(this.page.page_index -1) * this.page.limit,
-              $sort:{date_registered:"DESC"}
-          };
-          window.open(`/api/image/download?input=${encodeURIComponent(JSON.stringify(query))}`);
-      },
+    getPathology(){
+        if(!this.search.pathology){ return undefined}
+        if(this.search.pathology=="null") return null;
+        return this.search.pathology;
+    },
+    buildWhere(){
+      return {
+          $where:{
+              cancer_type_id:this.search.cancer_type_id?this.search.cancer_type_id:undefined,
+              machine_type_id:this.search.machine_type_id?this.search.machine_type_id:undefined,
+              pathology: this.getPathology(),
+              prediction:this.search.prediction?this.search.prediction:undefined,
+              record_external_id:this.search.id?{$like: "%"+ this.search.id + "%"}:undefined,
+          },
+          $limit: parseInt(this.page.limit),
+          $offset:(this.page.page_index -1) * this.page.limit,
+          $sort:{date_registered:"DESC"}
+      }
+    },
+    download(){
+        let query = this.buildWhere();
+        window.open(`/api/image/download?input=${encodeURIComponent(JSON.stringify(query))}`);
+    },
     cancel(item){
       item.pathology = item.$back;
       item.$edit = false;

@@ -19,9 +19,16 @@
              <div class="form-group col-md-2">
                <select class="custom-select" v-model="search.pathology">
                  <option selected value="">Pathology</option>
+                 <option selected value="null">Null</option>
                  <option v-for="item in pathologyList" :value="item.value">{{item.text}}</option>
                </select>
              </div>
+             <!--<div class="form-group col-md-1">-->
+               <!--<select class="custom-select" v-model="search.prediction">-->
+                 <!--<option selected value="">Prediction</option>-->
+                 <!--<option v-for="item in predictionList" :value="item.value">{{item.text}}</option>-->
+               <!--</select>-->
+             <!--</div>-->
              <div class="form-group col-md-2">
                <input type="text" class="form-control" v-model="search.id" placeholder="Search by ID">
              </div>
@@ -80,7 +87,7 @@
         </div>
       </div>
       <div class="row justify-content-between" v-show="this.roiImageList">
-        <div class="">
+        <div>
           <select class="custom-select" v-model="page.limit" @change="searchImage">
             <option selected value="5">5 records per page</option>
             <option selected value="10">10 records per page</option>
@@ -88,7 +95,8 @@
             <option selected value="50">50 records per page</option>
           </select>
         </div>
-        <div class="col">
+        <div>Total {{page.total_count}} records </div>
+        <div>
           <b-pagination align="right" :total-rows="page.total_count" v-model="page.page_index"  @input="searchImage" :per-page="page.limit"></b-pagination>
         </div>
       </div>
