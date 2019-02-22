@@ -74,7 +74,7 @@
                   </div>
                   <div class="pb-2" v-if="cropImg">
                     <div v-for="(value, propertyName) in cropImg.prediction" class="prediction" >
-                      <div>{{value}}</div>
+                      <div>{{value  | number-format('0.[0000]') }}</div>
                       <div>{{propertyName}}</div>
                     </div>
                   </div>

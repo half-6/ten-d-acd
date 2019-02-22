@@ -19,7 +19,7 @@
              <div class="form-group col-md-2">
                <select class="custom-select" v-model="search.pathology">
                  <option selected value="">Pathology</option>
-                 <option selected value="null">Null</option>
+                 <option selected value="null">[Null]</option>
                  <option v-for="item in pathologyList" :value="item.value">{{item.text}}</option>
                </select>
              </div>
@@ -73,7 +73,7 @@
                                       :options="pathologyList" />
                 </td>
                 <td>{{item.prediction}}</td>
-                <td>{{item.probability}}</td>
+                <td>{{item.probability | number-format('0.[0000]')}}</td>
                 <td>{{item.date_registered | date-format('YYYY-MM-DD HH:mm')}}</td>
                 <td class="operation">
                   <button v-if="!item.$edit" @click="edit(item)" type="button" class="btn btn-outline btn-primary btn-sm pl-1"><i class="fa fa-edit fa-fw"></i>Edit</button>
