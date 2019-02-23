@@ -9,6 +9,7 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Scope;
 
@@ -18,6 +19,7 @@ import java.util.HashMap;
 import java.util.Properties;
 
 @SpringBootApplication
+@EnableCaching
 public class Application {
 
     @Value("${postgreSQL.connection}")

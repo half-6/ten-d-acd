@@ -3,6 +3,7 @@ package com.tend.acd.controller;
 import LinkFuture.DB.Utility;
 import com.tend.acd.model.response.ConfigEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,6 +23,7 @@ public class ContentController {
     @Autowired
     ConfigEntity configEntity;
 
+    @Cacheable("tendConfig")
     @GetMapping(value = "/config.js",produces="text/javascript")
     public @ResponseBody String getConfig(String input, HttpServletResponse response)
             throws Exception {
