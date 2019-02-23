@@ -23,10 +23,10 @@
                   <tbody>
                   <tr v-for="item in aggCancerTypeList">
                     <td scope="row">{{item.cancer_type_name}}</td>
-                    <td scope="row">{{item.number_diagnostics}}</td>
-                    <td scope="row">{{item.max}}</td>
-                    <td scope="row">{{item.min}}</td>
-                    <td scope="row">{{item.avg}}</td>
+                    <td scope="row">{{item.number_diagnostics| number-format('0,0')}}</td>
+                    <td scope="row">{{item.max | number-format('0.[0000]')}}</td>
+                    <td scope="row">{{item.min | number-format('0.[0000]')}}</td>
+                    <td scope="row">{{item.avg | number-format('0.[0000]')}}</td>
                   </tr>
                   </tbody>
                 </table>

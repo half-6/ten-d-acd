@@ -23,19 +23,19 @@
                  <option v-for="item in pathologyList" :value="item.value">{{item.text}}</option>
                </select>
              </div>
-             <!--<div class="form-group col-md-1">-->
-               <!--<select class="custom-select" v-model="search.prediction">-->
-                 <!--<option selected value="">Prediction</option>-->
-                 <!--<option v-for="item in predictionList" :value="item.value">{{item.text}}</option>-->
-               <!--</select>-->
-             <!--</div>-->
+             <div class="form-group col-md-2">
+               <select class="custom-select" v-model="search.prediction">
+                 <option selected value="">Prediction</option>
+                 <option v-for="item in predictionList" :value="item.value">{{item.text}}</option>
+               </select>
+             </div>
              <div class="form-group col-md-2">
                <input type="text" class="form-control" v-model="search.id" placeholder="Search by ID">
              </div>
-             <div class="form-group col-md-2">
+             <div class="form-group col-md-1">
                <loading-button v-on:click="searchImage" value="Search" :isLoading="isSearching" />
              </div>
-             <div class="form-group col-md-2">
+             <div class="form-group col-md-1">
                <loading-button v-on:click="download" value="Download" class="float-right"  />
              </div>
            </div>

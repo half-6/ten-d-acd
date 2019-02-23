@@ -20,6 +20,7 @@ import "./components/";
 Vue.use(VueResource);
 Vue.use(BootstrapVue);
 Vue.prototype.$tendConfig = window.tendConfig;
+Vue.prototype.$pathology = [{"value":"Malignant","text":"Malignant"},{"value":"Benign","text":"Benign"}];
 
 Vue.config.productionTip = false;
 new Vue({

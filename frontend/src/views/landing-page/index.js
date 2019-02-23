@@ -23,7 +23,7 @@ export default {
       machineTypeList:[],
       queue:[],
       queueRunning:false,
-      pathologyList:[{"value":"malignant","text":"Malignant"},{"value":"benign","text":"Benign"}],
+      pathologyList:this.$pathology,
       isRecognition:false,
       isSaving:false,
     };
