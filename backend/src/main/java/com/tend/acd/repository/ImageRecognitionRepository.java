@@ -1,6 +1,6 @@
 package com.tend.acd.repository;
 
-import Thyroid_Img_Recognition.Class1;
+import Cancer_Img_Recognition.Class1;
 import LinkFuture.DB.Utility;
 import Test_Image_Conversion.Test_Image_ConversionMCRFactory;
 import com.mathworks.toolbox.javabuilder.MWException;
@@ -21,9 +21,9 @@ public class ImageRecognitionRepository {
     @Resource(name = "imageService")
     Class1 imageService;
 
-    public ResponseImageRecognitionEntity recognition(String base64ImageString) throws MWException, IOException {
+    public ResponseImageRecognitionEntity recognition(String base64ImageString,String cancerType) throws MWException, IOException {
         Util.logger.trace("recognizing img");
-        Object[] result =  imageService.Thyroid_Img_Recognition(1,base64ImageString,"1");
+        Object[] result =  imageService.Cancer_Img_Recognition(1,base64ImageString,"1",cancerType);
         Util.logger.trace("got result " + result[0].toString());
         //[{"Prediction":"velvet","ProcessingTime":1.1388072999999963,"Probability":0.33457765}]
         JSONArray json = new JSONArray(result[0].toString());

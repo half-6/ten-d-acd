@@ -5,8 +5,8 @@
         <div class="col">
           <h1></h1>
           <div class="jumbotron">
-            <h1 class="display-4">Ten-D ACD System </h1>
-            <p class="lead clearfix">A web based automatic ultrasound cancer diagnosis system</p>
+            <h1><img class="tend-logo" :src="require('../../assets/i/tenDlogo.png')" > Ten-D ACD System </h1>
+            <p class="lead clearfix">Powered by Ten-D Innovation's J-Eye Cancer Diagnosis Engine, and under the licensing agreement with the University of Buckingham</p>
             <hr class="my-4">
             <div class="row">
               <div class="col">
@@ -32,7 +32,8 @@
                 </table>
               </div>
             </div>
-            <p class="pt-3">Version number:0.0.3-SNAPSHOT</p>
+            <p class="pt-3">Application Version number:{{$tendConfig.applicationVersion}}</p>
+            <p>Recognition Version number:{{$tendConfig.recognitionVersion}}</p>
             <p class="power"><img :src="require('../../assets/i/logo.png')" >Powered by The University of Buckingham</p>
             <!--<a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>-->
           </div>

@@ -26,8 +26,8 @@ public class ImageRecognitionRepositoryTest extends ApplicationTests {
 
   @Test
   public void recognition() throws IOException, MWException {
-    String base64String = Util.getBase64String("/Cat.jpg");
-    ResponseImageRecognitionEntity test = imageRecognitionRepository.recognition(base64String);
+    String base64String = Util.getBase64String("B39.jpg");
+    ResponseImageRecognitionEntity test = imageRecognitionRepository.recognition(base64String,"TH");
     Util.logger.trace("recognizing " + Utility.toJson(test));
   }
 //  @Test

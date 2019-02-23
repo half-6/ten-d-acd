@@ -19,6 +19,7 @@ import "./components/";
 
 Vue.use(VueResource);
 Vue.use(BootstrapVue);
+Vue.prototype.$tendConfig = window.tendConfig;
 
 Vue.config.productionTip = false;
 new Vue({

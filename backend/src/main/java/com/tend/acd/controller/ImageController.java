@@ -5,16 +5,12 @@ import com.tend.acd.model.response.ResponseBaseEntity;
 import com.tend.acd.model.response.ResponseImageRecognitionEntity;
 import com.tend.acd.service.ImageRecognitionService;
 import com.tend.acd.service.RecordService;
-
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-
-import org.apache.commons.io.IOUtils;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * Created by Cyokin
@@ -32,9 +28,12 @@ public class ImageController {
     RecordService recordService;
 
     @PostMapping(value="/recognition")
-    public ResponseBaseEntity<ResponseImageRecognitionEntity> create(@RequestParam(value = "image") String image)
+    public ResponseBaseEntity<ResponseImageRecognitionEntity> create(
+            @RequestParam(value = "image") String image,
+            @RequestParam(value = "cancerType") String cancerType
+    )
         throws IOException, MWException {
-        return new ResponseBaseEntity<>(imageRecognitionService.recognize(image));
+        return new ResponseBaseEntity<>(imageRecognitionService.recognize(image,cancerType));
     }
 
     @PostMapping(value = "/save")

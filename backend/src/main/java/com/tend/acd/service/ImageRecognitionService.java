@@ -18,10 +18,10 @@ public class ImageRecognitionService {
   @Autowired
   ImageRecognitionRepository imageRecognitionRepository;
 
-  public ResponseImageRecognitionEntity recognize(String base64Image)
+  public ResponseImageRecognitionEntity recognize(String base64Image,String cancerType)
       throws IOException, MWException {
     base64Image = Util.getBase64FromImage(base64Image);
-    ResponseImageRecognitionEntity output =  imageRecognitionRepository.recognition(base64Image);
+    ResponseImageRecognitionEntity output =  imageRecognitionRepository.recognition(base64Image,cancerType);
     return output;
   }
 }
