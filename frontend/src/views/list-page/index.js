@@ -24,12 +24,15 @@ export default {
         page_index: 1
       },
     };
+
+
+
   },
   methods: {
     init(){
       this.searchImage();
-      this.$http.get('/api/db/public.cancer_type').then(r=>this.cancerTypeList = r.body.response.data)
-      this.$http.get('/api/db/public.machine_type').then(r=>this.machineTypeList = r.body.response.data)
+      this.$http.get('/api/db/public.v_cancer_type').then(r=>this.cancerTypeList = r.body.response.data)
+      this.$http.get('/api/db/public.v_machine_type').then(r=>this.machineTypeList = r.body.response.data)
     },
     getImageUrl(file){
       return "/uploads/" + file + ".png";

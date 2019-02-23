@@ -12,3 +12,11 @@ CREATE VIEW v_agg_cancer_type AS  SELECT cancer_type_name,count(1) as number_dia
 group by cancer_type_name
 order by cancer_type_name;
 
+DROP VIEW IF EXISTS public.v_cancer_type cascade;
+CREATE VIEW v_cancer_type AS  SELECT * from cancer_type
+where status = 'active';
+
+DROP VIEW IF EXISTS public.v_machine_type cascade;
+CREATE VIEW v_machine_type AS  SELECT * from machine_type
+where status = 'active';
+

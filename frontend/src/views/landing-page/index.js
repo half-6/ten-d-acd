@@ -14,7 +14,7 @@ export default {
       croppedImageList:[],
       record:{
         record_external_id:null,
-        cancer_type_id:"",
+        cancer_type:"",
         machine_type_id:"",
         roi_image:[],
         original_image:[]
@@ -149,7 +149,7 @@ export default {
         console.log("detecting " + img.roi_image_id);
         img.isDetecting = true;
         try{
-          let result =  await this.$http.post('/api/image/recognition',{image:img.src},{emulateJSON:true,timeout:0});
+          let result =  await this.$http.post('/api/image/recognition',{image:img.src,cancerType:this.record.cancer_type.cancer_type_short_name},{emulateJSON:true,timeout:0});
           img.p_prediction = result.body.response;
           img.isDetecting = false;
           if(img.isAsking){
@@ -182,6 +182,7 @@ export default {
           this.$refs.errModal.show();
           return;
         }
+        this.record.cancer_type_id = this.record.cancer_type.cancer_type_id;
         this.record.roi_image.push({
           src:image.src,
           roi_image_id:image.roi_image_id,
@@ -210,14 +211,18 @@ export default {
       )
     },
     enableSaveButton(){
-        return this.record.record_external_id && this.record.cancer_type_id && this.record.machine_type_id && this.croppedImageList.length > 0 && _.filter(this.croppedImageList,img=>{return img.prediction}).length === this.croppedImageList.length;
+        return this.record.record_external_id
+            && this.record.cancer_type
+            && this.record.machine_type_id
+            && this.croppedImageList.length > 0
+            && _.filter(this.croppedImageList,img=>{return img.prediction}).length === this.croppedImageList.length;
 
     },
     init(){
       if(this.cropper) this.cropper.destroy();
       this.cropper = new Cropper(this.$refs.selectedImg,{autoCrop:false});
-      this.$http.get('/api/db/public.cancer_type').then(r=>this.cancerTypeList = r.body.response.data)
-      this.$http.get('/api/db/public.machine_type').then(r=>this.machineTypeList = r.body.response.data)
+      this.$http.get('/api/db/public.v_cancer_type').then(r=>this.cancerTypeList = r.body.response.data)
+      this.$http.get('/api/db/public.v_machine_type').then(r=>this.machineTypeList = r.body.response.data)
     },
     reset(){
       Object.assign(this.$data, this.$options.data())

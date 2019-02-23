@@ -6,9 +6,9 @@
           <div class="btn-toolbar">
             <div class="btn-group" role="group" aria-label="First group">
               <input class="form-control" placeholder="Please enter ID" v-model="record.record_external_id">
-              <select class="custom-select ml-1" v-model="record.cancer_type_id">
+              <select class="custom-select ml-1" v-model="record.cancer_type">
                 <option selected value="">Cancer type</option>
-                <option v-for="item in cancerTypeList" :value="item.cancer_type_id">{{item.cancer_type_name}}</option>
+                <option v-for="item in cancerTypeList" :value="item">{{item.cancer_type_name}}</option>
               </select>
               <select class="custom-select ml-1" v-model="record.machine_type_id">
                 <option selected value="">Machine type</option>
@@ -32,7 +32,7 @@
                     </label>
                   </li>
                   <li class="nav-item">
-                    <button class="btn btn-primary" :class="{disabled:selectedImage==null}" :disabled="selectedImage==null" @click="crop()">Cut ROI Image</button>
+                    <button class="btn btn-primary" :class="{disabled:selectedImage==null}" :disabled="selectedImage==null || record.cancer_type==''" @click="crop()">Cut ROI Image</button>
                   </li>
                 </ul>
                 <div class="float-md-right">
@@ -57,7 +57,6 @@
             </div>
             <div class="btn-group float-md-right">
               <loading-button v-on:click="save" :disabled="!enableSaveButton()" value="Save record" :isLoading="isSaving" loadingLabel="Saving..." />
-              <!--<loading-button v-on:click="reset" value="RESET" />-->
             </div>
           </div>
           <div class="img-container">
@@ -69,7 +68,7 @@
               <div class="col">
                 <div class="d-flex justify-content-between">
                   <div class="pb-2 d-flex align-items-end">
-                    <loading-button v-on:click="recognition" :disabled="cropImg==null || cropImg.prediction!=null" value="Start detecting" :isLoading="isRecognition" loadingLabel="Start detecting..." />
+                    <loading-button v-on:click="recognition" :disabled="cropImg==null || cropImg.prediction!=null || record.cancer_type==''" value="Start detecting" :isLoading="isRecognition" loadingLabel="Start detecting..." />
                     <a :href="cropImg && cropImg.src" class="btn btn-primary m-l10" download="crop.png" :class="{disabled:!cropImg}">Export</a>
                   </div>
                   <div class="pb-2" v-if="cropImg">

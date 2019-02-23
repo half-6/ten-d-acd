@@ -22,7 +22,7 @@ public class ImageRecognitionRepository {
     Class1 imageService;
 
     public ResponseImageRecognitionEntity recognition(String base64ImageString,String cancerType) throws MWException, IOException {
-        Util.logger.trace("recognizing img");
+        Util.logger.trace("recognizing img for " + cancerType);
         Object[] result =  imageService.Cancer_Img_Recognition(1,base64ImageString,"1",cancerType);
         Util.logger.trace("got result " + result[0].toString());
         //[{"Prediction":"velvet","ProcessingTime":1.1388072999999963,"Probability":0.33457765}]
