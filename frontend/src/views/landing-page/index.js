@@ -32,7 +32,8 @@ export default {
     async openFile(e) {
       if (e.target.files.length > 0) {
         await this.buildGallery(e.target.files);
-        this.onSelectFile(this.imageList[0])
+        this.onSelectFile(this.imageList[0]);
+        e.target.value = "";
       }
     },
     onSelectFile(file) {
@@ -219,6 +220,7 @@ export default {
 
     },
     init(){
+      this.selectedImage=null;
       if(this.cropper) this.cropper.destroy();
       this.cropper = new Cropper(this.$refs.selectedImg,{autoCrop:false});
       this.$http.get('/api/db/public.v_cancer_type').then(r=>this.cancerTypeList = r.body.response.data)

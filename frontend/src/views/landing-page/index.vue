@@ -19,7 +19,7 @@
           <div class="img-container">
               <div class="img-rounded rounded fill">
                 <div class="center text-center" v-if="imageList.length==0">Please click "Import Image" button to choose a b-model image</div>
-                <img v-show="selectedImage" :src="selectedImage?selectedImage.src:''"  ref="selectedImg">
+                <img v-show="selectedImage!=null" :src="selectedImage?selectedImage.src:''"  ref="selectedImg">
               </div>
            </div>
           <div class="container bottom">
