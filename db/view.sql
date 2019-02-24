@@ -8,7 +8,17 @@ where roi_image.status = 'active';
 
 
 DROP VIEW IF EXISTS public.v_agg_cancer_type cascade;
-CREATE VIEW v_agg_cancer_type AS  SELECT cancer_type_name,count(1) as number_diagnostics,max(processing_time),min(processing_time),avg(processing_time) from v_roi_image
+CREATE VIEW v_agg_cancer_type AS
+SELECT cancer_type_name
+     ,count(1) as number_diagnostics
+     ,max(processing_time)
+     ,min(processing_time)
+     ,avg(processing_time)
+     ,sum(CASE WHEN prediction = pathology::TEXT and prediction = 'Malignant' THEN 0 ELSE 1 END) AS TP
+     ,sum(CASE WHEN prediction = pathology::TEXT and prediction = 'Benign' THEN 0 ELSE 1 END) AS TN
+     ,sum(CASE WHEN prediction != pathology::TEXT and prediction = 'Malignant' THEN 0 ELSE 1 END) AS FN
+     ,sum(CASE WHEN prediction != pathology::TEXT and prediction = 'Benign' THEN 0 ELSE 1 END) AS FP
+from v_roi_image
 group by cancer_type_name
 order by cancer_type_name;
 
