@@ -114,6 +114,8 @@ export default {
     },
     download(){
         let query = this.buildWhere();
+        query.$limit= 100000;
+        query.$offset = 0;
         window.open(`/api/image/download?input=${encodeURIComponent(JSON.stringify(query))}`);
     },
     cancel(item){
