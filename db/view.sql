@@ -14,10 +14,10 @@ SELECT cancer_type_name
      ,max(processing_time)
      ,min(processing_time)
      ,avg(processing_time)
-     ,sum(CASE WHEN prediction = pathology::TEXT and prediction = 'Malignant' THEN 0 ELSE 1 END) AS TP
-     ,sum(CASE WHEN prediction = pathology::TEXT and prediction = 'Benign' THEN 0 ELSE 1 END) AS TN
-     ,sum(CASE WHEN prediction != pathology::TEXT and prediction = 'Malignant' THEN 0 ELSE 1 END) AS FN
-     ,sum(CASE WHEN prediction != pathology::TEXT and prediction = 'Benign' THEN 0 ELSE 1 END) AS FP
+     ,sum(CASE WHEN prediction = pathology::TEXT and prediction = 'Malignant' THEN 1 ELSE 0 END) AS TP
+     ,sum(CASE WHEN prediction = pathology::TEXT and prediction = 'Benign' THEN 1 ELSE 0 END) AS TN
+     ,sum(CASE WHEN pathology = 'Malignant'  and prediction = 'Benign' THEN 1 ELSE 0 END) AS FN
+     ,sum(CASE WHEN pathology = 'Benign'  and prediction = 'Malignant' THEN 1 ELSE 0 END) AS FP
 from v_roi_image
 group by cancer_type_name
 order by cancer_type_name;
