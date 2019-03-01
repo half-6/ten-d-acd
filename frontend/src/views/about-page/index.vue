@@ -5,7 +5,7 @@
         <div class="col">
           <h1></h1>
           <div class="jumbotron">
-            <h1><img class="tend-logo" :src="require('../../assets/i/tenDlogo.png')" > Ten-D ACD System </h1>
+            <h1><img class="tend-logo" :src="require('../../assets/i/tenDlogo.png')" > Automatic Cancer Recognition System </h1>
             <p class="lead clearfix">Powered by Ten-D Innovation's J-Eye Cancer Diagnosis Engine, and under the licensing agreement with the University of Buckingham</p>
             <hr class="my-4">
             <div class="row">

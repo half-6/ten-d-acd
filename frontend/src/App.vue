@@ -3,7 +3,7 @@
     <div class="container-fluid header">
       <div class="row bg-primary">
         <div class="col">
-          <h1 class="text-center">Automatic Thyroid Cancer Recognition System</h1>
+          <h1 class="text-center">Automatic Cancer Recognition System</h1>
           <ul class="nav">
             <li class="nav-item">
               <router-link to="/" class="nav-link active">Home</router-link>
