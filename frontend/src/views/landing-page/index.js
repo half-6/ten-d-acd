@@ -23,7 +23,7 @@ export default {
       machineTypeList:[],
       queue:[],
       queueRunning:false,
-      pathologyList:this.$pathology,
+      pathologyList:null,
       isRecognition:false,
       isSaving:false,
     };
@@ -221,6 +221,7 @@ export default {
     },
     init(){
       this.selectedImage=null;
+      this.pathologyList = this.$pathology;
       if(this.cropper) this.cropper.destroy();
       this.cropper = new Cropper(this.$refs.selectedImg,{autoCrop:false});
       this.$http.get('/api/db/public.v_cancer_type').then(r=>this.cancerTypeList = r.body.response.data)
