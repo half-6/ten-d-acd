@@ -76,10 +76,11 @@ public class RecordService {
                 JSONObject item = oriImage.getJSONObject(i);
                 String imageId = item.get("roi_image").toString();
                 String imageName = imageId + ".png";
+                String outputImageName = buildImageNameInZip(item);
                 Path filePath = Util.getFilePath(imageName);
                 if(Files.exists(filePath))
                 {
-                  ZipEntry entry = new ZipEntry(imageName);
+                  ZipEntry entry = new ZipEntry(outputImageName);
                   zos.putNextEntry(entry);
                   zos.write(Files.readAllBytes(Util.getFilePath(imageName)));
                   zos.closeEntry();
@@ -111,8 +112,8 @@ public class RecordService {
     + "_"  + item.getString("machine_type_name")
     + "_"  + (item.has("pathology")?item.getString("pathology"):"")
     + "_"  + item.getString("prediction")
-    + "_"  + (item.has("probability")?item.getDouble("probability"):"")
-    + "_"  + (item.has("processing_time")?item.getDouble("processing_time"):"")
+    //+ "_"  + (item.has("probability")?item.getDouble("probability"):"")
+    //+ "_"  + (item.has("processing_time")?item.getDouble("processing_time"):"")
     + "_"  + item.get("roi_image").toString() + ".png");
   }
   private String findNewId(JSONArray originalImageList,String oldId){
