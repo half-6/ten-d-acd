@@ -5,27 +5,27 @@
         <div class="col">
           <h1></h1>
           <div class="jumbotron">
-            <h1><img class="tend-logo" :src="require('../../assets/i/tenDlogo.png')" > Automatic Cancer Recognition System </h1>
-            <p class="lead clearfix">Powered by Ten-D Innovation's J-Eye Cancer Diagnosis Engine, and under the licensing agreement with the University of Buckingham</p>
+            <h1><img class="tend-logo" :src="require('../../assets/i/tenDlogo.png')" >{{$t('about.title')}}</h1>
+            <p class="lead clearfix">{{$t('about.desc')}}</p>
             <hr class="my-4">
             <div class="row">
               <div class="col">
                 <table class="table table-striped table-hover table-responsive-sm">
                   <thead>
                     <tr>
-                    <th scope="col">Cancer Type</th>
-                    <th scope="col"># of diagnostics</th>
-                    <th scope="col">Lowest process time </th>
-                    <th scope="col">Fastest process time</th>
-                    <th scope="col">Average process time</th>
-                    <th scope="col">TP</th>
-                    <th scope="col">TN</th>
-                    <th scope="col">FP</th>
-                    <th scope="col">FN</th>
-                    <th scope="col">Accuracy(T)</th>
-                    <th scope="col">TPR(T)</th>
-                    <th scope="col">TNR(T)</th>
-                    <th scope="col">Precision(T)</th>
+                    <th scope="col">{{$t('about.table-cancer-type')}}</th>
+                    <th scope="col">{{$t('about.table-diagnostics')}}</th>
+                    <th scope="col">{{$t('about.table-lowest-process-time')}}</th>
+                    <th scope="col">{{$t('about.table-fastest-process-time')}}</th>
+                    <th scope="col">{{$t('about.table-average-process-time')}}</th>
+                    <th scope="col">{{$t('about.table-tp')}}</th>
+                    <th scope="col">{{$t('about.table-tn')}}</th>
+                    <th scope="col">{{$t('about.table-fp')}}</th>
+                    <th scope="col">{{$t('about.table-fn')}}</th>
+                    <th scope="col">{{$t('about.table-accuracy')}}</th>
+                    <th scope="col">{{$t('about.table-tpr')}}</th>
+                    <th scope="col">{{$t('about.table-tnr')}}</th>
+                    <th scope="col">{{$t('about.table-precision')}}</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -47,7 +47,7 @@
                   </tbody>
                   <tfoot>
                     <tr>
-                      <th>Total</th>
+                      <th>{{$t('about.table-total')}}</th>
                       <th>{{totalDiagnostics | number-format('0,0')}}</th>
                       <th></th>
                       <th></th>
@@ -66,10 +66,9 @@
 
               </div>
             </div>
-            <p class="pt-3">Application Version number:{{$tendConfig.applicationVersion}}</p>
-            <p>Recognition Version number:{{$tendConfig.recognitionVersion}}</p>
-            <p class="power"><img :src="require('../../assets/i/logo.png')" >Powered by The University of Buckingham</p>
-            <!--<a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>-->
+            <p class="pt-3">{{$t('about.app-versiontable-app-version')}}:{{$tendConfig.applicationVersion}}</p>
+            <p>{{$t('about.recognition-version')}}:{{$tendConfig.recognitionVersion}}</p>
+            <p class="power"><img :src="require('../../assets/i/logo.png')" >{{$t('about.power-by')}}</p>
           </div>
         </div>
       </div>

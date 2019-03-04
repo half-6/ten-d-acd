@@ -65,36 +65,36 @@ export default {
                 this.isRecognition = false;
               },err=>{
                 console.error(err);
-                this.message = "Recognition failed,Please try again";
-                this.$refs.errModal.show();
+                this.$util_alert("master.msg-detection-failed")
                 this.isRecognition = false;
               }
           )
       }
     },
     delSelectedImage(){
-      this.imageList.splice( this.imageList.indexOf(this.selectedImage), 1 );
-      if(this.imageList.length ==0)
-      {
-        this.cropper.destroy();
-        this.init();
-      }
-      else
-      {
-        this.onSelectFile(this.imageList[0]);
-      }
+      this.$util_confirm('master.msg-delete').then(() => {
+        this.imageList.splice( this.imageList.indexOf(this.selectedImage), 1 );
+        if(this.imageList.length ==0)
+        {
+          this.cropper.destroy();
+          this.init();
+        }
+        else
+        {
+          this.onSelectFile(this.imageList[0]);
+        }
+      })
     },
     delCroppedImage(){
-      this.croppedImageList.splice(this.croppedImageList.indexOf(this.cropImg), 1 );
-      this.queue.splice(this.queue.indexOf(this.cropImg), 1 );
-      if(this.croppedImageList.length ==0)
-      {
-        this.cropImg = null;
-      }
-      else
-      {
-        this.onSelectCroppedImage(this.croppedImageList[0]);
-      }
+      this.$util_confirm('master.msg-delete').then(() => {
+        this.croppedImageList.splice(this.croppedImageList.indexOf(this.cropImg), 1);
+        this.queue.splice(this.queue.indexOf(this.cropImg), 1);
+        if (this.croppedImageList.length == 0) {
+          this.cropImg = null;
+        } else {
+          this.onSelectCroppedImage(this.croppedImageList[0]);
+        }
+      })
     },
     loadImage(file) {
       return new Promise(resolve => {
@@ -160,7 +160,8 @@ export default {
         }
         catch (e) {
           img.isDetecting = false;
-          console.error("detect failed");
+          console.error("detect failed=>" + e);
+          this.$util_alert("master.msg-detection-failed")
         }
       }
     },
@@ -168,7 +169,9 @@ export default {
       //build save object
       this.record.original_image = [];
       this.record.roi_image = [];
-      this.croppedImageList.forEach(image=>{
+      for(let i=0;i<this.croppedImageList.length;i++)
+      {
+        let image = this.croppedImageList[i];
         let oImage = _.find(this.imageList,{id:image.original_image_id});
         if(oImage)
         {
@@ -179,8 +182,7 @@ export default {
         }
         else
         {
-          this.message = "Original image has been deleted, you can't save now";
-          this.$refs.errModal.show();
+          this.$util_alert("master.msg-missing-original-image")
           return;
         }
         this.record.cancer_type_id = this.record.cancer_type.cancer_type_id;
@@ -193,7 +195,7 @@ export default {
           probability:_.get(image.prediction,"Probability"),
           processing_time:_.get(image.prediction,"ProcessingTime"),
         })
-      });
+      }
       console.log(this.record);
       this.isSaving = true;
       this.$http.post('/api/image/save',this.record)
@@ -201,13 +203,11 @@ export default {
             this.isSaving = false;
             console.log(r.body);
             this.reset();
-            this.message = "Save success";
-            this.$refs.errModal.show();
+            this.$util_alert("home.save-success");
           },err=>{
             this.isSaving = false;
             console.error(err);
-            this.message = "Save failed";
-            this.$refs.errModal.show();
+            this.$util_alert("home.save-failed");
           }
       )
     },

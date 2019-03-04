@@ -63,7 +63,9 @@ export default {
     },
     del(item){
       this.selectedRoiImage = item;
-      this.$refs.delModal.show();
+      this.$util_confirm("master.msg-delete").then(()=>{
+          this.delRoiImage();
+      })
     },
     delRoiImage(){
       this.$http.post('/api/db/roi_image',{$where:{roi_image_id:this.selectedRoiImage.roi_image_id},status:'deleted'})
@@ -72,7 +74,7 @@ export default {
             this.searchImage();
           },err=>{
             console.error(err);
-            this.message = "Delete failed,Please try again";
+            this.$util_alert("master.msg-delete-failed");
             this.$refs.errModal.show();
           }
       )
@@ -86,8 +88,7 @@ export default {
             item.$isSaving=false;
           },err=>{
             console.error(err);
-            this.message = "Save failed,Please try again";
-            this.$refs.errModal.show();
+            this.$util_alert("master.msg-save-failed");
             item.$edit = false;
             item.$isSaving=false;
           }

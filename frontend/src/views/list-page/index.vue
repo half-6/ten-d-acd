@@ -6,37 +6,37 @@
            <div class="search-bar row">
              <div class="form-group col-md-2">
                <select class="custom-select" v-model="search.machine_type_id">
-                 <option selected value="">Machine type</option>
+                 <option selected value="">{{ $t('list.machine-type') }}</option>
                  <option v-for="item in machineTypeList" :value="item.machine_type_id">{{item.machine_type_name}}</option>
                </select>
              </div>
              <div class="form-group col-md-2">
                <select class="custom-select" v-model="search.cancer_type_id">
-                 <option selected value="">Cancer type</option>
+                 <option selected value="">{{ $t('list.cancer-type') }}</option>
                  <option v-for="item in cancerTypeList" :value="item.cancer_type_id">{{item.cancer_type_name}}</option>
                </select>
              </div>
              <div class="form-group col-md-2">
                <select class="custom-select" v-model="search.pathology">
-                 <option selected value="">Pathology</option>
+                 <option selected value="">{{ $t('list.pathology') }}</option>
                  <option selected value="null">[Null]</option>
                  <option v-for="item in pathologyList" :value="item.value">{{item.text}}</option>
                </select>
              </div>
              <div class="form-group col-md-2">
                <select class="custom-select" v-model="search.prediction">
-                 <option selected value="">Prediction</option>
+                 <option selected value="">{{ $t('list.prediction') }}</option>
                  <option v-for="item in predictionList" :value="item.value">{{item.text}}</option>
                </select>
              </div>
              <div class="form-group col-md-2">
-               <input type="text" class="form-control" v-model="search.id" placeholder="Search by ID">
+               <input type="text" class="form-control" v-model="search.id" :placeholder="$t('list.keyword-placeholder')">
              </div>
              <div class="form-group col-md-1">
-               <loading-button v-on:click="searchImage" value="Search" :isLoading="isSearching" />
+               <loading-button v-on:click="searchImage" :value="$t('list.button-search')" :isLoading="isSearching" :loadingLabel="$t('list.button-searching')" />
              </div>
              <div class="form-group col-md-1">
-               <loading-button v-on:click="download" value="Download" class="float-right"  />
+               <loading-button v-on:click="download" :value="$t('list.button-download')" class="float-right"  />
              </div>
            </div>
         </div>
@@ -47,15 +47,15 @@
             <thead>
             <tr>
               <th scope="col">#</th>
-              <th scope="col">Original Image</th>
-              <th scope="col">Roi Image</th>
-              <th scope="col">Cancer Type</th>
-              <th scope="col">Machine Type</th>
-              <th scope="col">Pathology</th>
-              <th scope="col">Prediction</th>
-              <th scope="col">Probability</th>
-              <th scope="col">Date</th>
-              <th scope="col">Operation</th>
+              <th scope="col">{{$t('list.table-original-image')}}</th>
+              <th scope="col">{{$t('list.table-roi-image')}}</th>
+              <th scope="col">{{$t('list.table-cancer-type')}}</th>
+              <th scope="col">{{$t('list.table-machine-type')}}</th>
+              <th scope="col">{{$t('list.table-pathology')}}</th>
+              <th scope="col">{{$t('list.table-prediction')}}</th>
+              <th scope="col">{{$t('list.table-probability')}}</th>
+              <th scope="col">{{$t('list.table-date')}}</th>
+              <th scope="col">{{$t('list.table-operation')}}</th>
             </tr>
             </thead>
             <tbody>
@@ -76,10 +76,10 @@
                 <td>{{item.probability | number-format('0.[0000]')}}</td>
                 <td>{{item.date_registered | date-format('YYYY-MM-DD HH:mm')}}</td>
                 <td class="operation">
-                  <button v-if="!item.$edit" @click="edit(item)" type="button" class="btn btn-outline btn-primary btn-sm pl-1"><i class="fa fa-edit fa-fw"></i>Edit</button>
-                  <button v-else @click="save(item)" type="button" class="btn btn-outline btn-primary btn-sm pl-1"><i class="fa fa-edit fa-fw"></i>Save</button>
-                  <button v-if="!item.$edit" @click="del(item)" type="button" class="btn btn-outline btn-danger btn-sm pl-1"><i class="fa fa-edit fa-fw"></i>Delete</button>
-                  <button v-else @click="cancel(item)" type="button" class="btn btn-outline btn-secondary btn-sm pl-1"><i class="fa fa-edit fa-fw"></i>Cancel</button>
+                  <button v-if="!item.$edit" @click="edit(item)" type="button" class="btn btn-outline btn-primary btn-sm pl-1"><i class="fa fa-edit fa-fw"></i>{{$t('list.button-edit')}}</button>
+                  <button v-else @click="save(item)" type="button" class="btn btn-outline btn-primary btn-sm pl-1"><i class="fa fa-edit fa-fw"></i>{{$t('list.button-save')}}</button>
+                  <button v-if="!item.$edit" @click="del(item)" type="button" class="btn btn-outline btn-danger btn-sm pl-1"><i class="fa fa-edit fa-fw"></i>{{$t('list.button-delete')}}</button>
+                  <button v-else @click="cancel(item)" type="button" class="btn btn-outline btn-secondary btn-sm pl-1"><i class="fa fa-edit fa-fw"></i>{{$t('list.button-cancel')}}</button>
                 </td>
               </tr>
             </tbody>
@@ -89,24 +89,18 @@
       <div class="row justify-content-between" v-show="this.roiImageList">
         <div>
           <select class="custom-select" v-model="page.limit" @change="searchImage">
-            <option selected value="5">5 records per page</option>
-            <option selected value="10">10 records per page</option>
-            <option selected value="20">20 records per page</option>
-            <option selected value="50">50 records per page</option>
+            <option selected value="5">{{$t('pagination.per-page',{num:5})}}</option>
+            <option selected value="10">{{$t('pagination.per-page',{num:10})}}</option>
+            <option selected value="20">{{$t('pagination.per-page',{num:20})}}</option>
+            <option selected value="50">{{$t('pagination.per-page',{num:50})}}</option>
           </select>
         </div>
-        <div>Total {{page.total_count}} records </div>
+        <div>{{$t('pagination.total',{total:page.total_count})}}</div>
         <div>
           <b-pagination align="right" :total-rows="page.total_count" v-model="page.page_index"  @input="searchImage" :per-page="page.limit"></b-pagination>
         </div>
       </div>
     </div>
-    <b-modal ref="delModal" title="Confirm Deletion" @ok="delRoiImage">
-      <p class="my-4">Are you sure you want to permanently remove this item?</p>
-    </b-modal>
-    <b-modal ref="errModal" title="Information" ok-only>
-      <p class="my-4">{{message}}</p>
-    </b-modal>
   </div>
 </template>
 <style src="./index.css"></style>

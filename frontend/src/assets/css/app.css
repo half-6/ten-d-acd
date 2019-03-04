@@ -69,3 +69,9 @@ body {
 a.btn.disabled{
   color:white;
 }
+
+.header .el-dropdown{
+  color: white;
+  font-size: 16px;
+  padding: .5rem 1rem;
+}
