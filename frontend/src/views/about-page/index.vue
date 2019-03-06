@@ -66,7 +66,7 @@
 
               </div>
             </div>
-            <p class="pt-3">{{$t('about.app-versiontable-app-version')}}:{{$tendConfig.applicationVersion}}</p>
+            <p class="pt-3">{{$t('about.app-version')}}:{{$tendConfig.applicationVersion}}</p>
             <p>{{$t('about.recognition-version')}}:{{$tendConfig.recognitionVersion}}</p>
             <p class="power"><img :src="require('../../assets/i/logo.png')" >{{$t('about.power-by')}}</p>
           </div>
