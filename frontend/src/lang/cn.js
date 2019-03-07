@@ -1,6 +1,6 @@
 export default {
     "master": {
-        "title": "Automatic Cancer Recognition System",
+        "title": "癌症自动检测系统",
         "menu-home": "首页",
         "menu-list-view": "记录列表",
         "menu-about": "关于我们",

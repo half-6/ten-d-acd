@@ -39,10 +39,10 @@
                       <td scope="row">{{item.tn | number-format('0.[0000]')}}</td>
                       <td scope="row">{{item.fp | number-format('0.[0000]')}}</td>
                       <td scope="row">{{item.fn | number-format('0.[0000]')}}</td>
-                      <td scope="row">{{item.accuracy | number-format('0.[0000]')}}</td>
-                      <td scope="row">{{item.tpr | number-format('0.[0000]')}}</td>
-                      <td scope="row">{{item.tnr | number-format('0.[0000]')}}</td>
-                      <td scope="row">{{item.precision | number-format('0.[0000]')}}</td>
+                      <td scope="row">{{item.accuracy | number-format('0.[00]%')}}</td>
+                      <td scope="row">{{item.tpr | number-format('0.[00]%')}}</td>
+                      <td scope="row">{{item.tnr | number-format('0.[00]%')}}</td>
+                      <td scope="row">{{item.precision | number-format('0.[00]%')}}</td>
                     </tr>
                   </tbody>
                   <tfoot>
@@ -56,10 +56,10 @@
                       <th>{{totalTN | number-format('0,0')}}</th>
                       <th>{{totalFP | number-format('0,0')}}</th>
                       <th>{{totalFN | number-format('0,0')}}</th>
-                      <th>{{accuracy | number-format('0.[0000]')}}</th>
-                      <th>{{tpr | number-format('0.[0000]')}}</th>
-                      <th>{{tnr | number-format('0.[0000]')}}</th>
-                      <th>{{precision | number-format('0.[0000]')}}</th>
+                      <th>{{accuracy | number-format('0.[00]%')}}</th>
+                      <th>{{tpr | number-format('0.[00]%')}}</th>
+                      <th>{{tnr | number-format('0.[00]%')}}</th>
+                      <th>{{precision | number-format('0.[00]%')}}</th>
                     </tr>
                   </tfoot>
                 </table>
