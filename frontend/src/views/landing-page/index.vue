@@ -32,7 +32,7 @@
                     </label>
                   </li>
                   <li class="nav-item">
-                    <button class="btn btn-primary" :class="{disabled:selectedImage==null}" :disabled="selectedImage==null || record.cancer_type==''" @click="crop()">{{ $t("home.button-cut-roi-image") }}</button>
+                    <loading-button v-on:click="crop" :disabled="selectedImage==null || !record.cancer_type" :value="$t('home.button-cut-roi-image')" :isLoading="isDetecting" :loadingLabel="$t('home.button-cut-roi-image-loading')" />
                   </li>
                 </ul>
                 <div class="float-md-right">
@@ -68,7 +68,6 @@
               <div class="col">
                 <div class="d-flex justify-content-between">
                   <div class="pb-2 d-flex align-items-end">
-                    <loading-button v-on:click="recognition" :disabled="cropImg==null || cropImg.prediction!=null || record.cancer_type==''" :value="$t('home.button-detect')" :isLoading="isRecognition" :loadingLabel="$t('home.button-detect-loading')" />
                     <a :href="cropImg && cropImg.src" class="btn btn-primary m-l10" download="crop.png" :class="{disabled:!cropImg}">{{$t('home.button-export')}}</a>
                   </div>
                   <div class="pb-2" v-if="cropImg && cropImg.prediction">

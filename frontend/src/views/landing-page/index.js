@@ -22,11 +22,9 @@ export default {
       },
       cancerTypeList:[],
       machineTypeList:[],
-      queue:[],
-      queueRunning:false,
       pathologyList:null,
-      isRecognition:false,
       isSaving:false,
+      isDetecting:false
     };
   },
   methods: {
@@ -50,28 +48,6 @@ export default {
         this.cropImg = file;
       }
     },
-    recognition(){
-      if(this.cropImg)
-      {
-        this.isRecognition = true;
-        let currentCropImg = this.cropImg;
-        if(this.queue.indexOf(currentCropImg) >= 0)
-        {
-          this.queue.splice(this.queue.indexOf(currentCropImg),1);
-        }
-        currentCropImg.isAsking = true;
-        this.detect(currentCropImg)
-          .then(r=>{
-                currentCropImg.prediction = currentCropImg.p_prediction;
-                this.isRecognition = false;
-              },err=>{
-                console.error(err);
-                this.$util_alert("master.msg-detection-failed")
-                this.isRecognition = false;
-              }
-          )
-      }
-    },
     delSelectedImage(){
       this.$util_confirm('master.msg-delete').then(() => {
         this.imageList.splice( this.imageList.indexOf(this.selectedImage), 1 );
@@ -89,7 +65,6 @@ export default {
     delCroppedImage(){
       this.$util_confirm('master.msg-delete').then(() => {
         this.croppedImageList.splice(this.croppedImageList.indexOf(this.cropImg), 1);
-        this.queue.splice(this.queue.indexOf(this.cropImg), 1);
         if (this.croppedImageList.length == 0) {
           this.cropImg = null;
         } else {
@@ -100,7 +75,7 @@ export default {
     loadImage(file) {
       return new Promise(resolve => {
         if (FileReader && file.type.indexOf("image") >= 0) {
-          var fr = new FileReader();
+          let fr = new FileReader();
           fr.onload = function() {
             resolve(fr.result);
           };
@@ -129,35 +104,14 @@ export default {
           pathology:undefined,
         };
         this.croppedImageList.splice(0,0,this.cropImg);
-        this.queue.push(this.cropImg);
-        this.backendJob();
-      }
-    },
-    async backendJob(){
-      if(!this.queueRunning)
-      {
-        while(this.queue.length>0)
-        {
-          this.queueRunning = true;
-          let img = this.queue.shift();
-          await this.detect(img);
-        }
-        this.queueRunning = false;
+        this.detect(this.cropImg);
       }
     },
     async detect(img){
-      if(!img.isDetecting && !img.p_prediction)
-      {
-        console.log("detecting " + img.roi_image_id);
-        img.isDetecting = true;
-        let result =  await api.detectImage({image:img.src,cancerType:this.record.cancer_type.cancer_type_short_name},{emulateJSON:true,timeout:0});
-        img.p_prediction = result;
-        img.isDetecting = false;
-        if(img.isAsking){
-          img.prediction = img.p_prediction;
-        }
-        console.log("detected " + img.roi_image_id + ">" + JSON.stringify(img.p_prediction));
-      }
+      this.isDetecting = true;
+      img.prediction =  await api.detectImage({image:img.src,cancerType:this.record.cancer_type.cancer_type_short_name},{emulateJSON:true,timeout:0});
+      this.isDetecting = false;
+      console.log("detected " + img.roi_image_id + ">" + JSON.stringify(img.prediction));
     },
     save(){
       //build save object
