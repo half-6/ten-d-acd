@@ -49,6 +49,7 @@
           <div class="btn-toolbar">
             <div class="btn-group float-md-left">
               <div class="diagnostic-type" v-if="cropImg">
+                <span class="mr-2">{{$t('home.label-pathology')}}:</span>
                 <el-radio-group v-model="cropImg.pathology">
                   <el-radio-button v-for="item in pathologyList" :key="item.text" :label="item.text">{{$t('master.pathology-' + item.text)}}</el-radio-button>
                 </el-radio-group>

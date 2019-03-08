@@ -38,6 +38,7 @@ export default {
         "button-detect": "Start detecting",
         "button-detect-loading": "Start detecting...",
         "button-export": "Export",
+        "label-pathology":"Pathology",
         "result-Prediction": "Prediction",
         "result-ProcessingTime": "ProcessingTime",
         "result-Probability": "Probability",

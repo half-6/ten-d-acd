@@ -38,6 +38,7 @@ export default {
         "button-detect": "开始检测",
         "button-detect-loading": "检测中...",
         "button-export": "导出图片",
+        "label-pathology":"病理结果",
         "result-Prediction": "检测结果",
         "result-ProcessingTime": "检测耗时",
         "result-Probability": "可能性",
