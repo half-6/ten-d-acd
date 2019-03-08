@@ -1,11 +1,13 @@
 import _ from 'lodash'
+import api from '@/api'
+
 export default {
   name: "list-page",
   data() {
     return {
       roiImageList:null,
-      cancerTypeList:null,
-      machineTypeList:null,
+      cancerTypeList:this.$cancerType,
+      machineTypeList:this.$machineType,
       pathologyList:this.$pathology,
       predictionList:this.$pathology,
       isSearching:false,
@@ -31,8 +33,6 @@ export default {
   methods: {
     init(){
       this.searchImage();
-      this.$http.get('/api/db/public.v_cancer_type').then(r=>this.cancerTypeList = r.body.response.data)
-      this.$http.get('/api/db/public.v_machine_type').then(r=>this.machineTypeList = r.body.response.data)
     },
     getImageUrl(file){
       return "/uploads/" + file + ".png";
@@ -40,13 +40,13 @@ export default {
     searchImage(){
       this.isSearching=true;
       let query = this.buildWhere();
-      this.$http.get('/api/db/v_roi_image',{params:{q:JSON.stringify(query)}} )
+        api.getROIImages({q:JSON.stringify(query)})
           .then(r=>{
-            if(r.body.response)
+            if(r)
             {
-              _.map(r.body.response.data,item=>{item.$edit = false; item.$isSaving=false})
-              this.roiImageList = r.body.response.data;
-              this.page.total_count = r.body.response.page.total_count;
+              _.map(r.data,item=>{item.$edit = false; item.$isSaving=false})
+              this.roiImageList = r.data;
+              this.page.total_count = r.page.total_count;
               //this.page.page_index = this.page.offset / this.page.limit
             }
             else
@@ -68,9 +68,9 @@ export default {
       })
     },
     delRoiImage(){
-      this.$http.post('/api/db/roi_image',{$where:{roi_image_id:this.selectedRoiImage.roi_image_id},status:'deleted'})
+      api.updateROIImage({$where:{roi_image_id:this.selectedRoiImage.roi_image_id},status:'deleted'})
       .then(r=>{
-            console.log(r.body);
+            console.log(`delete roi image success ${r}`);
             this.searchImage();
           },err=>{
             console.error(err);
@@ -81,9 +81,9 @@ export default {
     },
     save(item){
       item.$isSaving=true;
-      this.$http.post('/api/db/roi_image',{$where:{roi_image_id:item.roi_image_id},pathology:item.pathology})
+       api.updateROIImage({$where:{roi_image_id:item.roi_image_id},pathology:item.pathology})
       .then(r=>{
-            console.log(r.body);
+          console.log(`update roi image success ${r}`);
             item.$edit = false;
             item.$isSaving=false;
           },err=>{

@@ -16,6 +16,9 @@ export default {
         "dialog-alert": "Alert",
         "dialog-ok": "OK",
         "dialog-cancel": "Cancel",
+        "pathology-Malignant":"Malignant",
+        "pathology-Benign":"Benign",
+        "pathology-null":"[Null]",
     },
     "pagination": {
         "total": "Total {total} records",

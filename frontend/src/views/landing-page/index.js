@@ -2,6 +2,7 @@ import Cropper from 'cropperjs/dist/cropper.js';
 import 'cropperjs/dist/cropper.css';
 import _ from 'lodash';
 import uuid from 'uuid/v4';
+import api from '@/api'
 
 export default {
   name: "landing-page",
@@ -149,20 +150,13 @@ export default {
       {
         console.log("detecting " + img.roi_image_id);
         img.isDetecting = true;
-        try{
-          let result =  await this.$http.post('/api/image/recognition',{image:img.src,cancerType:this.record.cancer_type.cancer_type_short_name},{emulateJSON:true,timeout:0});
-          img.p_prediction = result.body.response;
-          img.isDetecting = false;
-          if(img.isAsking){
-            img.prediction = img.p_prediction;
-          }
-          console.log("detected " + img.roi_image_id + ">" + JSON.stringify(img.p_prediction));
+        let result =  await api.detectImage({image:img.src,cancerType:this.record.cancer_type.cancer_type_short_name},{emulateJSON:true,timeout:0});
+        img.p_prediction = result;
+        img.isDetecting = false;
+        if(img.isAsking){
+          img.prediction = img.p_prediction;
         }
-        catch (e) {
-          img.isDetecting = false;
-          console.error("detect failed=>" + e);
-          this.$util_alert("master.msg-detection-failed")
-        }
+        console.log("detected " + img.roi_image_id + ">" + JSON.stringify(img.p_prediction));
       }
     },
     save(){
@@ -198,10 +192,10 @@ export default {
       }
       console.log(this.record);
       this.isSaving = true;
-      this.$http.post('/api/image/save',this.record)
+      api.saveImage(this.record)
       .then(r=>{
             this.isSaving = false;
-            console.log(r.body);
+            console.log(r);
             this.reset();
             this.$util_alert("home.save-success");
           },err=>{
@@ -222,14 +216,16 @@ export default {
     init(){
       this.selectedImage=null;
       this.pathologyList = this.$pathology;
+      this.cancerTypeList = this.$cancerType;
+      this.machineTypeList = this.$machineType;
       if(this.cropper) this.cropper.destroy();
       this.cropper = new Cropper(this.$refs.selectedImg,{autoCrop:false});
-      this.$http.get('/api/db/public.v_cancer_type').then(r=>this.cancerTypeList = r.body.response.data)
-      this.$http.get('/api/db/public.v_machine_type').then(r=>this.machineTypeList = r.body.response.data)
     },
     reset(){
+      let cancerType = this.record.cancer_type;
       Object.assign(this.$data, this.$options.data())
       this.init();
+      this.record.cancer_type = cancerType;
     }
   },
   mounted: function() {

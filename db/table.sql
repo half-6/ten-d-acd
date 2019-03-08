@@ -13,6 +13,7 @@ DROP TABLE IF EXISTS public.cancer_type cascade;
 CREATE TABLE public.cancer_type(
   cancer_type_id  SERIAL PRIMARY KEY,
   cancer_type_name VARCHAR(200) NOT NULL,
+  cancer_type_chinese_name VARCHAR(200) NOT NULL,
   cancer_type_short_name VARCHAR(20) NOT NULL,
   status tp_status default 'active',
   date_registered TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -25,6 +26,7 @@ DROP TABLE IF EXISTS public.machine_type cascade;
 CREATE TABLE public.machine_type(
   machine_type_id  SERIAL PRIMARY KEY,
   machine_type_name VARCHAR(200) NOT NULL,
+  machine_type_chinese_name VARCHAR(200) NOT NULL,
   status tp_status default 'active',
   date_registered TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
   date_updated TIMESTAMP WITH TIME ZONE

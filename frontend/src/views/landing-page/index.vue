@@ -8,11 +8,11 @@
               <input class="form-control" :placeholder="$t('home.enter-id')" v-model="record.record_external_id">
               <select class="custom-select ml-1" v-model="record.cancer_type">
                 <option selected value="">{{ $t("home.cancer-type") }}</option>
-                <option v-for="item in cancerTypeList" :value="item">{{item.cancer_type_name}}</option>
+                <option v-for="item in cancerTypeList" :value="item">{{$t('master.cancer-type-' + item.cancer_type_id)}}</option>
               </select>
               <select class="custom-select ml-1" v-model="record.machine_type_id">
                 <option selected value="">{{ $t("home.machine-type") }}</option>
-                <option v-for="item in machineTypeList" :value="item.machine_type_id">{{item.machine_type_name}}</option>
+                <option v-for="item in machineTypeList" :value="item.machine_type_id">{{$t('master.machine-type-' + item.machine_type_id)}}</option>
               </select>
             </div>
           </div>
@@ -49,10 +49,9 @@
           <div class="btn-toolbar">
             <div class="btn-group float-md-left">
               <div class="diagnostic-type" v-if="cropImg">
-                <b-form-radio-group buttons
-                                    button-variant="outline-primary"
-                                    v-model="cropImg.pathology"
-                                    :options="pathologyList" />
+                <el-radio-group v-model="cropImg.pathology">
+                  <el-radio-button v-for="item in pathologyList" :key="item.text" :label="item.text">{{$t('master.pathology-' + item.text)}}</el-radio-button>
+                </el-radio-group>
               </div>
             </div>
             <div class="btn-group float-md-right">
@@ -71,10 +70,18 @@
                     <loading-button v-on:click="recognition" :disabled="cropImg==null || cropImg.prediction!=null || record.cancer_type==''" :value="$t('home.button-detect')" :isLoading="isRecognition" :loadingLabel="$t('home.button-detect-loading')" />
                     <a :href="cropImg && cropImg.src" class="btn btn-primary m-l10" download="crop.png" :class="{disabled:!cropImg}">{{$t('home.button-export')}}</a>
                   </div>
-                  <div class="pb-2" v-if="cropImg">
-                    <div v-for="(value, propertyName) in cropImg.prediction" class="prediction" >
-                      <div>{{value  | number-format('0.[0000]') }}</div>
-                      <div>{{$t('home.result-' + propertyName)}}</div>
+                  <div class="pb-2" v-if="cropImg && cropImg.prediction">
+                    <div class="prediction">
+                      <div>{{$t('master.pathology-' + cropImg.prediction["Prediction"])}}</div>
+                      <div>{{$t('home.result-Prediction')}}</div>
+                    </div>
+                    <div class="prediction">
+                      <div>{{cropImg.prediction["ProcessingTime"] | number-format('0.[0000]')  }}</div>
+                      <div>{{$t('home.result-ProcessingTime')}}</div>
+                    </div>
+                    <div class="prediction">
+                      <div>{{cropImg.prediction["Probability"] | number-format('0.[00]%')  }}</div>
+                      <div>{{$t('home.result-Probability')}}</div>
                     </div>
                   </div>
                   <div class="pb-2 d-flex align-items-end">
