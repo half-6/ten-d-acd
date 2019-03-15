@@ -73,6 +73,10 @@
 .landing-page .prediction~.prediction{
   border-left:1px solid #EDEEF0;
 }
+.landing-page .prediction .p-title{
+  font-weight: bold;
+  font-size: 1.8em;
+}
 
 .landing-page .btn-save{
   float: right;

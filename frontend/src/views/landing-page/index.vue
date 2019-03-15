@@ -72,15 +72,15 @@
                   </div>
                   <div class="pb-2" v-if="cropImg && cropImg.prediction">
                     <div class="prediction">
-                      <div>{{$t('master.pathology-' + cropImg.prediction["Prediction"])}}</div>
+                      <div class="p-title">{{$t('master.pathology-' + cropImg.prediction["Prediction"])}}</div>
                       <div>{{$t('home.result-Prediction')}}</div>
                     </div>
                     <div class="prediction">
-                      <div>{{cropImg.prediction["ProcessingTime"] | number-format('0.[0000]')  }}</div>
+                      <div class="p-title">{{cropImg.prediction["ProcessingTime"] | number-format('0.[0000]')  }}</div>
                       <div>{{$t('home.result-ProcessingTime')}}</div>
                     </div>
                     <div class="prediction">
-                      <div>{{cropImg.prediction["Probability"] | number-format('0.[00]%')  }}</div>
+                      <div class="p-title">{{cropImg.prediction["Probability"] | number-format('0.[00]%')  }}</div>
                       <div>{{$t('home.result-Probability')}}</div>
                     </div>
                   </div>

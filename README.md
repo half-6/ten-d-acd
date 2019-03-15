@@ -40,7 +40,7 @@ A web based automatic ultrasound cancer diagnosis system
 
 > ## How to run it as backend windows service in windows. 
 - download nssm from https://nssm.cc
-- create start.bat file with fillowing command  
+- create start.bat file with following command  
   ``
   java -jar backend\target\com.tend.acd.backend-0.0.6-SNAPSHOT.jar --spring.profiles.active=demo
   ``

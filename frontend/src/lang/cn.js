@@ -16,8 +16,8 @@ export default {
         "dialog-alert": "警告",
         "dialog-ok": "确认",
         "dialog-cancel": "取消",
-        "pathology-Malignant":"恶性的",
-        "pathology-Benign":"良性的",
+        "pathology-Malignant":"恶性",
+        "pathology-Benign":"良性",
         "pathology-null":"[未选]",
     },
     "pagination": {
