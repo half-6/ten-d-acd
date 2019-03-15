@@ -51,7 +51,7 @@ public class RestErrorHandler {
         ResponseBaseEntity output = new ResponseBaseEntity();
         output.code = HttpStatus.NOT_FOUND.value();
         output.message = ex.getMessage();
-        Util.logger.trace(output.message);
+        Util.logger.warn(output.message);
         return output;
     }
     @ExceptionHandler({Exception.class})

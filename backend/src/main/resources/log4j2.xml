@@ -22,10 +22,12 @@
     </Appenders>
     <Loggers>
         <Logger name="com.tend.acd" level="ALL" additivity="false">
-            <AppenderRef ref="ConsoleAppender" />
+            <AppenderRef ref="FileAppender" level="WARN" />
+            <AppenderRef ref="ConsoleAppender" level="ALL"/>
         </Logger>
         <Logger name="LinkFuture DB API" level="ALL" additivity="false">
-            <AppenderRef ref="ConsoleAppender" />
+            <AppenderRef ref="FileAppender" level="WARN" />
+            <AppenderRef ref="ConsoleAppender" level="ALL"/>
         </Logger>
         <Root level="WARN">
             <AppenderRef ref="FileAppender" />
