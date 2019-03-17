@@ -23,7 +23,7 @@ A web based automatic ultrasound cancer diagnosis system
 
 > ## Setup production environment
 - install JAVA 8.0 +
-- install MATLAB runtime R2018b (9.5)  
+- install MATLAB runtime R2018b (9.5)     
 - install PostgreSQL  9.5.3 +
 
 > ## How to release to production and run
@@ -52,3 +52,14 @@ A web based automatic ultrasound cancer diagnosis system
 - start "tend-d-acd" service on windows service manager
 - wait 1 min and start http://localhost:8080/
 
+> ## MATLAB Runtime path settings  
+https://www.mathworks.com/help/compiler/mcr-path-settings-for-run-time-deployment.html
+- Windows
+``
+set PATH=C:\Program Files\MATLAB\MATLAB Runtime\v95\runtime\win64;%PATH
+``
+- Linux
+- Windows
+``
+export LD_LIBRARY_PATH=/opt/mcr/v95/runtime/glnxa64/:/opt/mcr/v95/bin/glnxa64/:/opt/mcr/v95/sys/os/glnxa64/:/opt/mcr/v95/sys/opengl/lib/glnxa64/
+``
