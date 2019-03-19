@@ -62,3 +62,15 @@ set PATH=C:\Program Files\MATLAB\MATLAB Runtime\v95\runtime\win64;%PATH
 ``
 export LD_LIBRARY_PATH=/opt/mcr/v95/runtime/glnxa64/:/opt/mcr/v95/bin/glnxa64/:/opt/mcr/v95/sys/os/glnxa64/:/opt/mcr/v95/sys/opengl/lib/glnxa64/
 ``
+
+> ## How to overwrite DB connection string via command line      
+``
+java -jar com.tend.acd.backend-0.0.6-SNAPSHOT.jar --postgreSQL.connection=jdbc:postgresql://127.0.0.1:5432/tend?user=<user>&password=<password>
+``
+
+> ## How to overwrite DB connection string via environment variables 
+``
+SET tend.postgreSQL.host=192.168.201.110
+SET tend.postgreSQL.port=5432
+java -jar com.tend.acd.backend-0.0.6-SNAPSHOT.jar --spring.profiles.active=env
+``
