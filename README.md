@@ -74,3 +74,12 @@ SET tend.postgreSQL.host=192.168.201.110
 SET tend.postgreSQL.port=5432
 java -jar com.tend.acd.backend-0.0.7-SNAPSHOT.jar --spring.profiles.active=env
 ``
+
+> ## How to run under docker environment
+- The tend docker image is private, contact me if you want to use it
+- copy all file under docker to your computer, under **tend** folder
+- install docker and docker-compose
+- make sure no app token 80 port, or update docker-compose.yml accordingly
+- go to **tend** folder
+- run "docker-compose up -d" to start app
+- run "docker-compose down" to stop app 
