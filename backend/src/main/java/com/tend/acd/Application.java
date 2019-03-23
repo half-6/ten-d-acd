@@ -44,6 +44,7 @@ public class Application {
         HashMap<String, String> initParameters = new HashMap<>();
         //initParameters.put("DBConnectionString","java:/comp/env/jdbc/PostgreSQLDB");
         initParameters.put("DBConnectionString", DBConnectionString);
+        Util.logger.trace("init DB connection =>" + DBConnectionString);
         srb.setInitParameters(initParameters);
         return srb;
     }
