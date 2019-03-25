@@ -9,8 +9,8 @@
             <p class="lead clearfix">{{$t('about.desc')}}</p>
             <hr class="my-4">
             <div class="row">
-              <div class="col">
-                <table class="table table-striped table-hover table-responsive-sm">
+              <div class="col table-responsive">
+                <table class="table table-striped table-hover">
                   <thead>
                     <tr>
                     <th scope="col">{{$t('about.table-cancer-type')}}</th>

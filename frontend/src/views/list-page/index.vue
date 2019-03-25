@@ -4,38 +4,36 @@
       <form class="row" v-on:submit.prevent="searchImage">
         <div class="col">
            <div class="search-bar row">
-             <div class="form-group col-md-2">
+             <div class="form-group col-lg-2 col-md col-sm">
                <select class="custom-select" v-model="search.machine_type_id">
                  <option selected value="">{{ $t('list.machine-type') }}</option>
                  <option v-for="item in machineTypeList" :value="item.machine_type_id">{{$t('master.machine-type-' + item.machine_type_id)}}</option>
                </select>
              </div>
-             <div class="form-group col-md-2">
+             <div class="form-group col-lg-2 col-md col-sm">
                <select class="custom-select" v-model="search.cancer_type_id">
                  <option selected value="">{{ $t('list.cancer-type') }}</option>
                  <option v-for="item in cancerTypeList" :value="item.cancer_type_id">{{$t('master.cancer-type-' + item.cancer_type_id)}}</option>
                </select>
              </div>
-             <div class="form-group col-md-2">
+             <div class="form-group col-lg-2 col-md col-sm">
                <select class="custom-select" v-model="search.pathology">
                  <option selected value="">{{ $t('list.pathology') }}</option>
                  <option selected value="null">{{ $t('master.pathology-null')}}</option>
                  <option v-for="item in pathologyList" :value="item.value">{{ $t('master.pathology-' + item.value)}}</option>
                </select>
              </div>
-             <div class="form-group col-md-2">
+             <div class="form-group col-lg-2 col-md col-sm">
                <select class="custom-select" v-model="search.prediction">
                  <option selected value="">{{ $t('list.prediction') }}</option>
                  <option v-for="item in predictionList" :value="item.value">{{ $t('master.pathology-' + item.value)}}</option>
                </select>
              </div>
-             <div class="form-group col-md-2">
+             <div class="form-group col-lg-2 col-md col-sm">
                <input type="text" class="form-control" v-model="search.id" :placeholder="$t('list.keyword-placeholder')">
              </div>
-             <div class="form-group col-md-1">
+             <div class="form-group col-lg-2">
                <loading-button v-on:click="searchImage" :value="$t('list.button-search')" :isLoading="isSearching" :loadingLabel="$t('list.button-searching')" />
-             </div>
-             <div class="form-group col-md-1">
                <loading-button v-on:click="download" :value="$t('list.button-download')" class="float-right"  />
              </div>
            </div>

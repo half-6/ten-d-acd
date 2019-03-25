@@ -48,30 +48,60 @@ body {
 }
 
 .header{
-  position: absolute;
-  top:0;
-  z-index: 100;
-  color: white;
 }
-.header .nav{
-  position: absolute;
-  top: 20px;
-  right: 0;
-}
-.header .nav a{
+
+.header .nav-item a{
   color: white !important;
 }
 
 .header h1{
   margin: .2rem 0;
+  position: absolute;
+  top:0;
+  width: 100%;
+  color: white;
+  z-index: 0;
 }
+.header .navbar-toggler{
+  z-index: 400;
+}
+.header .navbar-nav{
+  z-index: 400;
+}
+@media (max-width: 992px){
+  .header .language {
+    position: absolute;
+    top: 10px;
+    right: 0;
+  }
+}
+
+@media (max-width: 1290px)
+{
+  .header h1{
+    font-size: 22px;
+    line-height: 48px;
+  }
+}
+
 
 a.btn.disabled{
   color:white;
 }
 
 .header .el-dropdown{
-  color: white;
+  color: white !important;
   font-size: 16px;
   padding: .5rem 1rem;
+}
+
+.table-center{
+  display: table;
+  height: 100%;
+  text-align: center;
+  width: 100%;
+}
+.table-center>div{
+  display: table-cell;
+  vertical-align: middle;
 }

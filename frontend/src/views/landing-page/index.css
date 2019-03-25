@@ -104,12 +104,15 @@
   height: 100%;
   vertical-align: middle;
 }
-
-
-
-/*.landing-page .img-list-container .row>a:hover img{*/
-/*border:1px #007BFF solid;*/
-/*}*/
+.landing-page .table-center{
+  padding: 20px;
+}
+.cropper-bg{
+  background-image: none!important;
+}
+.cropper-modal {
+  background-color: #F5F6FA!important;
+}
 .cropImg{
   /*background: no-repeat center center;*/
   object-fit: contain;

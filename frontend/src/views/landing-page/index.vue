@@ -18,7 +18,7 @@
           </div>
           <div class="img-container">
               <div class="img-rounded rounded fill">
-                <div class="center text-center" v-if="imageList.length==0">{{ $t("home.roi-import-desc") }}</div>
+                <div class="table-center text-center" v-if="imageList.length==0"><div>{{ $t("home.roi-import-desc") }}</div></div>
                 <img v-show="selectedImage!=null" :src="selectedImage?selectedImage.src:''"  ref="selectedImg">
               </div>
            </div>
@@ -61,7 +61,7 @@
           </div>
           <div class="img-container">
             <img v-if="cropImg" class="img-rounded rounded fill cropImg"  :src="cropImg.src">
-            <div class="center text-center img-rounded rounded" v-else>{{ $t("home.roi-cut-desc") }}</div>
+            <div class="table-center text-center img-rounded rounded" v-else><div>{{ $t("home.roi-cut-desc") }}</div></div>
           </div>
           <div class="image-prediction container bottom">
             <div class="row">
@@ -75,10 +75,10 @@
                       <div class="p-title">{{$t('master.pathology-' + cropImg.prediction["Prediction"])}}</div>
                       <div>{{$t('home.result-Prediction')}}</div>
                     </div>
-                    <div class="prediction">
-                      <div class="p-title">{{cropImg.prediction["ProcessingTime"] | number-format('0.[0000]')  }}</div>
-                      <div>{{$t('home.result-ProcessingTime')}}</div>
-                    </div>
+                    <!--<div class="prediction">-->
+                      <!--<div class="p-title">{{cropImg.prediction["ProcessingTime"] | number-format('0.[0000]')  }}</div>-->
+                      <!--<div>{{$t('home.result-ProcessingTime')}}</div>-->
+                    <!--</div>-->
                     <div class="prediction">
                       <div class="p-title">{{cropImg.prediction["Probability"] | number-format('0.[00]%')  }}</div>
                       <div>{{$t('home.result-Probability')}}</div>
