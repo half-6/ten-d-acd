@@ -91,8 +91,11 @@ public class Util {
         return Paths.get(getAppStaticPath().toString(),"uploads").toString();
     }
     static Path getAppStaticPath(){
+        return Paths.get(getAppPath(),"static");
+    }
+    public static String getAppPath(){
         ApplicationHome home = new ApplicationHome(Application.class);
-        return Paths.get(home.getDir().getAbsolutePath(),"static");
+        return home.getDir().getAbsolutePath();
     }
 
     public static String stripExtension (String fileName){

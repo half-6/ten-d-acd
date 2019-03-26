@@ -8,7 +8,7 @@
     <parent>
         <groupId>com.tend</groupId>
         <artifactId>com.tend.acd</artifactId>
-        <version>0.0.7-SNAPSHOT</version>
+        <version>0.0.8-SNAPSHOT</version>
     </parent>
 
     <properties>
@@ -43,16 +43,6 @@
         <!--********************************************************************-->
         <!--Image																																-->
         <!--********************************************************************-->
-        <dependency>
-            <groupId>com.tend</groupId>
-            <artifactId>com.tend.recognition</artifactId>
-            <version>1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.tend</groupId>
-            <artifactId>com.tend.test</artifactId>
-            <version>1.0</version>
-        </dependency>
         <dependency>
             <groupId>com.matlab</groupId>
             <artifactId>javabuilder</artifactId>
@@ -123,21 +113,6 @@
                 <version>2.5.1</version>
                 <executions>
                     <execution>
-                        <id>install-makesqr</id>
-                        <goals>
-                            <goal>install-file</goal>
-                        </goals>
-                        <phase>validate</phase>
-                        <configuration>
-                            <groupId>com.tend</groupId>
-                            <artifactId>com.tend.test</artifactId>
-                            <version>1.0</version>
-                            <packaging>jar</packaging>
-                            <file>${basedir}/lib/matlab-test.jar</file>
-                            <generatePom>true</generatePom>
-                        </configuration>
-                    </execution>
-                    <execution>
                         <id>install-javabuilder</id>
                         <goals>
                             <goal>install-file</goal>
@@ -149,21 +124,6 @@
                             <version>R2015b</version>
                             <packaging>jar</packaging>
                             <file>${basedir}/lib/javabuilder.jar</file>
-                            <generatePom>true</generatePom>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>install-recognition</id>
-                        <goals>
-                            <goal>install-file</goal>
-                        </goals>
-                        <phase>validate</phase>
-                        <configuration>
-                            <groupId>com.tend</groupId>
-                            <artifactId>com.tend.recognition</artifactId>
-                            <version>1.0</version>
-                            <packaging>jar</packaging>
-                            <file>${basedir}/lib/Image_Recognition.jar</file>
                             <generatePom>true</generatePom>
                         </configuration>
                     </execution>

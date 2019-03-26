@@ -1,1 +1,3 @@
-"C:\Program Files\Java\jdk1.8.0_51\bin\java.exe" -jar backend\target\com.tend.acd.backend-0.0.7-SNAPSHOT.jar --spring.profiles.active=demo
+SET image.recognition.path=D:\codes\qyotech\ten-d-acd\backend\lib\Image_Recognition.jar
+java -jar backend\target\com.tend.acd.backend-0.0.8-SNAPSHOT.jar  --spring.profiles.active=demo
+

@@ -1,1 +1,2 @@
-java -jar backend\target\com.tend.acd.backend-0.0.7-SNAPSHOT.jar
+SET image.recognition.path=D:\codes\qyotech\ten-d-acd\backend\lib\Image_Recognition.jar
+java -jar backend\target\com.tend.acd.backend-0.0.8-SNAPSHOT.jar

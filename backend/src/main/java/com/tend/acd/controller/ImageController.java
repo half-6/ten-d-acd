@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 
 /**
  * Created by Cyokin
@@ -32,7 +33,7 @@ public class ImageController {
             @RequestParam(value = "image") String image,
             @RequestParam(value = "cancerType") String cancerType
     )
-        throws IOException, MWException {
+            throws IOException, MWException, InvocationTargetException, IllegalAccessException {
         return new ResponseBaseEntity<>(imageRecognitionService.recognize(image,cancerType));
     }
 

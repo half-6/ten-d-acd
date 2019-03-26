@@ -6,6 +6,8 @@ import com.tend.acd.model.response.ResponseImageRecognitionEntity;
 import com.tend.acd.repository.ImageRecognitionRepository;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +21,7 @@ public class ImageRecognitionService {
   ImageRecognitionRepository imageRecognitionRepository;
 
   public ResponseImageRecognitionEntity recognize(String base64Image,String cancerType)
-      throws IOException, MWException {
+          throws IOException, MWException, InvocationTargetException, IllegalAccessException {
     base64Image = Util.getBase64FromImage(base64Image);
     ResponseImageRecognitionEntity output =  imageRecognitionRepository.recognition(base64Image,cancerType);
     return output;

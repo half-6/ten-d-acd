@@ -8,6 +8,7 @@ import com.tend.acd.model.response.ResponseImageRecognitionEntity;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.concurrent.ThreadLocalRandom;
@@ -25,20 +26,13 @@ public class ImageRecognitionRepositoryTest extends ApplicationTests {
   ImageRecognitionRepository imageRecognitionRepository;
 
   @Test
-  public void recognition() throws IOException, MWException {
+  public void recognition() throws IOException, MWException, InvocationTargetException, IllegalAccessException {
     String base64String = Util.getBase64String("B39.jpg");
     ResponseImageRecognitionEntity test = imageRecognitionRepository.recognition(base64String,"TH");
     Util.logger.trace("recognizing " + Utility.toJson(test));
   }
-//  @Test
-//  public void testJar() throws MWException, IOException {
-//    String base64String = Util.getBase64String("/M180.jpg");
-//    Util.saveBase64Image(base64String);
-//    String filePath = testImage.getAbsolutePath();
-//    imageRecognitionRepository.testJar(base64String,filePath);
-//  }
   @Test
-  public void testJarPerformance() throws IOException, MWException {
+  public void testJarPerformance() throws IOException, MWException, InvocationTargetException, IllegalAccessException {
     System.out.println("start time");
     Integer i = 5;
     long total = 0;
