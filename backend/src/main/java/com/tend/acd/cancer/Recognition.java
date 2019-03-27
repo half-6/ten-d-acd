@@ -19,6 +19,7 @@ public class Recognition {
     private static String imageRecognitionPath = System.getenv("image.recognition.path");
     private Object recognitionInstance;
     private Method recognitionMethod;
+    public String recognitionVersion;
 
     public Recognition() throws ClassNotFoundException, IllegalAccessException, InstantiationException, IOException, NoSuchMethodException, InvocationTargetException {
         Path filePath = imageRecognitionPath!=null?Paths.get(imageRecognitionPath):Paths.get(Util.getAppPath(),"lib","Image_Recognition.jar");
@@ -38,7 +39,8 @@ public class Recognition {
         recognitionInstance = imageService.newInstance();
         recognitionMethod =  imageService.getDeclaredMethod("Cancer_Img_Recognition",int.class,Object[].class);
         Object[] result = (Object[])recognitionMethod.invoke(recognitionInstance,1, new Object[]{"","0", "BR"});
-        Util.logger.trace("image service warming up success =>" + result[0].toString());
+        recognitionVersion = result[0].toString();
+        Util.logger.trace("image service warming up success =>" + recognitionVersion);
         String base64String = Util.getBase64String("init.jpg");
         recognition(base64String,"BR");
         Util.logger.trace("image service first call success");

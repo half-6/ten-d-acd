@@ -1,6 +1,5 @@
 package com.tend.acd;
 
-import com.mathworks.toolbox.javabuilder.MWException;
 import com.tend.acd.cancer.Recognition;
 import com.tend.acd.model.response.ConfigEntity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +51,9 @@ public class Application {
 
     @Bean("imageService")
     @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
-    public Recognition getImageService() throws MWException, IOException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-        return new Recognition();
+    public Recognition getImageService() throws IOException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+        Recognition recognition = new Recognition();
+        configEntity.recognitionVersion = recognition.recognitionVersion;
+        return recognition;
     }
 }
