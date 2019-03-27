@@ -24,7 +24,7 @@
            </div>
           <div class="container bottom">
             <div class="row">
-              <div class="col">
+              <div class="col btn-toolbar">
                 <ul class="nav nav-pills float-md-left">
                   <li class="nav-item">
                     <label class="btn btn-primary btn-file">

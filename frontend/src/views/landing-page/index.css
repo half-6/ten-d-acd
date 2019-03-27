@@ -37,6 +37,21 @@
     border-left:1px solid #EDEEF0;
   }
 }
+@media (max-width: 890px) {
+  .landing-page .p-title{
+    font-size: 1.2em !important;
+  }
+}
+@media (max-width: 800px) {
+  .landing-page .prediction{
+    font-size: 12px !important;
+  }
+}
+@media (max-width: 500px) {
+  .landing-page .prediction{
+    font-size: 12px !important;
+  }
+}
 
 .landing-page .img-rounded{
   background-color: #F5F6FA;

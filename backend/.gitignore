@@ -27,3 +27,4 @@
 /src/main/resources/public/
 /logs/
 /lib/Image_Recognition.jar
+/lib/Image_Recognition*.jar
