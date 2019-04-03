@@ -1,0 +1,1 @@
+java -jar target\com.tend.acd.exporter-0.0.8-SNAPSHOT.jar "--postgreSQL.connection=jdbc:postgresql://192.168.201.110:5432/tend?user=postgres&password=qazwsx123" --image.path=D:\\codes\\qyotech\\ten-d-acd\\backend\\target\\classes\\static\\uploads
