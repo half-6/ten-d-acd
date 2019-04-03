@@ -4,17 +4,18 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>com.tend.acd.exporter</artifactId>
     <packaging>jar</packaging>
-    <parent>
-        <groupId>com.tend</groupId>
-        <artifactId>com.tend.acd</artifactId>
-        <version>0.0.8-SNAPSHOT</version>
-    </parent>
+    <version>0.0.1-SNAPSHOT</version>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
     </properties>
-
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.1.1.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
     <dependencies>
         <!--********************************************************************-->
         <!--Spring Boot Start																										-->

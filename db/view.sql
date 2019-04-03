@@ -1,9 +1,18 @@
 DROP VIEW IF EXISTS public.v_roi_image cascade;
-CREATE VIEW v_roi_image AS  SELECT record_external_id, roi_image.*,cancer_type_name,machine_type_name,record.cancer_type_id,record.machine_type_id
+CREATE VIEW v_roi_image AS SELECT
+    record_external_id,
+    roi_image.*,
+    record.cancer_type_id,
+    cancer_type_name,
+    record.machine_type_id,
+    machine_type_name,
+    record.hospital_id,
+    hospital.hospital_name
 from roi_image
 left join record using(record_id)
 left join cancer_type using (cancer_type_id)
 left join machine_type using (machine_type_id)
+left join hospital using (hospital_id)
 where roi_image.status = 'active';
 
 
@@ -28,5 +37,9 @@ where status = 'active';
 
 DROP VIEW IF EXISTS public.v_machine_type cascade;
 CREATE VIEW v_machine_type AS  SELECT * from machine_type
+where status = 'active';
+
+DROP VIEW IF EXISTS public.v_hospital cascade;
+CREATE VIEW v_hospital AS  SELECT * from hospital
 where status = 'active';
 
