@@ -1,6 +1,6 @@
 export default {
     "master": {
-        "title": "Automatic Cancer Recognition System",
+        "title": "Ultrasound Image Tumor Detection System",
         "menu-home": "Home",
         "menu-list-view": "List View",
         "menu-about": "About",
