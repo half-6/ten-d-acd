@@ -12,3 +12,4 @@ values ('Philips','飞利浦'),
        ('Toshiba','东芝'),
        ('GE','通用电气'),
        ('eSaote','百胜');
+INSERT INTO public.hospital(hospital_name,hospital_chinese_name) values ('Renji Hospital','仁济医院');

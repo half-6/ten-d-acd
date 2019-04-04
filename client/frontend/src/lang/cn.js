@@ -1,6 +1,6 @@
 export default {
     "master": {
-        "title": "超生影像肿瘤辅助检测系统",
+        "title": "超声影像肿瘤辅助检测系统",
         "menu-home": "首页",
         "menu-list-view": "记录列表",
         "menu-about": "关于我们",

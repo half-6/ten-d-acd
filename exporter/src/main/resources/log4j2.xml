@@ -9,8 +9,8 @@
         <Console name="ConsoleAppender" target="SYSTEM_OUT" follow="true">
             <PatternLayout pattern="${LOG_PATTERN}"/>
         </Console>
-        <RollingFile name="FileAppender" fileName="logs/tend.log"
-                     filePattern="logs/tend-%d{yyyy-MM-dd}-%i.log">
+        <RollingFile name="FileAppender" fileName="logs/tend-exporter.log"
+                     filePattern="logs/tend-exporter-%d{yyyy-MM-dd}-%i.log">
             <PatternLayout>
                 <Pattern>${LOG_PATTERN}</Pattern>
             </PatternLayout>

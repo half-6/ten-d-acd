@@ -1,7 +1,7 @@
 -- CREATE DATABASE tend;
 CREATE SCHEMA IF NOT EXISTS public;
 CREATE EXTENSION IF NOT EXISTS "pgcrypto";
--- CREATE EXTENSION IF NOT EXISTS "chkpass";
+
 
 DROP TYPE IF EXISTS tp_pathology_status cascade;
 CREATE TYPE tp_pathology_status AS ENUM('Malignant', 'Benign');

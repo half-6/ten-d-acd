@@ -39,8 +39,9 @@ DROP TABLE IF EXISTS public.record cascade;
 CREATE TABLE public.record(
   record_id  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   record_external_id VARCHAR(200) NOT NULL,
-  cancer_type_id INT NOT NULL,
-  machine_type_id INT NOT NULL,
+  hospital_id UUID references hospital NOT NULL,
+  cancer_type_id INT references cancer_type NOT NULL,
+  machine_type_id INT references machine_type NOT NULL,
   date_registered TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
   date_updated TIMESTAMP WITH TIME ZONE
 ) WITH (
@@ -66,6 +67,30 @@ CREATE TABLE public.roi_image(
     OIDS = FALSE
 );
 
+DROP TABLE IF EXISTS public.hospital cascade;
+CREATE TABLE public.hospital(
+  hospital_id  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  hospital_name VARCHAR(200) NOT NULL,
+  hospital_chinese_name VARCHAR(200) NOT NULL,
+  hospital_address VARCHAR(400),
+  status tp_status default 'active',
+  date_registered TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  date_updated TIMESTAMP WITH TIME ZONE
+) WITH (
+    OIDS = FALSE
+);
+
+DROP TABLE IF EXISTS public.jobs cascade;
+CREATE TABLE public.jobs(
+  jobs_id  SERIAL PRIMARY KEY,
+  logs VARCHAR(500),
+  complete bool default false,
+  date_registered TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  date_updated TIMESTAMP WITH TIME ZONE
+) WITH (
+    OIDS = FALSE
+  );
+
 TRUNCATE public.cancer_type, public.machine_type RESTART IDENTITY;
 insert into public.cancer_type(cancer_type_name,cancer_type_short_name,cancer_type_chinese_name,status)
 values ('Thyroid nodules','TH','甲状腺癌','active'),
@@ -80,13 +105,26 @@ values ('Philips','飞利浦'),
        ('Toshiba','东芝'),
        ('GE','通用电气'),
        ('eSaote','百胜');
-       
+
+INSERT INTO public.hospital(hospital_name,hospital_chinese_name) values ('Renji Hospital','仁济医院');
+
+
+
 DROP VIEW IF EXISTS public.v_roi_image cascade;
-CREATE VIEW v_roi_image AS  SELECT record_external_id, roi_image.*,cancer_type_name,machine_type_name,record.cancer_type_id,record.machine_type_id
+CREATE VIEW v_roi_image AS SELECT
+    record_external_id,
+    roi_image.*,
+    record.cancer_type_id,
+    cancer_type_name,
+    record.machine_type_id,
+    machine_type_name,
+    record.hospital_id,
+    hospital.hospital_name
 from roi_image
 left join record using(record_id)
 left join cancer_type using (cancer_type_id)
 left join machine_type using (machine_type_id)
+left join hospital using (hospital_id)
 where roi_image.status = 'active';
 
 
@@ -111,6 +149,10 @@ where status = 'active';
 
 DROP VIEW IF EXISTS public.v_machine_type cascade;
 CREATE VIEW v_machine_type AS  SELECT * from machine_type
+where status = 'active';
+
+DROP VIEW IF EXISTS public.v_hospital cascade;
+CREATE VIEW v_hospital AS  SELECT * from hospital
 where status = 'active';
 
 
