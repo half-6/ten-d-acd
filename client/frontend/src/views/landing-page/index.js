@@ -18,6 +18,7 @@ export default {
         cancer_type:"",
         machine_type_id:"",
         roi_image:[],
+        hospital_id:null,
         original_image:[]
       },
       cancerTypeList:[],
@@ -174,6 +175,7 @@ export default {
       this.pathologyList = this.$pathology;
       this.cancerTypeList = this.$cancerType;
       this.machineTypeList = this.$machineType;
+      this.record.hospital_id = this.$hospital[0].hospital_id;
       if(this.cropper) this.cropper.destroy();
       this.cropper = new Cropper(this.$refs.selectedImg,{autoCrop:false});
     },

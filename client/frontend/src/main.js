@@ -30,6 +30,7 @@ Vue.config.productionTip = false;
 async function init(){
   Vue.prototype.$machineType = (await api.getMachineType()).data
   Vue.prototype.$cancerType = (await api.getCancerType()).data
+  Vue.prototype.$hospital = (await api.getHospital({$limit:1})).data
   i18n.loadLanguageAsync();
   new Vue({
     router,

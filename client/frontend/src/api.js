@@ -41,6 +41,13 @@ async function updateROIImage(data) {
         data,
     })
 }
+async function getHospital(params) {
+    return await request({
+        url: '/api/db/hospital',
+        method: 'get',
+        params,
+    })
+}
 async function detectImage(data) {
     return await request({
         url: '/api/image/recognition',
@@ -54,6 +61,7 @@ async function detectImage(data) {
 }
 export default {
     getCancerType,
+    getHospital,
     getMachineType,
     getAggTable,
     saveImage,
