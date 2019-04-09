@@ -42,6 +42,7 @@ public class RecordService {
 
     Util.logger.warn("image path {}", FromImagePath);
     writeToFile(outputFilePath,"hospital","hospital_pkey");
+    writeToFile(outputFilePath,"roi_history","roi_hospital_pkey");
     writeToFile(outputFilePath,"record","record_pkey");
     writeToFile(outputFilePath,"roi_image","roi_image_pkey");
   }
