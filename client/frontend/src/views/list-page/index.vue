@@ -62,7 +62,7 @@
                 <td><a :href="getImageUrl(item.original_image)" target="_blank"><img class="img-thumbnail" :src="getImageUrl(item.original_image)"/></a></td>
                 <td><a :href="getImageUrl(item.roi_image)" target="_blank"><img class="img-thumbnail" :src="getImageUrl(item.roi_image)"/></a></td>
                 <td>{{$t('master.cancer-type-' + item.cancer_type_id)}} </td>
-                <td>{{$t('master.machine-type-' + item.cancer_type_id)}}</td>
+                <td>{{$t('master.machine-type-' + item.machine_type_id)}}</td>
                 <td v-if="!item.$edit">{{item.pathology?$t('master.pathology-' + item.pathology):''}}</td>
                 <td v-else>
                   <el-radio-group v-model="item.pathology">
