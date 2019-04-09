@@ -22,7 +22,7 @@ public class ImageRecognitionRepository {
     @Resource(name = "imageService")
     Recognition imageService;
 
-    public ResponseImageRecognitionEntity recognition(String base64ImageString,String cancerType) throws MWException, IOException, InvocationTargetException, IllegalAccessException {
+    public ResponseImageRecognitionEntity recognition(String base64ImageString,String cancerType) throws IOException, InvocationTargetException, IllegalAccessException {
         return imageService.recognition(base64ImageString,cancerType);
     }
 }

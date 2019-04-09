@@ -15,6 +15,14 @@ left join machine_type using (machine_type_id)
 left join hospital using (hospital_id)
 where roi_image.status = 'active';
 
+DROP VIEW IF EXISTS public.v_roi_history cascade;
+CREATE VIEW v_roi_history AS SELECT
+     roi_history.*,
+     cancer_type_name,
+     hospital.hospital_name
+ from roi_history
+          left join cancer_type using (cancer_type_id)
+          left join hospital using (hospital_id);
 
 DROP VIEW IF EXISTS public.v_agg_cancer_type cascade;
 CREATE VIEW v_agg_cancer_type AS

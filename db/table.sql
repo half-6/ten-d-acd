@@ -91,3 +91,22 @@ CREATE TABLE public.jobs(
     OIDS = FALSE
   );
 
+
+DROP TABLE IF EXISTS public.roi_history cascade;
+CREATE TABLE public.roi_history(
+   roi_history_id  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+
+   original_image UUID NOT NULL,
+   roi_image UUID NOT NULL,
+   hospital_id UUID references hospital NOT NULL,
+   cancer_type_id INT references cancer_type NOT NULL,
+
+   prediction VARCHAR(50),
+   probability decimal,
+   processing_time decimal,
+
+   date_registered TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+   date_updated TIMESTAMP WITH TIME ZONE
+) WITH (
+    OIDS = FALSE
+  );

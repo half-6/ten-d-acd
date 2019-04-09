@@ -52,11 +52,7 @@ async function detectImage(data) {
     return await request({
         url: '/api/image/recognition',
         method: 'post',
-        data,
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        }
-
+        data
 })
 }
 export default {

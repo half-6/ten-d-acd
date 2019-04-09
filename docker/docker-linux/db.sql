@@ -1,7 +1,9 @@
 CREATE DATABASE tend;
 \c tend
+-- CREATE DATABASE tend;
 CREATE SCHEMA IF NOT EXISTS public;
 CREATE EXTENSION IF NOT EXISTS "pgcrypto";
+
 
 DROP TYPE IF EXISTS tp_pathology_status cascade;
 CREATE TYPE tp_pathology_status AS ENUM('Malignant', 'Benign');
@@ -91,6 +93,27 @@ CREATE TABLE public.jobs(
     OIDS = FALSE
   );
 
+
+DROP TABLE IF EXISTS public.roi_history cascade;
+CREATE TABLE public.roi_history(
+   roi_history_id  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+
+   original_image UUID NOT NULL,
+   roi_image UUID NOT NULL,
+   hospital_id UUID references hospital NOT NULL,
+   cancer_type_id INT references cancer_type NOT NULL,
+
+   prediction VARCHAR(50),
+   probability decimal,
+   processing_time decimal,
+
+   date_registered TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+   date_updated TIMESTAMP WITH TIME ZONE
+) WITH (
+    OIDS = FALSE
+  );
+
+
 TRUNCATE public.cancer_type, public.machine_type RESTART IDENTITY;
 insert into public.cancer_type(cancer_type_name,cancer_type_short_name,cancer_type_chinese_name,status)
 values ('Thyroid nodules','TH','甲状腺癌','active'),
@@ -107,7 +130,6 @@ values ('Philips','飞利浦'),
        ('eSaote','百胜');
 
 INSERT INTO public.hospital(hospital_name,hospital_chinese_name) values ('Renji Hospital','仁济医院');
-
 
 
 DROP VIEW IF EXISTS public.v_roi_image cascade;
@@ -127,6 +149,14 @@ left join machine_type using (machine_type_id)
 left join hospital using (hospital_id)
 where roi_image.status = 'active';
 
+DROP VIEW IF EXISTS public.v_roi_history cascade;
+CREATE VIEW v_roi_history AS SELECT
+     roi_history.*,
+     cancer_type_name,
+     hospital.hospital_name
+ from roi_history
+          left join cancer_type using (cancer_type_id)
+          left join hospital using (hospital_id);
 
 DROP VIEW IF EXISTS public.v_agg_cancer_type cascade;
 CREATE VIEW v_agg_cancer_type AS
@@ -154,5 +184,7 @@ where status = 'active';
 DROP VIEW IF EXISTS public.v_hospital cascade;
 CREATE VIEW v_hospital AS  SELECT * from hospital
 where status = 'active';
+
+
 
 

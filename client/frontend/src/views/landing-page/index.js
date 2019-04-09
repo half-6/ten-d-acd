@@ -111,7 +111,14 @@ export default {
     async detect(img){
       this.isDetecting = true;
       img.loading = true;
-      img.prediction =  await api.detectImage({image:img.src,cancerType:this.record.cancer_type.cancer_type_short_name},{emulateJSON:true,timeout:0});
+      img.prediction =  await api.detectImage(
+          {
+            roi_image_src:img.src,
+            original_image_src:this.selectedImage.src,
+            hospital_id:this.$hospital[0].hospital_id,
+            cancer_type_id:this.record.cancer_type.cancer_type_id,
+            cancer_type:this.record.cancer_type.cancer_type_short_name
+          });
       img.loading = false;
       this.isDetecting = false;
       console.log("detected " + img.roi_image_id + ">" + JSON.stringify(img.prediction));

@@ -29,12 +29,9 @@ public class ImageController {
     RecordService recordService;
 
     @PostMapping(value="/recognition")
-    public ResponseBaseEntity<ResponseImageRecognitionEntity> create(
-            @RequestParam(value = "image") String image,
-            @RequestParam(value = "cancerType") String cancerType
-    )
-            throws IOException, MWException, InvocationTargetException, IllegalAccessException {
-        return new ResponseBaseEntity<>(imageRecognitionService.recognize(image,cancerType));
+    public ResponseBaseEntity<ResponseImageRecognitionEntity> create(@RequestBody String input)
+            throws Exception {
+        return new ResponseBaseEntity<>(imageRecognitionService.recognize(new JSONObject(input)));
     }
 
     @PostMapping(value = "/save")

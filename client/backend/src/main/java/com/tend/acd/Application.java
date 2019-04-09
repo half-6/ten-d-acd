@@ -15,6 +15,7 @@ import org.springframework.context.annotation.Scope;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Properties;
 
@@ -40,7 +41,7 @@ public class Application {
     ServletRegistrationBean getServletRegistration() {
         ServletRegistrationBean srb = new ServletRegistrationBean();
         srb.setServlet(new LinkFuture.DB.Servlet.GenericDBServlet());
-        srb.setUrlMappings(Arrays.asList("/api/db/*"));
+        srb.setUrlMappings(Collections.singletonList("/api/db/*"));
         HashMap<String, String> initParameters = new HashMap<>();
         //initParameters.put("DBConnectionString","java:/comp/env/jdbc/PostgreSQLDB");
         initParameters.put("DBConnectionString", DBConnectionString);
