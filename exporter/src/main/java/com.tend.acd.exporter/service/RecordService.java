@@ -2,6 +2,7 @@ package com.tend.acd.exporter.service;
 
 import LinkFuture.DB.DBHelper.GenericDBHelper;
 import com.tend.acd.exporter.Util;
+import org.apache.commons.io.FileUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,7 +13,6 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -22,51 +22,80 @@ import java.util.List;
  */
 @Service
 public class RecordService {
+
   @Resource(name = "dbHelper")
   GenericDBHelper dbHelper;
 
-  @Value("${image.path}")
-  String FromImagePath;
+  @Value("${app.image.dir}")
+  String AppImageDir;
 
 
-  @Value("${image.path}")
-  String ImportFile;
+  @Value("${backup.dir}")
+  String BackupDir;
 
-  public void export() throws Exception {
-    Path outputFilePath = getOutputFilePath();
-    if(!Files.exists(outputFilePath))
-    {
-      Files.createFile(outputFilePath);
-    }
-    Util.logger.warn("********** export to {} **********", outputFilePath);
-
-    Util.logger.warn("image path {}", FromImagePath);
-    writeToFile(outputFilePath,"hospital","hospital_pkey");
-    writeToFile(outputFilePath,"roi_history","roi_hospital_pkey");
-    writeToFile(outputFilePath,"record","record_pkey");
-    writeToFile(outputFilePath,"roi_image","roi_image_pkey");
-  }
+  // import
   public void load() throws Exception{
-    Path outputFilePath = Paths.get(ImportFile);
-    if(!Files.exists(outputFilePath)){
-      throw new IllegalArgumentException("Specific import file is not exists, " + ImportFile);
+    Path exportDir = Paths.get(BackupDir);
+    if(!Files.exists(exportDir)){
+      throw new IllegalArgumentException("Specific import directory is not exists, " + exportDir);
     }
+    File fromImageDir = new File(AppImageDir);
+    if(!fromImageDir.exists())
+    {
+      Util.logger.error("target image dir not exists ", AppImageDir);
+    }
+    Util.logger.warn("********** import from {}  **********", exportDir);
+    //generate sql
+    Path outputFilePath = Paths.get(exportDir.toString(),"tend.sql");
+    Util.logger.trace("import data =>{}", outputFilePath);
     try(BufferedReader reader = new BufferedReader(new FileReader(outputFilePath.toFile()))){
       String line =reader.readLine();
       while (line!=null)
       {
-         if(!line.isEmpty())
-         {
-           List<Object> output =  dbHelper.insert(line);
-           Util.logger.trace("reading ... " + output);
-         }
-         line = reader.readLine();
-
+        if(!line.isEmpty())
+        {
+          List<Object> output =  dbHelper.insert(line);
+          Util.logger.trace("imported id:{} ", output);
+        }
+        line = reader.readLine();
       }
     }
+    //copy images
+    File toImageDir = Paths.get(exportDir.toString(),"static","uploads").toFile();
+    Util.logger.trace("import images {}=>{}", toImageDir,fromImageDir);
+    FileUtils.copyDirectory(toImageDir,fromImageDir);
+    Util.logger.warn("********** import success  **********");
   }
+
+  //export
+  public void export() throws Exception {
+    Path exportDir = getExportDir();
+    if(!Files.exists(exportDir))
+    {
+      Files.createDirectories(exportDir);
+    }
+    File fromImageDir = new File(AppImageDir);
+    if(!fromImageDir.exists())
+    {
+      Util.logger.error("target image dir not exists ", AppImageDir);
+    }
+    Util.logger.warn("********** export to {} **********", exportDir);
+    //generate sql
+    Path outputFilePath = Paths.get(exportDir.toString(),"tend.sql");
+    Util.logger.trace("export data =>{}", outputFilePath);
+    writeToFile(outputFilePath,"hospital","hospital_pkey");
+    writeToFile(outputFilePath,"roi_history","roi_history_pkey");
+    writeToFile(outputFilePath,"record","record_pkey");
+    writeToFile(outputFilePath,"roi_image","roi_image_pkey");
+    //copy images
+    File toImageDir = Paths.get(exportDir.toString(),"static","uploads").toFile();
+    Util.logger.trace("export images {}=>{}", fromImageDir,toImageDir);
+    FileUtils.copyDirectory(fromImageDir,toImageDir);
+    Util.logger.warn("********** export success  **********");
+  }
+
   private void writeToFile(Path filePath,String tableName,String conflictKey) throws Exception {
-    Util.logger.warn("********** exporting {} table **********", tableName);
+    Util.logger.warn("exporting {} table", tableName);
     int limit = 10;
     int offset = 0;
     boolean hasValue = true;
@@ -86,16 +115,10 @@ public class RecordService {
         for(int i=0;i<oriImage.length();i++)
         {
           JSONObject item = oriImage.getJSONObject(i);
-          String sql = dbHelper.getUpsertTSQL(tableName,item,conflictKey);
+          String sql = dbHelper.getUpsertTSQL(tableName,item,conflictKey,false);
           out.write(sql);
           out.write(";");
           out.newLine();
-          if(tableName == "roi_image"){
-            String roiImageName = item.getString("roi_image") + ".png";
-            String originalImageName = item.getString("original_image") + ".png";
-            copyImage(roiImageName);
-            copyImage(originalImageName);
-          }
         }
       }
       else
@@ -106,36 +129,10 @@ public class RecordService {
     }
     out.close();
   }
-  private void copyImage(String imageName) throws IOException {
-    Path fromImagePath = getFromImagePath(imageName);
-    if(Files.exists(fromImagePath))
-    {
-      Path toImagePath = getOutputImagePath(imageName);
-      Files.copy(fromImagePath,toImagePath, StandardCopyOption.REPLACE_EXISTING);
-      Util.logger.trace("save {} image success",toImagePath);
-    }
-    else
-    {
-      Util.logger.warn("missing {} image, skip",fromImagePath);
-    }
-  }
 
-  private Path getOutputFilePath(){
+  private Path getExportDir(){
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMddHHmm");
     String date = simpleDateFormat.format(new Date());
-    return Paths.get(Util.getAppPath(),date +".sql");
+    return Paths.get(Util.getAppPath(),date);
   }
-  private Path getFromImagePath(String imageName){
-    return Paths.get(FromImagePath,imageName);
-  }
-  private Path getOutputImagePath(String imageName) throws IOException {
-    Path filePath = Paths.get(Util.getAppPath(),"static","uploads",imageName);
-    if(!Files.exists(filePath))
-    {
-      Util.logger.trace("create directories {}",filePath);
-      Files.createDirectories(filePath);
-    }
-    return filePath;
-  }
-
 }

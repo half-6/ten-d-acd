@@ -19,20 +19,17 @@ import java.sql.SQLException;
 @SpringBootApplication
 public class Application implements CommandLineRunner {
 
-    @Autowired
-    RecordService recordService;
-
-    @Resource(name = "dbHelper")
-    GenericDBHelper dbHelper;
-
     @Value("${postgreSQL.connection}")
     String DBConnectionString;
 
+    @Autowired
+    RecordService recordService;
+
     public static void main(String[] args) {
-        SpringApplication app = new SpringApplication(Application.class);
-        app.run(args);
+        SpringApplication.run(Application.class, args);
         Util.logger.trace("Job Completed");
     }
+
     @Bean("dbHelper")
     @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
     public GenericDBHelper getDBHelper() throws ClassNotFoundException, SQLException, NamingException, IOException {
@@ -41,22 +38,23 @@ public class Application implements CommandLineRunner {
     }
     @Override
     public void run(String... args) {
+        Util.logger.trace("Job Start");
         try {
             String version = getClass().getPackage().getImplementationVersion();
             Util.logger.error("Running with app version {}", version);
-            if(args[0]=="import")
+            if(args[0].equalsIgnoreCase("import"))
             {
                 recordService.load();
             }
-            else
+            if(args[0].equalsIgnoreCase("export"))
             {
                 recordService.export();
             }
         } catch (Exception e) {
-            Util.logger.error("Job failed ", e);
+            Util.logger.error("Job failed", e);
         }
         finally {
-            dbHelper.close();
+            //getDBHelper().close();
         }
 //        Scanner scanner = new Scanner(System.in);
 //        Util.logger.trace("Please enter database host address, default is 127.0.0.1");
