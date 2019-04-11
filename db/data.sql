@@ -1,3 +1,6 @@
+/*****************************
+INJECT DATE
+*****************************/
 TRUNCATE public.cancer_type, public.machine_type RESTART IDENTITY;
 insert into public.cancer_type(cancer_type_name,cancer_type_short_name,cancer_type_chinese_name,status)
 values ('Thyroid nodules','TH','甲状腺癌','active'),

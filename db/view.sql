@@ -1,3 +1,6 @@
+/*****************************
+CREATE VIEW
+*****************************/
 DROP VIEW IF EXISTS public.v_roi_image cascade;
 CREATE VIEW v_roi_image AS SELECT
     record_external_id,

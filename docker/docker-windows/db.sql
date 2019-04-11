@@ -1,6 +1,8 @@
 CREATE DATABASE tend;
 \c tend
--- CREATE DATABASE tend;
+/*****************************
+CREATE TABLE
+*****************************/
 CREATE SCHEMA IF NOT EXISTS public;
 CREATE EXTENSION IF NOT EXISTS "pgcrypto";
 
@@ -36,6 +38,18 @@ CREATE TABLE public.machine_type(
     OIDS = FALSE
 );
 
+DROP TABLE IF EXISTS public.hospital cascade;
+CREATE TABLE public.hospital(
+                              hospital_id  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+                              hospital_name VARCHAR(200) NOT NULL,
+                              hospital_chinese_name VARCHAR(200) NOT NULL,
+                              hospital_address VARCHAR(400),
+                              status tp_status default 'active',
+                              date_registered TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                              date_updated TIMESTAMP WITH TIME ZONE
+) WITH (
+    OIDS = FALSE
+  );
 
 DROP TABLE IF EXISTS public.record cascade;
 CREATE TABLE public.record(
@@ -69,19 +83,6 @@ CREATE TABLE public.roi_image(
     OIDS = FALSE
 );
 
-DROP TABLE IF EXISTS public.hospital cascade;
-CREATE TABLE public.hospital(
-  hospital_id  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  hospital_name VARCHAR(200) NOT NULL,
-  hospital_chinese_name VARCHAR(200) NOT NULL,
-  hospital_address VARCHAR(400),
-  status tp_status default 'active',
-  date_registered TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  date_updated TIMESTAMP WITH TIME ZONE
-) WITH (
-    OIDS = FALSE
-);
-
 DROP TABLE IF EXISTS public.jobs cascade;
 CREATE TABLE public.jobs(
   jobs_id  SERIAL PRIMARY KEY,
@@ -92,7 +93,6 @@ CREATE TABLE public.jobs(
 ) WITH (
     OIDS = FALSE
   );
-
 
 DROP TABLE IF EXISTS public.roi_history cascade;
 CREATE TABLE public.roi_history(
@@ -113,7 +113,9 @@ CREATE TABLE public.roi_history(
     OIDS = FALSE
   );
 
-
+/*****************************
+INJECT DATE
+*****************************/
 TRUNCATE public.cancer_type, public.machine_type RESTART IDENTITY;
 insert into public.cancer_type(cancer_type_name,cancer_type_short_name,cancer_type_chinese_name,status)
 values ('Thyroid nodules','TH','甲状腺癌','active'),
@@ -128,10 +130,11 @@ values ('Philips','飞利浦'),
        ('Toshiba','东芝'),
        ('GE','通用电气'),
        ('eSaote','百胜');
-
 INSERT INTO public.hospital(hospital_name,hospital_chinese_name) values ('Renji Hospital','仁济医院');
 
-
+/*****************************
+CREATE VIEW
+*****************************/
 DROP VIEW IF EXISTS public.v_roi_image cascade;
 CREATE VIEW v_roi_image AS SELECT
     record_external_id,
@@ -184,6 +187,7 @@ where status = 'active';
 DROP VIEW IF EXISTS public.v_hospital cascade;
 CREATE VIEW v_hospital AS  SELECT * from hospital
 where status = 'active';
+
 
 
 
