@@ -11,6 +11,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Base64;
@@ -75,6 +76,11 @@ public class Util {
     public static String getBase64String(String resourceFilePath) throws IOException {
         byte [] bytes  = IOUtils.toByteArray( Util.class.getClassLoader().getResourceAsStream(resourceFilePath));
         logger.trace("got resource file " + resourceFilePath + " size is " + bytes.length);
+        return Base64.getEncoder().encodeToString(bytes);
+    }
+    public static String getBase64String(Path file) throws IOException {
+        byte [] bytes  = Files.readAllBytes(file);
+        logger.trace("got resource file " + file + " size is " + bytes.length);
         return Base64.getEncoder().encodeToString(bytes);
     }
 

@@ -32,6 +32,12 @@ public class ImageRecognitionRepositoryTest extends ApplicationTests {
     Util.logger.trace("recognizing " + Utility.toJson(test));
   }
   @Test
+  public void recognitionFromFile() throws IOException, MWException, InvocationTargetException, IllegalAccessException {
+    String base64String = Util.getBase64String(Paths.get("D:\\test\\2.jpg"));
+    ResponseImageRecognitionEntity test = imageRecognitionRepository.recognition(base64String,"TH");
+    Util.logger.trace("recognizing " + Utility.toJson(test));
+  }
+  @Test
   public void testJarPerformance() throws IOException, MWException, InvocationTargetException, IllegalAccessException {
     System.out.println("start time");
     Integer i = 5;
