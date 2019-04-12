@@ -1,3 +1,5 @@
 .idea
 com.tend.acd.iml
 /logs/
+/bin/logs/
+/bin/static/

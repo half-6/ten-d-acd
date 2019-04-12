@@ -28,7 +28,7 @@ public class ImageRecognitionService {
 
   public ResponseImageRecognitionEntity recognize(JSONObject input)
           throws Exception {
-    String base64Image = Util.getBase64FromImage(input.getString("original_image_src"));
+    String base64Image = Util.getBase64FromImage(input.getString("roi_image_src"));
     String cancerType = input.getString("cancer_type");
     ResponseImageRecognitionEntity output =  imageRecognitionRepository.recognition(base64Image,cancerType);
     input.put("prediction",output.prediction);
