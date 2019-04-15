@@ -68,7 +68,7 @@ export default {
         "table-operation": "操作",
     },
     "about": {
-        "title": "癌症自动检测系统",
+        "title": "超声影像肿瘤辅助检测系统",
         "desc": "Powered by Ten-D Innovation's J-Eye Cancer Diagnosis Engine, and under the licensing agreement with the University of Buckingham",
         "table-cancer-type": "癌症类型",
         "table-diagnostics": "检测次数",

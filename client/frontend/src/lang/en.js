@@ -68,7 +68,7 @@ export default {
         "table-operation": "Operation",
     },
     "about": {
-        "title": "Automatic Cancer Recognition System",
+        "title": "Ultrasound Image Tumor Detection System",
         "desc": "Powered by Ten-D Innovation's J-Eye Cancer Diagnosis Engine, and under the licensing agreement with the University of Buckingham",
         "table-cancer-type": "Cancer Type",
         "table-diagnostics": "# of diagnostics",
