@@ -79,20 +79,19 @@ export default {
           }
       )
     },
-    save(item){
+    async save(item){
       item.$isSaving=true;
-       api.updateROIImage({$where:{roi_image_id:item.roi_image_id},pathology:item.pathology})
-      .then(r=>{
-          console.log(`update roi image success ${r}`);
-            item.$edit = false;
-            item.$isSaving=false;
-          },err=>{
-            console.error(err);
-            this.$util_alert("master.msg-save-failed");
-            item.$edit = false;
-            item.$isSaving=false;
+      item.pathology && await api.updateROIImage({$where:{roi_image_id:item.roi_image_id},pathology:item.pathology})
+      item.machine_type_id && await api.updateRecord({$where:{record_id:item.record_id},machine_type_id:item.machine_type_id})
+      _.forEach(this.roiImageList,o=>{
+          if(o.record_id === item.record_id)
+          {
+              o.machine_type_id = item.machine_type_id
           }
-      )
+      })
+      console.log(`update roi image success`);
+      item.$edit = false
+      item.$isSaving=false
     },
     getPathology(){
         if(!this.search.pathology){ return undefined}

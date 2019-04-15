@@ -41,6 +41,13 @@ async function updateROIImage(data) {
         data,
     })
 }
+async function updateRecord(data) {
+    return await request({
+        url: '/api/db/record',
+        method: 'post',
+        data,
+    })
+}
 async function getHospital(params) {
     return await request({
         url: '/api/db/hospital',
@@ -62,6 +69,7 @@ export default {
     getAggTable,
     saveImage,
     updateROIImage,
+    updateRecord,
     detectImage,
     getROIImages
 }
