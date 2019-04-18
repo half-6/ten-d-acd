@@ -15,6 +15,7 @@
                 <option v-for="item in machineTypeList" :value="item.machine_type_id">{{$t('master.machine-type-' + item.machine_type_id)}}</option>
               </select>
             </div>
+            <el-tag v-if="selectedImage" class="float-md-right m-t5">{{selectedImage.name}}</el-tag>
           </div>
           <div class="img-container">
               <div class="img-rounded rounded fill">

@@ -3,7 +3,10 @@
     <div class="carousel-inner" v-if="imageList.length>0">
       <div class="carousel-item" v-for="i in Math.ceil(imageList.length / 5)" :class="{active:i==1}">
         <div class="carousel-item-image w-20" v-for="item in imageList.slice((i - 1) * 5, i * 5)" :class="{active:selectedImage==item}" v-loading="item.loading">
-          <img :src="item.src" :tmp="JSON.stringify(item)" v-on:click="$emit('select-image',item)">
+          <el-tooltip v-if="item.name" :content="item.name" placement="top">
+            <img :src="item.src" :tmp="JSON.stringify(item)" v-on:click="$emit('select-image',item)">
+          </el-tooltip>
+            <img v-else :src="item.src" :tmp="JSON.stringify(item)" v-on:click="$emit('select-image',item)">
         </div>
       </div>
     </div>

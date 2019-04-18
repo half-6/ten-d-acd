@@ -90,7 +90,7 @@ export default {
       for (let i = 0; i < images.length; i++) {
         let item = images[i];
         let src = await this.loadImage(item);
-        this.imageList.push({src,id:uuid()});
+        this.imageList.push({src,id:uuid(),name:item.name});
       }
     },
     crop(){
