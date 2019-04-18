@@ -19,6 +19,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Properties;
 
+@SuppressWarnings("Duplicates")
 @SpringBootApplication
 @EnableCaching
 public class Application {

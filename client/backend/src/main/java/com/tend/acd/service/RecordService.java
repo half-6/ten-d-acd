@@ -46,7 +46,7 @@ public class RecordService {
       StringWriter sw = new StringWriter();
       try(ZipOutputStream zos = new ZipOutputStream(response.getOutputStream())) {
         try(CSVPrinter csvPrinter = new CSVPrinter(sw, CSVFormat.DEFAULT
-                .withHeader("ID", "ROI Image ID", "Prediction", "Pathology", "Probability","Processing Time","Cancer Type","Machine Type","Date Registered")))
+                .withHeader("ID","External ID", "ROI Image ID", "Prediction", "Pathology", "Probability","Processing Time","Cancer Type","Machine Type","Date Registered")))
         {
           for(int i=0;i<oriImage.length();i++)
           {
@@ -64,6 +64,7 @@ public class RecordService {
             }
             csvPrinter.printRecord(
                     item.get("roi_image_id").toString()
+                    ,item.get("record_external_id").toString()
                     ,item.get("roi_image").toString()
                     ,item.has("prediction")?item.getString("prediction"):null
                     ,item.has("pathology")?item.getString("pathology"):null
