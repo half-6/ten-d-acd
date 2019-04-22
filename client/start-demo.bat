@@ -1,3 +1,3 @@
 SET image.recognition.path=D:\codes\qyotech\ten-d-acd\backend\lib\Image_Recognition.jar
-java -jar backend\target\com.tend.acd.backend-0.0.11-SNAPSHOT.jar  --spring.profiles.active=demo
+java -jar backend\target\com.tend.acd.backend-0.0.12-SNAPSHOT.jar  --spring.profiles.active=demo
 
