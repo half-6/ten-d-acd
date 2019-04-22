@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import api from '@/api'
+import api from '@/api/image'
 
 export default {
   name: "home-page",

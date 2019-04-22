@@ -10,7 +10,7 @@
             <PatternLayout pattern="${LOG_PATTERN}"/>
         </Console>
         <RollingFile name="FileAppender" fileName="logs/tend-server.log"
-                     filePattern="logs/tend-client-%d{yyyy-MM-dd}-%i.log">
+                     filePattern="logs/tend-server-%d{yyyy-MM-dd}-%i.log">
             <PatternLayout>
                 <Pattern>${LOG_PATTERN}</Pattern>
             </PatternLayout>

@@ -2,25 +2,34 @@ import Vue from "vue";
 import VueI18n from 'vue-i18n'
 import cn from './cn'
 import en from './en'
+import enElement from 'element-ui/lib/locale/lang/en'
+import cnElement from 'element-ui/lib/locale/lang/zh-CN'
+import ElementLocale from 'element-ui/lib/locale'
 
 Vue.use(VueI18n);
 
 const locale = getCurrentLocale();
 const messages = {
-     cn
-    ,en
+     cn:{
+         ...cn,
+         ...cnElement
+     }
+    ,en:{
+         ...en,
+         ...enElement
+    }
 };
 const i18n = new VueI18n({
-    /** 默认值 */
     locale,
     messages
 });
-
+ElementLocale.i18n((key, value) => i18n.t(key, value))
 function getCurrentLocale() {
     if(!localStorage.locale)
     {
         localStorage.locale = getBrowserLocale();
     }
+    console.log(`current locale is ${localStorage.locale}`)
     return localStorage.locale;
 }
 function getBrowserLocale() {
@@ -29,16 +38,13 @@ function getBrowserLocale() {
     return "en";
 }
 function loadLanguageAsync() {
-    const cancerType = Vue.prototype.$cancerType;
-    cancerType.forEach(item=>{
-        messages.en.master["cancer-type-" + item.cancer_type_id] = item.cancer_type_name;
-        messages.cn.master["cancer-type-" + item.cancer_type_id] = item.cancer_type_chinese_name;
-    })
-    const machineType = Vue.prototype.$machineType;
-    machineType.forEach(item=>{
-        messages.en.master["machine-type-" + item.machine_type_id] = item.machine_type_name;
-        messages.cn.master["machine-type-" + item.machine_type_id] = item.machine_type_chinese_name;
-    })
+
+}
+//this.$i18n.setLang('cn') call it on your page for switch the language
+function setLang(lang){
+    localStorage.locale = i18n.locale = lang;
+    console.log(`switch locale to ${localStorage.locale}`)
 }
 i18n.loadLanguageAsync = loadLanguageAsync;
+i18n.setLang = setLang;
 export default i18n

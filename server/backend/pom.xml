@@ -41,12 +41,12 @@
             <version>RELEASE</version>
         </dependency>
         <!--********************************************************************-->
-        <!--Image																																-->
+        <!--JWT																																	-->
         <!--********************************************************************-->
         <dependency>
-            <groupId>com.matlab</groupId>
-            <artifactId>javabuilder</artifactId>
-            <version>R2015b</version>
+            <groupId>com.auth0</groupId>
+            <artifactId>java-jwt</artifactId>
+            <version>3.8.0</version>
         </dependency>
         <!--********************************************************************-->
         <!--DB																																	-->

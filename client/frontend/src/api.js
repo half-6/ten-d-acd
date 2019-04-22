@@ -50,7 +50,7 @@ async function updateRecord(data) {
 }
 async function getHospital(params) {
     return await request({
-        url: '/api/db/hospital',
+        url: '/api/db/public.v_hospital',
         method: 'get',
         params,
     })

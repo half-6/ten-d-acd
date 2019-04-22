@@ -1,0 +1,20 @@
+.roi-image{
+}
+
+.roi-image table img{
+    max-height: 80px;
+    max-width: 80px;
+}
+.roi-image .tool-bar>.el-select{
+    margin-right: 10px;
+    float: left;
+}
+.roi-image .tool-bar>.el-input{
+    margin-right: 10px;
+    float: left;
+    max-width: 217px;
+}
+.roi-image .tool-bar>.el-button{
+    margin-right: 10px;
+    float: left;
+}
