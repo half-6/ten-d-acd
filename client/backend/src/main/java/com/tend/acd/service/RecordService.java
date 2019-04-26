@@ -9,6 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.SQLException;
+import java.util.HashSet;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -44,9 +45,10 @@ public class RecordService {
     {
       oriImage = oriImage.getJSONArray(0);
       StringWriter sw = new StringWriter();
+      HashSet<String> entryExists = new HashSet<>();
       try(ZipOutputStream zos = new ZipOutputStream(response.getOutputStream())) {
         try(CSVPrinter csvPrinter = new CSVPrinter(sw, CSVFormat.DEFAULT
-                .withHeader("ID","External ID", "ROI Image ID", "Prediction", "Pathology", "Probability","Processing Time","Cancer Type","Machine Type","Date Registered")))
+                .withHeader("ID","External ID", "ORIGINAL Image ID", "ROI Image ID", "Prediction", "Pathology", "Probability","Processing Time","Cancer Type","Machine Type","Date Registered")))
         {
           for(int i=0;i<oriImage.length();i++)
           {
@@ -54,17 +56,23 @@ public class RecordService {
             String imageId = item.get("roi_image").toString();
             String imageName = imageId + ".png";
             String outputImageName = buildImageNameInZip(item);
-            Path filePath = Util.getFilePath(imageName);
-            if(Files.exists(filePath))
+            if(!entryExists.contains(outputImageName))
             {
-              ZipEntry entry = new ZipEntry(outputImageName);
-              zos.putNextEntry(entry);
-              zos.write(Files.readAllBytes(Util.getFilePath(imageName)));
-              zos.closeEntry();
+              putImageToZip(zos,imageName,outputImageName);
+              entryExists.add(outputImageName);
             }
+
+            String originalImageId = item.get("original_image").toString();
+            String originalImageName = originalImageId + ".png";
+            if(!entryExists.contains(originalImageName)) {
+              putImageToZip(zos, originalImageName, originalImageName);
+              entryExists.add(originalImageName);
+            }
+
             csvPrinter.printRecord(
                     item.get("roi_image_id").toString()
                     ,item.get("record_external_id").toString()
+                    ,item.get("original_image").toString()
                     ,item.get("roi_image").toString()
                     ,item.has("prediction")?item.getString("prediction"):null
                     ,item.has("pathology")?item.getString("pathology"):null
@@ -85,6 +93,16 @@ public class RecordService {
     else
     {
       response.sendError(404,"No results found");
+    }
+  }
+  private void putImageToZip(ZipOutputStream zos,String imageName,String zipImageName) throws IOException {
+    Path originalFilePath = Util.getFilePath(imageName);
+    if(Files.exists(originalFilePath))
+    {
+      ZipEntry entry = new ZipEntry(zipImageName);
+      zos.putNextEntry(entry);
+      zos.write(Files.readAllBytes(originalFilePath));
+      zos.closeEntry();
     }
   }
 
