@@ -1,1 +1,0 @@
-/bin/echo -e "bbh2gd\n" | sudo -S /bin/bash

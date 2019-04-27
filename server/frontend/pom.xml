@@ -150,20 +150,20 @@
 
 					<!-- Required: The following calls the npm script that cleans
 					     up the build. -->
-					<execution>
-						<id>npm run clean (clean)</id>
-						<goals>
-							<goal>exec</goal>
-						</goals>
-						<phase>clean</phase>
-						<configuration>
-							<executable>npm</executable>
-							<arguments>
-								<argument>run</argument>
-								<argument>clean</argument>
-							</arguments>
-						</configuration>
-					</execution>
+					<!--<execution>-->
+						<!--<id>npm run clean (clean)</id>-->
+						<!--<goals>-->
+							<!--<goal>exec</goal>-->
+						<!--</goals>-->
+						<!--<phase>clean</phase>-->
+						<!--<configuration>-->
+							<!--<executable>npm</executable>-->
+							<!--<arguments>-->
+								<!--<argument>run</argument>-->
+								<!--<argument>clean</argument>-->
+							<!--</arguments>-->
+						<!--</configuration>-->
+					<!--</execution>-->
 				</executions>
 
 				<configuration>
