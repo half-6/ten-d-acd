@@ -5,8 +5,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.system.ApplicationHome;
 
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -46,5 +49,13 @@ public class Util {
             }
             return mapper.readValue(jsonString,parameterType);
         }
+    }
+    public static String getAppPath(){
+        ApplicationHome home = new ApplicationHome(Application.class);
+        return home.getDir().getAbsolutePath();
+    }
+
+    static Path getAppStaticPath(){
+        return Paths.get(getAppPath(),"static");
     }
 }

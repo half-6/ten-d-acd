@@ -1,20 +1,17 @@
 package com.tend.acd.server;
 
-import com.tend.acd.server.model.request.UserEntity;
 import com.tend.acd.server.repository.JwtRepository;
-import com.tend.acd.server.security.SecurityFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 
-import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Properties;
 
 @SpringBootApplication
 @EnableCaching
@@ -29,6 +26,9 @@ public class Application {
 
     public static void main(String[] args) {
         SpringApplication app = new SpringApplication(Application.class);
+        Properties properties = new Properties();
+        properties.setProperty("spring.resources.static-locations", "file:///" + Util.getAppStaticPath() + ",classpath:public");
+        app.setDefaultProperties(properties);
         app.run(args);
     }
 
