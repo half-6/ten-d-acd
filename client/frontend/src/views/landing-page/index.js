@@ -3,11 +3,16 @@ import 'cropperjs/dist/cropper.css';
 import _ from 'lodash';
 import uuid from 'uuid/v4';
 import api from '@/api'
+import storage from '@/utils/local-storage';
+
+const KEY_CANCER_ID = "KEY_CANCER_ID";
+const KEY_MACHINE_ID = "KEY_MACHINE_ID";
 
 export default {
   name: "landing-page",
   data() {
     return {
+
       message:null,
       cropImg:null,
       selectedImage: null,
@@ -156,6 +161,8 @@ export default {
       }
       console.log(this.record);
       this.isSaving = true;
+      storage.set(KEY_CANCER_ID,this.record.cancer_type)
+      storage.set(KEY_MACHINE_ID,this.record.machine_type_id)
       api.saveImage(this.record)
       .then(r=>{
             this.isSaving = false;
@@ -183,14 +190,14 @@ export default {
       this.cancerTypeList = this.$cancerType;
       this.machineTypeList = this.$machineType;
       this.record.hospital_id = this.$hospital[0].hospital_id;
+      this.record.cancer_type = storage.get(KEY_CANCER_ID) || "";
+      this.record.machine_type_id = storage.get(KEY_MACHINE_ID) || "";
       if(this.cropper) this.cropper.destroy();
       this.cropper = new Cropper(this.$refs.selectedImg,{autoCrop:false});
     },
     reset(){
-      let cancerType = this.record.cancer_type;
       Object.assign(this.$data, this.$options.data())
       this.init();
-      this.record.cancer_type = cancerType;
     }
   },
   mounted: function() {
