@@ -58,14 +58,14 @@ public class RecordService {
             String outputImageName = buildImageNameInZip(item);
             if(!entryExists.contains(outputImageName))
             {
-              putImageToZip(zos,imageName,outputImageName);
+              putImageToZip(zos,imageName,"roi/" + outputImageName);
               entryExists.add(outputImageName);
             }
 
             String originalImageId = item.get("original_image").toString();
             String originalImageName = originalImageId + ".png";
             if(!entryExists.contains(originalImageName)) {
-              putImageToZip(zos, originalImageName, originalImageName);
+              putImageToZip(zos, originalImageName, "original/" + originalImageName);
               entryExists.add(originalImageName);
             }
 
