@@ -1,0 +1,11 @@
+.import-page{
+  margin-top: 75px !important;
+}
+
+.import-page table img{
+   height: 50px;
+}
+
+.import-page .img-thumbnail{
+    display: inline-block;
+}

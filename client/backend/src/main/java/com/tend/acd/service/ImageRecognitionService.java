@@ -26,7 +26,7 @@ public class ImageRecognitionService {
   @Autowired
   DBRepository dbRepository;
 
-  public ResponseImageRecognitionEntity recognize(JSONObject input)
+  public ResponseImageRecognitionEntity recognize(JSONObject input,boolean saveHistory)
           throws Exception {
     String base64Image = Util.getBase64FromImage(input.getString("roi_image_src"));
     String cancerType = input.getString("cancer_type");
@@ -34,7 +34,9 @@ public class ImageRecognitionService {
     input.put("prediction",output.prediction);
     input.put("probability",output.probability);
     input.put("processing_time",output.processingTime);
-    dbRepository.saveHistory(input);
+    if(saveHistory){
+      dbRepository.saveHistory(input);
+    }
     return output;
   }
 }

@@ -62,11 +62,19 @@ async function detectImage(data) {
         data
 })
 }
+async function importImage(data) {
+    return await request({
+        url: '/api/image/import',
+        method: 'post',
+        data
+    })
+}
 export default {
     getCancerType,
     getHospital,
     getMachineType,
     getAggTable,
+    importImage,
     saveImage,
     updateROIImage,
     updateRecord,

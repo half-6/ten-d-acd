@@ -21,6 +21,11 @@ export default new Router({
       path: "/list",
       name: "list-page",
       component: require("@/views/list-page/index.vue").default
+    },
+    {
+      path: "/import",
+      name: "import-page",
+      component: require("@/views/import-page/index.vue").default
     }
   ]
 });

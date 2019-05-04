@@ -4,7 +4,7 @@
       <div class="row">
         <div class="col-md-6 left">
           <div class="btn-toolbar">
-            <div class="btn-group" role="group" aria-label="First group">
+            <div class="btn-group" role="group">
               <input class="form-control" :placeholder="$t('home.enter-id')" v-model="record.record_external_id">
               <select class="custom-select ml-1" v-model="record.cancer_type">
                 <option selected value="">{{ $t("home.cancer-type") }}</option>
@@ -28,9 +28,7 @@
               <div class="col btn-toolbar">
                 <ul class="nav nav-pills float-md-left">
                   <li class="nav-item">
-                    <label class="btn btn-primary btn-file">
-                      {{ $t("home.button-import") }} <input type="file" @change="openFile" class="h" multiple/>
-                    </label>
+                    <file-uploader class="btn btn-primary btn-file" :title="$t('home.button-import')" @change="openFile"></file-uploader>
                   </li>
                   <li class="nav-item">
                     <loading-button v-on:click="crop" :disabled="selectedImage==null || !record.cancer_type" :value="$t('home.button-cut-roi-image')" :isLoading="isDetecting" :loadingLabel="$t('home.button-cut-roi-image-loading')" />

@@ -3,6 +3,7 @@ export default {
         "title": "Ultrasound Image Tumor Detection System",
         "menu-home": "Home",
         "menu-list-view": "List View",
+        "menu-import": "Import",
         "menu-about": "About",
         "menu-language": "Language",
         "menu-language-english": "English",
@@ -87,5 +88,15 @@ export default {
         "app-version": "Application Version number",
         "recognition-version": "Recognition Version number",
         "power-by": "Powered by The University of Buckingham",
+    },
+    "import":{
+        "cancer-type": "Cancer type",
+        "button-import": "Import",
+        "button-importing": "Import...",
+        "table-image-name": "Image Name",
+        "table-roi-image": "Roi Image",
+        "table-cancer-type": "Cancer Type",
+        "table-prediction": "Prediction",
+        "table-probability": "Probability",
     }
 }

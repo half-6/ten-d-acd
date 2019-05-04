@@ -3,6 +3,7 @@ export default {
         "title": "超声影像肿瘤辅助检测系统",
         "menu-home": "首页",
         "menu-list-view": "记录列表",
+        "menu-import": "导入",
         "menu-about": "关于我们",
         "menu-language": "语言",
         "menu-language-english": "English",
@@ -87,5 +88,15 @@ export default {
         "app-version": "Application Version number",
         "recognition-version": "Recognition Version number",
         "power-by": "Powered by The University of Buckingham",
+    },
+    "import":{
+        "cancer-type": "癌症类型",
+        "button-import": "导入",
+        "button-importing": "导入中...",
+        "table-image-name": "图片名字",
+        "table-roi-image": "Roi 影像",
+        "table-cancer-type": "癌症类型",
+        "table-prediction": "检测结果",
+        "table-probability": "可能性",
     }
 }

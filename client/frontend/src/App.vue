@@ -16,6 +16,9 @@
             <router-link to="/list" class="nav-link" data-toggle="collapse" data-target="#navbarSupportedContent">{{$t('master.menu-list-view')}}</router-link>
           </li>
           <li class="nav-item">
+            <router-link to="/import" class="nav-link" data-toggle="collapse" data-target="#navbarSupportedContent">{{$t('master.menu-import')}}</router-link>
+          </li>
+          <li class="nav-item">
             <router-link to="/about" class="nav-link" data-toggle="collapse" data-target="#navbarSupportedContent">{{$t('master.menu-about')}}</router-link>
           </li>
         </ul>

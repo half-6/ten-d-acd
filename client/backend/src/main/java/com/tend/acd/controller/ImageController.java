@@ -29,9 +29,15 @@ public class ImageController {
     RecordService recordService;
 
     @PostMapping(value="/recognition")
-    public ResponseBaseEntity<ResponseImageRecognitionEntity> create(@RequestBody String input)
+    public ResponseBaseEntity<ResponseImageRecognitionEntity> recognition(@RequestBody String input)
             throws Exception {
-        return new ResponseBaseEntity<>(imageRecognitionService.recognize(new JSONObject(input)));
+        return new ResponseBaseEntity<>(imageRecognitionService.recognize(new JSONObject(input),true));
+    }
+
+    @PostMapping(value="/import")
+    public ResponseBaseEntity<ResponseImageRecognitionEntity> batch(@RequestBody String input)
+            throws Exception {
+        return new ResponseBaseEntity<>(imageRecognitionService.recognize(new JSONObject(input),false));
     }
 
     @PostMapping(value = "/save")

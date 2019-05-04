@@ -35,11 +35,9 @@ export default {
   },
   methods: {
     async openFile(e) {
-      if (e.target.files.length > 0) {
-        await this.buildGallery(e.target.files);
-        this.onSelectFile(this.imageList[0]);
-        e.target.value = "";
-      }
+      await this.buildGallery(e.target.files);
+      this.onSelectFile(this.imageList[0]);
+      e.target.value = "";
     },
     onSelectFile(file) {
       if(file)
