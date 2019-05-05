@@ -11,6 +11,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -78,6 +79,13 @@ public class Util {
         logger.trace("got resource file " + resourceFilePath + " size is " + bytes.length);
         return Base64.getEncoder().encodeToString(bytes);
     }
+    public static File[] getResourceFolderFiles (String folder) {
+        ClassLoader loader = Thread.currentThread().getContextClassLoader();
+        URL url = loader.getResource(folder);
+        String path = url.getPath();
+        return new File(path).listFiles();
+    }
+
     public static String getBase64String(Path file) throws IOException {
         byte [] bytes  = Files.readAllBytes(file);
         logger.trace("got resource file " + file + " size is " + bytes.length);

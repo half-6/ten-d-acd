@@ -1,4 +1,5 @@
-call mvn clean package
+call mvn -Dtest=ImageControllerTest#BVT test
+call mvn clean package -DskipTests
 rmdir frontend\npm /s /q
 copy "backend\target\com.tend.acd.backend*.jar" "..\bin\"  /y
 copy "backend\target\com.tend.acd.backend*.jar" "..\docker\tend\" /y
