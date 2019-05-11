@@ -27,7 +27,7 @@ export default {
       this.searchImage(1);
     },
     getImageUrl(file){
-      return "/uploads/" + file + ".png";
+      return this.$tendConfig.imageUrl.replace("{file}",file);
     },
     buildWhere(){
       return {

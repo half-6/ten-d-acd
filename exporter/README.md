@@ -19,7 +19,6 @@ java -jar com.tend.acd.exporter-0.0.1-SNAPSHOT.jar export --spring.profiles.acti
 After job completed, under same folder with the app, you will find <timestamp> folder with all images and data scripts
 
 > ## How to import  
-- app.image.dir is the upload dir for Ten-D ACD System    
 - postgreSQL.connection is the DB connection string  
 - spring.profiles.active is the predefined DB connection as local server
 - backup.dir is the backup <timestamp> folder you got from export  
@@ -29,7 +28,7 @@ java -jar com.tend.acd.exporter-0.0.1-SNAPSHOT.jar import --postgreSQL.connectio
 ``
 * for jar version         
 ``
-java -jar com.tend.acd.exporter-0.0.1-SNAPSHOT.jar import --spring.profiles.active=demo --app.image.dir=D:\\codes\\qyotech\\ten-d-acd\\client\\backend\\target\\classes\\static\\uploads --backup.dir=D:\\codes\\qyotech\\ten-d-acd\\exporter\\target\\classes\\201904111357  
+java -jar com.tend.acd.exporter-0.0.1-SNAPSHOT.jar import --spring.profiles.active=demo --backup.dir=D:\\codes\\qyotech\\ten-d-acd\\exporter\\target\\classes\\201904111357  
 ``  
 
 > ## How to get postgreSQL IP address if docker

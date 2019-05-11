@@ -34,6 +34,7 @@ async function init(){
   Vue.prototype.$hospital = (await api.getHospital()).data
   Vue.prototype.$pathology = [{"value":"Malignant","text":"Malignant"},{"value":"Benign","text":"Benign"}];
   Vue.prototype.$filters = filters
+  Vue.prototype.$tendConfig = window.tendConfig;
   Vue.prototype.$formatters = {};
   _.forIn(filters,(f,k)=>{
         _.forIn(f,(sf,sk)=>{

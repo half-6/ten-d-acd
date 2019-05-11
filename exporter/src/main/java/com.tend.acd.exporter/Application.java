@@ -11,7 +11,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Scope;
 
-import javax.annotation.Resource;
 import javax.naming.NamingException;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -25,6 +24,7 @@ public class Application implements CommandLineRunner {
     @Autowired
     RecordService recordService;
 
+
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
         Util.logger.trace("Job Completed");
@@ -36,9 +36,16 @@ public class Application implements CommandLineRunner {
        Util.logger.warn("connect db {}", DBConnectionString);
        return new GenericDBHelper(DBConnectionString);
     }
+
+
     @Override
-    public void run(String... args) {
+    public void run(String... args) throws ClassNotFoundException, SQLException, IOException, NamingException {
         Util.logger.trace("Job Start");
+        if(args.length == 0 )
+        {
+            Util.logger.trace("Please specific operation");
+            return;
+        }
         try {
             String version = getClass().getPackage().getImplementationVersion();
             Util.logger.error("Running with app version {}", version);
@@ -54,21 +61,7 @@ public class Application implements CommandLineRunner {
             Util.logger.error("Job failed", e);
         }
         finally {
-            //getDBHelper().close();
+            getDBHelper().close();
         }
-//        Scanner scanner = new Scanner(System.in);
-//        Util.logger.trace("Please enter database host address, default is 127.0.0.1");
-//        String dbConnectionString = scanner.nextLine();
-//        if(dbConnectionString.equals(""))
-//        {
-//            dbConnectionString = "127.0.0.1";
-//        }
-//        Util.logger.trace("Please enter database host port, default is 5432");
-//        Integer dbConnectionPort = scanner.nextInt();
-//        if(dbConnectionPort.equals(0))
-//        {
-//            dbConnectionPort = 5432;
-//        }
-//        Util.logger.trace("Connecting to DB {}:{}",dbConnectionString,dbConnectionPort);
     }
 }

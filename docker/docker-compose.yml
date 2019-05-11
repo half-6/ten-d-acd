@@ -33,6 +33,8 @@ services:
     environment:
       - tend.postgreSQL.host=db
       - tend.postgreSQL.port=5432
+      - tend.postgreSQL.user=db
+      - tend.postgreSQL.password=5432
     ports:
       - "8080:8080"
     volumes:
@@ -40,5 +42,18 @@ services:
       - ./logs:/logs
     links:
       - db
+  exporter:
+    image: cyokin/tend-exporter:0.0.1
+    build: tend-exporter
+    container_name: tend_exporter
+    restart: always
+    environment:
+      - tend.postgreSQL.host=db
+      - tend.postgreSQL.port=5432
+      - tend.postgreSQL.user=db
+      - tend.postgreSQL.password=5432
+      - spring.profiles.active=env
+    volumes:
+      - ./static:/opt/static
 volumes:
   postgres:

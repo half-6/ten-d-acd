@@ -35,7 +35,13 @@ public class ImageRecognitionService {
     input.put("probability",output.probability);
     input.put("processing_time",output.processingTime);
     if(saveHistory){
-      dbRepository.saveHistory(input);
+      new Thread(() -> {
+        try {
+          dbRepository.saveHistory(input);
+        } catch (Exception e) {
+          Util.logger.error("saveHistory",e);
+        }
+      }).run();
     }
     return output;
   }

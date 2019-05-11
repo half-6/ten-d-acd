@@ -39,13 +39,13 @@ CREATE TABLE public.machine_type(
 
 DROP TABLE IF EXISTS public.hospital cascade;
 CREATE TABLE public.hospital(
-                              hospital_id  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-                              hospital_name VARCHAR(200) NOT NULL,
-                              hospital_chinese_name VARCHAR(200) NOT NULL,
-                              hospital_address VARCHAR(400),
-                              status tp_status default 'active',
-                              date_registered TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                              date_updated TIMESTAMP WITH TIME ZONE
+   hospital_id  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+   hospital_name VARCHAR(200) NOT NULL,
+   hospital_chinese_name VARCHAR(200) NOT NULL,
+   hospital_address VARCHAR(400),
+   status tp_status default 'active',
+   date_registered TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+   date_updated TIMESTAMP WITH TIME ZONE
 ) WITH (
     OIDS = FALSE
   );

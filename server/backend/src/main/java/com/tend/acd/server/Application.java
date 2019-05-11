@@ -1,5 +1,6 @@
 package com.tend.acd.server;
 
+import com.tend.acd.server.model.response.ConfigEntity;
 import com.tend.acd.server.repository.JwtRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

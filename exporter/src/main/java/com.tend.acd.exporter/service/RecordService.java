@@ -2,9 +2,11 @@ package com.tend.acd.exporter.service;
 
 import LinkFuture.DB.DBHelper.GenericDBHelper;
 import com.tend.acd.exporter.Util;
+import com.tend.acd.exporter.respsitory.OSSRepository;
 import org.apache.commons.io.FileUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -33,16 +35,14 @@ public class RecordService {
   @Value("${backup.dir}")
   String BackupDir;
 
+  @Autowired
+  OSSRepository ossRepository;
+
   // import
   public void load() throws Exception{
     Path exportDir = Paths.get(BackupDir);
     if(!Files.exists(exportDir)){
       throw new IllegalArgumentException("Specific import directory is not exists, " + exportDir);
-    }
-    File fromImageDir = new File(AppImageDir);
-    if(!fromImageDir.exists())
-    {
-      Util.logger.error("target image dir not exists ", AppImageDir);
     }
     Util.logger.warn("********** import from {}  **********", exportDir);
     //generate sql
@@ -60,12 +60,22 @@ public class RecordService {
         line = reader.readLine();
       }
     }
-    //copy images
-    File toImageDir = Paths.get(exportDir.toString(),"static","uploads").toFile();
-    Util.logger.trace("import images {}=>{}", toImageDir,fromImageDir);
-    FileUtils.copyDirectory(toImageDir,fromImageDir);
+    //upload images to OSS
+    Path fromImageDir = Paths.get(exportDir.toString(),"static","uploads");
+    Util.logger.trace("import images {}=>OSS cloud", fromImageDir);
+    Files.walk(fromImageDir)
+            .filter(i->{
+              String filePath = i.toString();
+              return filePath.endsWith("jpg") || filePath.endsWith("png") || filePath.endsWith("bmp");
+            })
+            .forEach(i->{
+              Util.logger.trace("uploading images {}", i);
+              ossRepository.upload(i.toFile());
+            });
+
     Util.logger.warn("********** import success  **********");
   }
+
 
   //export
   public void export() throws Exception {
