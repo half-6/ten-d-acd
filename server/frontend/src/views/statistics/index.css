@@ -1,4 +1,16 @@
 .statistics-page{
     display: block;
 }
-
+.statistics-page .tool-bar>.el-select{
+    margin-right: 10px;
+    float: left;
+}
+.statistics-page .tool-bar>.el-input{
+    margin-right: 10px;
+    float: left;
+    max-width: 217px;
+}
+.statistics-page .tool-bar>.el-button{
+    margin-right: 10px;
+    float: left;
+}

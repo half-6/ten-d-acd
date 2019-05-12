@@ -5,6 +5,9 @@ export default {
   name: "statistics-page",
   data() {
     return {
+      search:{
+        ai_version:"",
+      },
       aggCancerTypeList: [],
       totalTP: 0,
       totalTN: 0,
@@ -16,7 +19,8 @@ export default {
   methods: {
     async agg() {
       this.isLoading = true;
-      const r = await api.getAggTable()
+      const query = {q:JSON.stringify({$where:{ai_version:this.search.ai_version}})}
+      const r = this.search.ai_version?await api.getAggTable(query):await api.getAllAggTable()
       if (r) {
         this.aggCancerTypeList = r.data;
         _.each(this.aggCancerTypeList,o=>{

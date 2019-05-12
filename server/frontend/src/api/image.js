@@ -14,10 +14,17 @@ async function getMachineType() {
     useCache: true
   })
 }
-async function getAggTable() {
+async function getAllAggTable() {
+  return await request({
+    url: '/db/v_agg_cancer_type_all',
+    method: 'get',
+  })
+}
+async function getAggTable(params) {
   return await request({
     url: '/db/v_agg_cancer_type',
     method: 'get',
+    params
   })
 }
 async function getROIImages(params) {
@@ -49,6 +56,13 @@ async function getHospital(params) {
     params,
   })
 }
+async function getAIVersion(params) {
+  return await request({
+    url: '/db/public.v_ai_version',
+    method: 'get',
+    params,
+  })
+}
 async function detectImage(data) {
   return await request({
     url: '/image/recognition',
@@ -59,8 +73,10 @@ async function detectImage(data) {
 export default {
   getCancerType,
   getHospital,
+  getAIVersion,
   getMachineType,
   getAggTable,
+  getAllAggTable,
   updateROIImage,
   updateRecord,
   detectImage,

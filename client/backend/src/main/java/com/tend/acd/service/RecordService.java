@@ -1,29 +1,22 @@
 package com.tend.acd.service;
 
-import LinkFuture.DB.DBHelper.GenericDBHelper;
 import com.tend.acd.Util;
-
-import java.io.*;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.sql.SQLException;
-import java.util.HashSet;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipOutputStream;
-
 import com.tend.acd.repository.DBRepository;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import javax.naming.NamingException;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.StringWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.HashSet;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 /**
  * Module Name: ImageRecognitionService Project Name: com.tend.acd Created by Cyokin on 1/18/2019

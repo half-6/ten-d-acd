@@ -75,6 +75,7 @@ CREATE TABLE public.roi_image(
   processing_time decimal,
 
   coordinate jsonb,
+  ai_version VARCHAR(50),
 
   pathology tp_pathology_status,
   status tp_status default 'active',
@@ -105,6 +106,7 @@ CREATE TABLE public.roi_history(
    cancer_type_id INT references cancer_type NOT NULL,
 
    coordinate jsonb,
+   ai_version VARCHAR(50),
 
    prediction VARCHAR(50),
    probability decimal,

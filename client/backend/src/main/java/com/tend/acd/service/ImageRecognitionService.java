@@ -1,17 +1,11 @@
 package com.tend.acd.service;
 
-import com.mathworks.toolbox.javabuilder.MWException;
 import com.tend.acd.Util;
 import com.tend.acd.model.response.ResponseImageRecognitionEntity;
 import com.tend.acd.repository.DBRepository;
 import com.tend.acd.repository.ImageRecognitionRepository;
-import java.io.File;
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 /**

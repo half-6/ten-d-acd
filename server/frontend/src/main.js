@@ -32,6 +32,7 @@ async function init(){
   Vue.prototype.$machineType = (await api.getMachineType()).data
   Vue.prototype.$cancerType = (await api.getCancerType()).data
   Vue.prototype.$hospital = (await api.getHospital()).data
+  Vue.prototype.$aiVersion = (await api.getAIVersion()).data
   Vue.prototype.$pathology = [{"value":"Malignant","text":"Malignant"},{"value":"Benign","text":"Benign"}];
   Vue.prototype.$filters = filters
   Vue.prototype.$tendConfig = window.tendConfig;

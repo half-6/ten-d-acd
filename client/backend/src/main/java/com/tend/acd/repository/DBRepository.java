@@ -2,8 +2,10 @@ package com.tend.acd.repository;
 
 import LinkFuture.DB.DBHelper.GenericDBHelper;
 import com.tend.acd.Util;
+import com.tend.acd.model.response.ConfigEntity;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
@@ -13,12 +15,17 @@ import java.io.File;
 public class DBRepository {
     @Value("${postgreSQL.connection}")
     String DBConnectionString;
+
+    @Autowired
+    ConfigEntity configEntity;
+
     public Boolean saveHistory(JSONObject input) throws Exception {
         try(GenericDBHelper dbHelper = new GenericDBHelper(DBConnectionString)){
             File img = Util.saveBase64Image(input.getString("original_image_src"));
             input.put("original_image",Util.stripExtension(img.getName()));
             img = Util.saveBase64Image(input.getString("roi_image_src"));
             input.put("roi_image",Util.stripExtension(img.getName()));
+            input.put("ai_version",configEntity.recognitionVersion);
             Object id = dbHelper.insert("roi_history",input);
             Util.logger.trace("save history success," + id);
             return true;
@@ -49,6 +56,7 @@ public class DBRepository {
             {
                 JSONObject item = oriImage.getJSONObject(i);
                 File img = Util.saveBase64Image(item.getString("src"));
+                item.put("ai_version",configEntity.recognitionVersion);
                 item.put("record_id",id.toString());
                 item.put("roi_image",Util.stripExtension(img.getName()));
                 item.put("original_image",findNewId(originalImageList,item.getString("original_image_id")));

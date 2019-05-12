@@ -10,6 +10,15 @@
                 :value="item.hospital_id">
         </el-option>
       </el-select>
+      <el-select v-model="search.ai_version" placeholder="AI Version">
+        <el-option value="" label="AI Version"></el-option>
+        <el-option
+                v-for="item in $aiVersion"
+                :key="item.ai_version"
+                :label="item.ai_version"
+                :value="item.ai_version">
+        </el-option>
+      </el-select>
       <el-select v-model="search.machine_type_id" placeholder="Machine Type">
         <el-option value="" label="Machine Type"></el-option>
         <el-option

@@ -1,5 +1,17 @@
 <template>
   <div class="statistics-page">
+    <el-row class="panel tool-bar" :gutter="10">
+      <el-select v-model="search.ai_version" placeholder="AI Version">
+        <el-option value="" label="AI Version"></el-option>
+        <el-option
+                v-for="item in $aiVersion"
+                :key="item.ai_version"
+                :label="item.ai_version"
+                :value="item.ai_version">
+        </el-option>
+      </el-select>
+      <el-button type="primary" :loading="isLoading" icon="el-icon-search" @click="agg()">Search</el-button>
+    </el-row>
     <el-row class="panel">
       <el-table
               :data="aggCancerTypeList"
