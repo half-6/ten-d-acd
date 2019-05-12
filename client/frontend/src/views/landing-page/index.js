@@ -12,7 +12,6 @@ export default {
   name: "landing-page",
   data() {
     return {
-
       message:null,
       cropImg:null,
       selectedImage: null,
@@ -104,6 +103,7 @@ export default {
           src:this.cropper.getCroppedCanvas().toDataURL(),
           roi_image_id:uuid(),
           original_image_id:this.selectedImage.id,
+          coordinate:_.pick(this.cropper.getData(false),["x","y","width","height"]),
           prediction:null,
           pathology:undefined,
         };
@@ -117,6 +117,7 @@ export default {
       img.prediction =  await api.detectImage(
           {
             roi_image_src:img.src,
+            coordinate:img.coordinate,
             original_image_src:this.selectedImage.src,
             hospital_id:this.$hospital[0].hospital_id,
             cancer_type_id:this.record.cancer_type.cancer_type_id,
@@ -149,6 +150,7 @@ export default {
         this.record.cancer_type_id = this.record.cancer_type.cancer_type_id;
         this.record.roi_image.push({
           src:image.src,
+          coordinate:image.coordinate,
           roi_image_id:image.roi_image_id,
           original_image_id:image.original_image_id,
           pathology:image.pathology,
