@@ -26,7 +26,7 @@ services:
     links:
       - db
   admin:
-    image: cyokin/tend-admin:0.0.1
+    image: cyokin/tend-admin:0.0.2
     build: tend-admin
     container_name: tend_admin
     restart: always
@@ -43,7 +43,7 @@ services:
     links:
       - db
   exporter:
-    image: cyokin/tend-exporter:0.0.1
+    image: cyokin/tend-exporter:0.0.2
     build: tend-exporter
     container_name: tend_exporter
     restart: always

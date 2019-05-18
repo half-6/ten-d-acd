@@ -28,6 +28,7 @@ public class UserRepository extends DBRepository<UserEntity,Integer> {
     public UserEntity login(String username,String password) throws Exception {
         JSONObject where = new JSONObject();
         where.put("username",username);
+        where.put("status","active");
         UserEntity user = this.findOne(where);
         if(BCrypt.checkpw(password,user.password))
         {

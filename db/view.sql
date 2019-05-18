@@ -75,7 +75,11 @@ DROP VIEW IF EXISTS public.v_ai_version cascade;
 CREATE VIEW v_ai_version AS
 SELECT distinct ai_version from roi_image;
 
-DROP FUNCTION psp_ai_aggregation;
+
+/*****************************
+ADMIN ONLY
+*****************************/
+DROP FUNCTION IF EXISTS psp_ai_aggregation ;
 CREATE OR REPLACE FUNCTION psp_ai_aggregation(hospitalId UUID,machineTypeId INT,aiVersion VARCHAR(200))
   RETURNS refcursor
 AS $$

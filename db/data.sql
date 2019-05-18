@@ -21,6 +21,9 @@ values (1,'Philips','飞利浦'),
 INSERT INTO public.hospital(hospital_name,hospital_chinese_name) values ('Renji Hospital','仁济医院');
 
 
+/*****************************
+ADMIN ONLY
+*****************************/
 INSERT INTO public.user(username,password, display_name, roles,avatar)
-values ('admin','$2a$10$mGfiz1U4/p.CjCws13CevO/zxytn.OTL.QPGzMSGuxoLsoBqERGz2','Admin','{admin}','/static/img/admin-avatar.gif');
+values ('admin','$2a$10$0ILPlWQTsqRHvo.izNZ.Eenl1wJDBYu7JY/Bk0gk9QH3dAE814hYu','Admin','{admin}','/static/img/admin-avatar.gif');
 

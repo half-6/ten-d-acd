@@ -1,7 +1,7 @@
 version: '2'
 services:
   admin:
-    image: cyokin/tend-admin:0.0.1
+    image: cyokin/tend-admin:0.0.2
     container_name: tend_admin
     restart: always
     environment:
@@ -14,7 +14,7 @@ services:
     volumes:
       - ./logs:/logs
   exporter:
-    image: cyokin/tend-exporter:0.0.1
+    image: cyokin/tend-exporter:0.0.2
     container_name: tend_exporter
     restart: always
     environment:
