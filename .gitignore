@@ -1,5 +1,6 @@
 .idea
 com.tend.acd.iml
+cloud.yml
 /logs/
 /bin/logs/
 /bin/static/
