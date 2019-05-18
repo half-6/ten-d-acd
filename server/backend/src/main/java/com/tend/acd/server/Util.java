@@ -4,6 +4,7 @@ package com.tend.acd.server;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.type.TypeFactory;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.system.ApplicationHome;
 
@@ -12,6 +13,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by Cyokin
@@ -22,6 +24,11 @@ public class Util {
     public static String toJson(Object user) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         return  mapper.writeValueAsString(user);
+    }
+    public static <T> List<T> fromJsonList(String jsonString, Class<T> parametrizedClass) throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        TypeFactory typeFactory = objectMapper.getTypeFactory();
+        return objectMapper.readValue(jsonString, typeFactory.constructCollectionType(List.class, parametrizedClass));
     }
     public static <T> T fromJson(String jsonString, Class<T> parametrizedClass,Class<?>... parameterClasses) throws IOException {
         ObjectMapper mapper = new ObjectMapper();

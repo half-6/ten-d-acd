@@ -57,6 +57,17 @@ public class RestErrorHandler {
         Util.logger.warn(output.message);
         return output;
     }
+    @ExceptionHandler({SecurityException.class})
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    @ResponseBody
+    public ResponseBaseEntity processSecurityError(Exception ex)
+    {
+        ResponseBaseEntity output = new ResponseBaseEntity();
+        output.code = HttpStatus.UNAUTHORIZED.value();
+        output.message = ex.getMessage();
+        Util.logger.warn(output.message);
+        return output;
+    }
     @ExceptionHandler({Exception.class})
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseBody

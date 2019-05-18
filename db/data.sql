@@ -1,7 +1,7 @@
 /*****************************
 INJECT DATE
 *****************************/
-TRUNCATE public.cancer_type, public.machine_type RESTART IDENTITY CASCADE;
+TRUNCATE public.cancer_type, public.machine_type, public.user,public.hospital RESTART IDENTITY CASCADE;
 insert into public.cancer_type(cancer_type_id,cancer_type_name,cancer_type_short_name,cancer_type_chinese_name,status)
 values (1,'Thyroid nodules','TH','甲状腺癌','active'),
        (2,'Breast tumours','BR','乳腺癌','active'),
@@ -19,3 +19,8 @@ values (1,'Philips','飞利浦'),
        (8,'Hitachi','日立')
        ;
 INSERT INTO public.hospital(hospital_name,hospital_chinese_name) values ('Renji Hospital','仁济医院');
+
+
+INSERT INTO public.user(username,password, display_name, roles,avatar)
+values ('admin','$2a$10$mGfiz1U4/p.CjCws13CevO/zxytn.OTL.QPGzMSGuxoLsoBqERGz2','Admin','{admin}','/static/img/admin-avatar.gif');
+

@@ -5,16 +5,19 @@
     max-height: 80px;
     max-width: 80px;
 }
-.roi-image .tool-bar>.el-select{
+.roi-image .tool-bar .el-select{
     margin-right: 10px;
-    float: left;
+    width: 100%;
 }
-.roi-image .tool-bar>.el-input{
+.roi-image .tool-bar .el-input{
     margin-right: 10px;
-    float: left;
-    max-width: 217px;
 }
-.roi-image .tool-bar>.el-button{
+.roi-image .tool-bar .el-button{
     margin-right: 10px;
-    float: left;
+}
+.roi-image .tool-bar .el-date-editor{
+    width: 100%;
+}
+.roi-image .tool-bar .el-col{
+    margin-bottom: 5px;
 }

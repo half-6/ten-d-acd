@@ -1,9 +1,9 @@
 package com.tend.acd.server.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.tend.acd.server.model.request.UserEntity;
 import com.tend.acd.server.model.response.ResponseBaseEntity;
 import com.tend.acd.server.repository.JwtRepository;
+import com.tend.acd.server.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,17 +17,20 @@ import java.io.IOException;
 public class UserController {
 
     @Autowired
+    UserService userService;
+
+    @Autowired
     JwtRepository jwtRepository;
 
     private final static String KEY_COOKIE="LF_AUTH";
 
     @PostMapping("login")
-    public ResponseBaseEntity<String> login(@RequestBody UserEntity input, HttpServletResponse response, HttpServletRequest request) throws JsonProcessingException {
-        input.token = jwtRepository.encode(input);
-        Cookie auth = new Cookie(KEY_COOKIE,input.token);
+    public ResponseBaseEntity<String> login(@RequestBody UserEntity input, HttpServletResponse response, HttpServletRequest request) throws Exception {
+        UserEntity loginUser = userService.login(input);
+        Cookie auth = new Cookie(KEY_COOKIE,loginUser.token);
         auth.setMaxAge(1000000);
         response.addCookie(auth);
-        return new ResponseBaseEntity<>(input.token);
+        return new ResponseBaseEntity<>(loginUser.token);
     }
 
     @PostMapping("info")

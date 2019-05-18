@@ -1,1 +1,1 @@
-java -jar target\com.tend.acd.exporter-0.0.1-SNAPSHOT.jar import --postgreSQL.connection="jdbc:postgresql://192.168.201.110:5432/tend?user=postgres&password=qazwsx123" --backup.dir=D:\codes\qyotech\ten-d-acd\exporter\target\201905101235
+java -jar target\com.tend.acd.exporter-0.0.1-SNAPSHOT.jar import --postgreSQL.connection="jdbc:postgresql://192.168.201.110:5432/tend?user=postgres&password=qazwsx123" --backup.dir=D:\codes\qyotech\ten-d-acd\exporter\target\201905142056

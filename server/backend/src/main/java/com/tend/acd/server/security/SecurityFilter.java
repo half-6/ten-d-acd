@@ -1,12 +1,8 @@
 package com.tend.acd.server.security;
 
 import com.tend.acd.server.Util;
-import com.tend.acd.server.model.request.UserEntity;
 import com.tend.acd.server.repository.JwtRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.client.HttpClientErrorException;
 
-import javax.security.sasl.AuthenticationException;
 import javax.servlet.*;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -17,29 +13,43 @@ import java.util.List;
 
 public class SecurityFilter implements Filter {
 
-    private List<String> WriteList = Arrays.asList("/api/user/login"
+    private List<String> WriteList = Arrays.asList(
+            "/api/user/login"
             ,"/api/user/logout"
+            ,"/api/content/config.js"
             ,"/api/db/public.v_machine_type"
             ,"/api/db/public.v_cancer_type"
             ,"/api/db/public.v_hospital"
+            ,"/api/db/public.v_ai_version"
     );
     private JwtRepository jwtRepository;
     public SecurityFilter(JwtRepository jwtRepository){
         this.jwtRepository = jwtRepository;
     }
 
+    private String readToken(HttpServletRequest request){
+        String token = request.getHeader("LF_AUTH");
+        if(token!=null)
+        {
+            return token;
+        }
+        if(request.getCookies()!=null)
+        {
+            return Arrays.stream(request.getCookies())
+                    .filter(c -> c.getName().equals("LF_AUTH"))
+                    .findFirst()
+                    .map(Cookie::getValue)
+                    .orElse(null);
+        }
+        return null;
+    }
+
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request =  (HttpServletRequest)servletRequest;
         HttpServletResponse response =  (HttpServletResponse)servletResponse;
-        String token = Arrays.stream(request.getCookies())
-                .filter(c -> c.getName().equals("LF_AUTH"))
-                .findFirst()
-                .map(Cookie::getValue)
-                .orElse(null);
         try {
+            String token = readToken(request);
             jwtRepository.verify(token);
-            //UserEntity loginUser = new UserEntity();
-            //filterChain.doFilter(new UserRoleRequestWrapper(request,loginUser),servletResponse);
             filterChain.doFilter(servletRequest,servletResponse);
         }
         catch (Exception e){
@@ -47,12 +57,14 @@ public class SecurityFilter implements Filter {
             {
                 filterChain.doFilter(servletRequest,servletResponse);
             }
-            else{
+            else
+            {
                 Util.logger.error("invalid token");
-                //response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "invalid token");
-                throw new AuthenticationException("Unauthorized");
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "invalid token");
+                //throw new SecurityException("Unauthorized");
             }
-        }
-    }
 
+        }
+
+    }
 }

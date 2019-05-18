@@ -29,10 +29,10 @@ Vue.use(ElementUI);
 Vue.config.productionTip = false;
 
 async function init(){
-  Vue.prototype.$machineType = (await api.getMachineType()).data
-  Vue.prototype.$cancerType = (await api.getCancerType()).data
-  Vue.prototype.$hospital = (await api.getHospital()).data
-  Vue.prototype.$aiVersion = (await api.getAIVersion()).data
+  Vue.prototype.$machineType = await readData(api.getMachineType)
+  Vue.prototype.$cancerType = await readData(api.getCancerType)
+  Vue.prototype.$hospital = await readData(api.getHospital)
+  Vue.prototype.$aiVersion = await readData(api.getAIVersion)
   Vue.prototype.$pathology = [{"value":"Malignant","text":"Malignant"},{"value":"Benign","text":"Benign"}];
   Vue.prototype.$filters = filters
   Vue.prototype.$tendConfig = window.tendConfig;
@@ -53,6 +53,10 @@ async function init(){
     i18n,
     render: h => h(App)
   })
+}
+async function readData(asyncFun,defaultValue) {
+  const res = await asyncFun()
+  return _.get(res,"data",defaultValue)
 }
 init();
 

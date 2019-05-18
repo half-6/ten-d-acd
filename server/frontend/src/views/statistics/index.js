@@ -7,6 +7,8 @@ export default {
     return {
       search:{
         ai_version:"",
+        hospital_id:"",
+        machine_type_id:"",
       },
       aggCancerTypeList: [],
       totalTP: 0,
@@ -19,8 +21,12 @@ export default {
   methods: {
     async agg() {
       this.isLoading = true;
-      const query = {q:JSON.stringify({$where:{ai_version:this.search.ai_version}})}
-      const r = this.search.ai_version?await api.getAggTable(query):await api.getAllAggTable()
+      const query = {
+        aiVersion:this.search.ai_version?this.search.ai_version:undefined,
+        machineTypeId:this.search.machine_type_id?this.search.machine_type_id:undefined,
+        hospitalId:this.search.hospital_id?this.search.hospital_id:undefined,
+      }
+      const r = await api.getAggTable(query)
       if (r) {
         this.aggCancerTypeList = r.data;
         _.each(this.aggCancerTypeList,o=>{
@@ -29,6 +35,9 @@ export default {
           o.tnr = o.tn/(o.fp + o.tn);
           o.precision = o.tp/(o.tp + o.fp);
         })
+      }
+      else {
+        this.aggCancerTypeList = null
       }
       this.isLoading = false;
     },

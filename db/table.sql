@@ -117,3 +117,17 @@ CREATE TABLE public.roi_history(
 ) WITH (
     OIDS = FALSE
   );
+
+DROP TABLE IF EXISTS public.user cascade;
+CREATE TABLE public.user(
+  user_id SERIAL PRIMARY KEY,
+  username VARCHAR(200) NOT NULL,
+  password VARCHAR(200) NOT NULL,
+  display_name VARCHAR(200),
+  roles VARCHAR(50)[],
+  avatar VARCHAR(50),
+  date_registered TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  date_updated TIMESTAMP WITH TIME ZONE
+) WITH (
+    OIDS = FALSE
+  );

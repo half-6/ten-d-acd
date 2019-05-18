@@ -5,6 +5,7 @@ import 'nprogress/nprogress.css' // progress bar style
 import { Message } from 'element-ui'
 import _ from 'lodash'
 import { getToken } from '@/utils/auth' // getToken from cookie
+import api from '@/api/image'
 
 NProgress.configure({ showSpinner: false })// NProgress configuration
 

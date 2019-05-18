@@ -1,0 +1,27 @@
+version: '2'
+services:
+  admin:
+    image: cyokin/tend-admin:0.0.1
+    container_name: tend_admin
+    restart: always
+    environment:
+      - tend.postgreSQL.host=pgm-uf68qgo48618z21414870.pg.rds.aliyuncs.com
+      - tend.postgreSQL.port=3433
+      - tend.postgreSQL.user=tend_admin
+      - tend.postgreSQL.password=g9RM!BjA@wQ*BnFe
+    ports:
+      - "80:8080"
+    volumes:
+      - ./logs:/logs
+  exporter:
+    image: cyokin/tend-exporter:0.0.1
+    container_name: tend_exporter
+    restart: always
+    environment:
+      - tend.postgreSQL.host=pgm-uf68qgo48618z21414870.pg.rds.aliyuncs.com
+      - tend.postgreSQL.port=3433
+      - tend.postgreSQL.user=tend_admin
+      - tend.postgreSQL.password=g9RM!BjA@wQ*BnFe
+      - spring.profiles.active=env
+    volumes:
+      - ./static:/opt/static

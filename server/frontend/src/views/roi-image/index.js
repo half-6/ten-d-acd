@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import api from '@/api/image'
-
+import moment from 'moment';
 export default {
   name: "home-page",
   data() {
@@ -14,12 +14,40 @@ export default {
         ai_version:"",
         pathology:"",
         prediction:"",
+        date:"",
         id:""
       },
       page:{
         offset:0,
         limit:10,
         page_index: 1
+      },
+      pickerOptions: {
+        shortcuts: [{
+          text: 'Last week',
+          onClick(picker) {
+            const end = new Date();
+            const start = new Date();
+            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+            picker.$emit('pick', [start, end]);
+          }
+        }, {
+          text: 'Last month',
+          onClick(picker) {
+            const end = new Date();
+            const start = new Date();
+            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+            picker.$emit('pick', [start, end]);
+          }
+        }, {
+          text: 'Last 3 months',
+          onClick(picker) {
+            const end = new Date();
+            const start = new Date();
+            start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+            picker.$emit('pick', [start, end]);
+          }
+        }]
       },
     };
   },
@@ -40,6 +68,10 @@ export default {
           hospital_id:this.search.hospital_id?this.search.hospital_id:undefined,
           ai_version:this.search.ai_version?this.search.ai_version:undefined,
           record_external_id:this.search.id?{$like: "%"+ this.search.id + "%"}:undefined,
+          date_registered:this.search.date?{
+            $gte: moment(this.search.date[0]).format("YYYY/MM/DDTHH:mm:ss.SSS")+"Z",
+            $lte: moment(this.search.date[1]).format("YYYY/MM/DDTHH:mm:ss.SSS")+"Z",
+          }:undefined,
         },
         $limit: parseInt(this.page.limit),
         $offset:(this.page.page_index -1) * this.page.limit,
@@ -67,7 +99,8 @@ export default {
             {
               this.roiImageList = null;
             }
-
+            this.isLoading = false;
+          }).catch(err=>{
             this.isLoading = false;
           });
     }

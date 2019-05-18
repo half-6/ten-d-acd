@@ -5,8 +5,8 @@ export default {
   data() {
     return {
       loginForm: {
-        username: 'admin',
-        password: 'admin'
+        username: '',
+        password: ''
       },
       loginRules: {
         username: [{ required: true, trigger: 'blur', message: "Please enter user name" }],

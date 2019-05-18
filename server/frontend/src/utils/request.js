@@ -1,7 +1,9 @@
 import axios from 'axios'
+import _ from 'lodash'
 import qs from 'qs';
 import { Message } from 'element-ui'
 import { cacheAdapterEnhancer } from 'axios-extensions';
+import { getToken } from '@/utils/auth'
 
 const service = axios.create({
   baseURL: "/api/", // api base_url
@@ -13,6 +15,7 @@ const service = axios.create({
 service.interceptors.request.use(
   config => {
     config.headers['X-Token'] = "TEN-D-ACD"
+    config.headers['LF_AUTH'] = getToken();
     if (config.data && config.headers['Content-Type'] === 'application/x-www-form-urlencoded') {
         config.data = qs.stringify(config.data);
     }
@@ -42,8 +45,10 @@ service.interceptors.response.use(
   },
   error => {
     console.log('err' + error) // for debug
+    const statusCode = _.get(error,"response.status")
+    const message = _.get(error,"response.data.message")
     Message({
-      message: "Unknown error, please try again, Contact admin for more information.",
+      message: message || "Unknown error, please try again, Contact admin for more information.",
       type: 'error',
       duration: 5 * 1000
     })
