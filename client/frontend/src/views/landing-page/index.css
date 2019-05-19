@@ -4,6 +4,11 @@
 .landing-page .btn-toolbar>*{
   z-index: 100;
 }
+.landing-page .img-name{
+  position: absolute;
+  right: 5px;
+  z-index: 99;
+}
 .landing-page .nav-item{
   z-index: 100;
 }
