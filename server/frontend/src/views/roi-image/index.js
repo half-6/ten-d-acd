@@ -69,8 +69,8 @@ export default {
           ai_version:this.search.ai_version?this.search.ai_version:undefined,
           record_external_id:this.search.id?{$like: "%"+ this.search.id + "%"}:undefined,
           date_registered:this.search.date?{
-            $gte: moment(this.search.date[0]).format("YYYY/MM/DDTHH:mm:ss.SSS")+"Z",
-            $lte: moment(this.search.date[1]).format("YYYY/MM/DDTHH:mm:ss.SSS")+"Z",
+            $gte: moment(this.search.date[0]).utc().format("YYYY/MM/DDTHH:mm:ss.SSS")+"Z",
+            $lte: moment(this.search.date[1]).utc().format("YYYY/MM/DDTHH:mm:ss.SSS")+"Z",
           }:undefined,
         },
         $limit: parseInt(this.page.limit),

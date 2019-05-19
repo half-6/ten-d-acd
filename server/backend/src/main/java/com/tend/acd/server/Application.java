@@ -50,6 +50,9 @@ public class Application {
         srb.setUrlMappings(Collections.singletonList("/api/db/*"));
         HashMap<String, String> initParameters = new HashMap<>();
         initParameters.put("DBConnectionString", DBConnectionString);
+        initParameters.put("enableDelete", "false");
+        initParameters.put("enableInsert", "false");
+        initParameters.put("enableUpdate", "false");
         Util.logger.trace("init DB API =>" + DBConnectionString);
         srb.setInitParameters(initParameters);
         return srb;
