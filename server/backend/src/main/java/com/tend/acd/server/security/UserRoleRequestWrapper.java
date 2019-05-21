@@ -14,12 +14,15 @@ public class UserRoleRequestWrapper extends HttpServletRequestWrapper {
     }
 
     @Override
-    public Principal getUserPrincipal() {
-        if(loginUser!=null)
-        {
-            Principal a = () -> loginUser.username;
-            return a;
+    public boolean isUserInRole(String role) {
+        if (loginUser == null) {
+            return super.isUserInRole(role);
         }
-        return null;
+        return loginUser.roles.contains(role);
+    }
+
+    @Override
+    public Principal getUserPrincipal() {
+        return loginUser;
     }
 }

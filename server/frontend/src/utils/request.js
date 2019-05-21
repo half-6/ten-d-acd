@@ -14,8 +14,9 @@ const service = axios.create({
 // request拦截器
 service.interceptors.request.use(
   config => {
-    config.headers['X-Token'] = "TEN-D-ACD"
-    config.headers['LF_AUTH'] = getToken();
+    config.headers['X-Token'] = "TEN-D-ACD";
+    const token = getToken();
+    token && (config.headers['Authorization'] = 'Bearer ' + token);
     if (config.data && config.headers['Content-Type'] === 'application/x-www-form-urlencoded') {
         config.data = qs.stringify(config.data);
     }

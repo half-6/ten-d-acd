@@ -1,7 +1,5 @@
 package com.tend.acd.server.repository;
 
-import LinkFuture.DB.DBHelper.DBHelper;
-import LinkFuture.DB.DBHelper.Model.CommandTypeInfo;
 import com.tend.acd.server.ApplicationTests;
 import com.tend.acd.server.Util;
 import com.tend.acd.server.model.request.UserEntity;

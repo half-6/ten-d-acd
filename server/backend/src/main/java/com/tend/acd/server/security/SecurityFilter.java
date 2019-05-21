@@ -1,10 +1,11 @@
 package com.tend.acd.server.security;
 
 import com.tend.acd.server.Util;
+import com.tend.acd.server.model.request.UserEntity;
 import com.tend.acd.server.repository.JwtRepository;
+import org.springframework.http.HttpHeaders;
 
 import javax.servlet.*;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -28,19 +29,19 @@ public class SecurityFilter implements Filter {
     }
 
     private String readToken(HttpServletRequest request){
-        String token = request.getHeader("LF_AUTH");
-        if(token!=null)
+        String authorization = request.getHeader(HttpHeaders.AUTHORIZATION);
+        if(authorization!=null && authorization.startsWith("Bearer"))
         {
-            return token;
+            return authorization.substring("Bearer".length()).trim();
         }
-        if(request.getCookies()!=null)
-        {
-            return Arrays.stream(request.getCookies())
-                    .filter(c -> c.getName().equals("LF_AUTH"))
-                    .findFirst()
-                    .map(Cookie::getValue)
-                    .orElse(null);
-        }
+//        if(request.getCookies()!=null)
+//        {
+//            return Arrays.stream(request.getCookies())
+//                    .filter(c -> c.getName().equals("LF_AUTH"))
+//                    .findFirst()
+//                    .map(Cookie::getValue)
+//                    .orElse(null);
+//        }
         return null;
     }
 
@@ -49,8 +50,8 @@ public class SecurityFilter implements Filter {
         HttpServletResponse response =  (HttpServletResponse)servletResponse;
         try {
             String token = readToken(request);
-            jwtRepository.verify(token);
-            filterChain.doFilter(servletRequest,servletResponse);
+            UserEntity user = jwtRepository.decode(token);
+            filterChain.doFilter(new UserRoleRequestWrapper(request,user),servletResponse);
         }
         catch (Exception e){
             if(WriteList.contains(request.getRequestURI()))
@@ -61,7 +62,6 @@ public class SecurityFilter implements Filter {
             {
                 Util.logger.error("invalid token");
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "invalid token");
-                //throw new SecurityException("Unauthorized");
             }
 
         }

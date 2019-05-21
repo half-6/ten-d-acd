@@ -25,5 +25,5 @@ INSERT INTO public.hospital(hospital_name,hospital_chinese_name) values ('Renji 
 ADMIN ONLY
 *****************************/
 INSERT INTO public.user(username,password, display_name, roles,avatar)
-values ('admin','$2a$10$0ILPlWQTsqRHvo.izNZ.Eenl1wJDBYu7JY/Bk0gk9QH3dAE814hYu','Admin','{admin}','/static/img/admin-avatar.gif');
+values ('admin','$2a$10$2knOVmC6/.KMVf6BR0.QP.5JqaYacAZjWuLK67XwCX02QUYINyRUK','Admin','{admin}','/static/img/admin-avatar.gif');
 
