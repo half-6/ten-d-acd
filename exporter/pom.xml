@@ -5,7 +5,7 @@
     <groupId>com.tend</groupId>
     <artifactId>com.tend.acd.exporter</artifactId>
     <packaging>jar</packaging>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2-SNAPSHOT</version>
     <name>com.tend.acd.exporter</name>
     <description>import and export data for tend acd system</description>
 

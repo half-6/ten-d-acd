@@ -1,3 +1,3 @@
 scp -v -r -i D:\codes\mykey\tend-admin-ec2.pem  "D:\codes\qyotech\ten-d-acd\exporter\target\201905110139" "root@47.103.63.195:/mnt/tend/"
 scp -v -r -i D:\codes\mykey\tend-admin-ec2.pem  "D:\codes\qyotech\ten-d-acd\docker\cloud.yml" "root@47.103.63.195:/mnt/tend/"
-ssh -i D:\codes\mykey\tend-admin-ec2.pem root@47.103.63.195 "cd /mnt/tend/; sudo docker-compose -f cloud.yml run exporter java -jar com.tend.acd.exporter.jar import --backup.dir=/opt/static/201905110139"
+ssh -i D:\codes\mykey\tend-admin-ec2.pem root@47.103.63.195 "cd /mnt/tend/; docker-compose -f cloud.yml pull exporter; sudo docker-compose -f cloud.yml run exporter java -jar com.tend.acd.exporter.jar import --backup.dir=/opt/static/201905110139"
