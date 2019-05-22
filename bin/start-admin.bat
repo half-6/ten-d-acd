@@ -1,4 +1,4 @@
-set /P version=Enter version(default is 0.0.2): || SET "version=0.0.2"
+set /P version=Enter version(default is 0.0.3): || SET "version=0.0.3"
 echo your application version is %version%
 set /P port=Enter http port(default is 8081): || SET "port=8081"
 echo you http port is %port%
