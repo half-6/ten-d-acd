@@ -7,6 +7,8 @@ export default {
     return {
       roiImageList:null,
       isLoading:false,
+      selectedImage:null,
+      showImageDialog:false,
       search:{
         machine_type_id:"",
         cancer_type_id:"",
@@ -55,8 +57,9 @@ export default {
     init(){
       this.searchImage(1);
     },
-    getImageUrl(file){
-      return this.$tendConfig.imageUrl.replace("{file}",file);
+    showImage(imageId){
+      this.selectedImage = imageId;
+      this.showImageDialog = true;
     },
     buildWhere(){
       return {

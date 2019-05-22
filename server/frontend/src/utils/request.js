@@ -34,9 +34,16 @@ service.interceptors.request.use(
 service.interceptors.response.use(
   response => {
     const res = response.data
-    if(res.code === 200)
+    if(res)
     {
-        return res.response;
+        if(res.code === 200)
+        {
+            return res.response;
+        }
+        else{
+            return response;
+        }
+
     }
     Message({
         message: res.message,
@@ -46,6 +53,10 @@ service.interceptors.response.use(
   },
   error => {
     console.log('err' + error) // for debug
+    if(error.config.showError===false)
+    {
+        return Promise.reject(error)
+    }
     const statusCode = _.get(error,"response.status")
     const message = _.get(error,"response.data.message")
     Message({

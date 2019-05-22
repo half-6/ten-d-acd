@@ -89,7 +89,6 @@
         </el-col>
       </el-row>
     </div>
-
     <el-row class="panel" :gutter="10">
       <el-table
               :data="roiImageList"
@@ -99,12 +98,16 @@
         <el-table-column fixed label="#" prop="record_external_id" width="80"/>
         <el-table-column label="Original Image" prop="original_image">
           <template slot-scope="scope">
-            <a :href="getImageUrl(scope.row.original_image)" target="_blank"><img class="img-thumbnail" :src="getImageUrl(scope.row.original_image)"/></a>
+            <a @click="showImage(scope.row.original_image)" target="_blank">
+              <loading-image class="image-container" :imageKey="scope.row.original_image" ></loading-image>
+            </a>
           </template>
         </el-table-column>
         <el-table-column label="Roi Image" prop="roi_image">
           <template slot-scope="scope">
-            <a :href="getImageUrl(scope.row.roi_image)" target="_blank"><img class="img-thumbnail" :src="getImageUrl(scope.row.roi_image)"/></a>
+            <a @click="showImage(scope.row.roi_image)" target="_blank">
+              <loading-image class="image-container" :imageKey="scope.row.roi_image" ></loading-image>
+            </a>
           </template>
         </el-table-column>
         <el-table-column label="Cancer Type" prop="cancer_type_name"/>
@@ -126,6 +129,13 @@
               :total="page.total_count">
       </el-pagination>
     </el-row>
+    <el-dialog
+            title="Image"
+            :visible.sync="showImageDialog"
+            width="80%"
+            center>
+      <loading-image class="popup-image" :imageKey="selectedImage" ></loading-image>
+    </el-dialog>
   </div>
 </template>
 <style src="./index.css"></style>

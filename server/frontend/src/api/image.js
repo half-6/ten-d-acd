@@ -57,6 +57,14 @@ async function getAIVersion(params) {
     params,
   })
 }
+async function getImage(key) {
+  return await request({
+    url: '/image/' + key,
+    method: 'get',
+    responseType: 'arraybuffer',
+    showError:false
+  })
+}
 
 export default {
   getCancerType,
@@ -66,5 +74,6 @@ export default {
   getAggTable,
   updateROIImage,
   updateRecord,
-  getROIImages
+  getROIImages,
+  getImage
 }

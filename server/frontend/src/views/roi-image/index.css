@@ -1,9 +1,20 @@
 .roi-image{
 }
 
+.roi-image .image-container{
+    height: 80px;
+    width: 80px;
+}
+.roi-image .popup-image img{
+    width: 100%;
+    margin: auto;
+    display: block;
+    object-fit: contain;
+}
 .roi-image table img{
-    max-height: 80px;
-    max-width: 80px;
+    height: 80px;
+    width: 80px;
+    object-fit: contain;
 }
 .roi-image .tool-bar .el-select{
     margin-right: 10px;

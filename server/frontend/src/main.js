@@ -20,6 +20,7 @@ import 'normalize.css/normalize.css' // A modern alternative to CSS resets
 import i18n from './lang';
 import filters from "./filters/";
 import "./components/";
+import directives from "./directives/";
 import api from '@/api/image'
 
 import '@/permission' // permission control
@@ -35,6 +36,7 @@ async function init(){
   Vue.prototype.$aiVersion = await readData(api.getAIVersion)
   Vue.prototype.$pathology = [{"value":"Malignant","text":"Malignant"},{"value":"Benign","text":"Benign"}];
   Vue.prototype.$filters = filters
+  Vue.prototype.$directives = directives
   Vue.prototype.$tendConfig = window.tendConfig;
   Vue.prototype.$formatters = {};
   _.forIn(filters,(f,k)=>{
