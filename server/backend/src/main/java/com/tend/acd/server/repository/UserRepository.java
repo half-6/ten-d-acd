@@ -29,7 +29,7 @@ public class UserRepository extends DBRepository<UserEntity,Integer> {
         JSONObject where = new JSONObject();
         where.put("username",username);
         where.put("status","active");
-        UserEntity user = this.findOne(where);
+        UserEntity user = this.findOneWhere(where);
         if(BCrypt.checkpw(password,user.password))
         {
             return user;

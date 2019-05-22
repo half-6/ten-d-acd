@@ -65,4 +65,8 @@ public class Util {
     static Path getAppStaticPath(){
         return Paths.get(getAppPath(),"static");
     }
+
+    public static String fileNameFormat(String input){
+        return input.replaceAll("[^a-zA-Z0-9_\\-\\S+]", "");
+    }
 }

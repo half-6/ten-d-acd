@@ -1,6 +1,7 @@
 import _ from 'lodash'
 import api from '@/api/image'
 import moment from 'moment';
+import {getToken} from '@/utils/auth';
 export default {
   name: "home-page",
   data() {
@@ -84,6 +85,12 @@ export default {
     handleSizeChange(size){
       if(size) this.page.limit = size;
       this.searchImage(1);
+    },
+    download(){
+      let query = this.buildWhere();
+      query.$limit= 100000;
+      query.$offset = 0;
+      window.open(`/api/image/download?input=${encodeURIComponent(JSON.stringify(query))}&t=${getToken()}`);
     },
     searchImage(pageIndex){
       this.page.page_index = pageIndex;

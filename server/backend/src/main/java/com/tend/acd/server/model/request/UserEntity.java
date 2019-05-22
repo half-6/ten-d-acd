@@ -12,6 +12,9 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserEntity implements Principal {
 
+    @JsonProperty("user_id")
+    public String userId;
+
     @NotNull
     public String username;
 

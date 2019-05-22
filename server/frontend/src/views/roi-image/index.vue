@@ -87,6 +87,9 @@
         <el-col :md="4" :sm="6" :xs="12" :lg="3">
           <el-button type="primary" :loading="isLoading" icon="el-icon-search" @click="searchImage(1)">Search</el-button>
         </el-col>
+        <el-col :md="4" :sm="6" :xs="12" :lg="3">
+          <el-button type="primary" icon="el-icon-download" @click="download">Download</el-button>
+        </el-col>
       </el-row>
     </div>
     <el-row class="panel" :gutter="10">

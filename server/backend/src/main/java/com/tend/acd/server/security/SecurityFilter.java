@@ -34,6 +34,7 @@ public class SecurityFilter implements Filter {
         {
             return authorization.substring("Bearer".length()).trim();
         }
+        return request.getParameter("t");
 //        if(request.getCookies()!=null)
 //        {
 //            return Arrays.stream(request.getCookies())
@@ -42,7 +43,6 @@ public class SecurityFilter implements Filter {
 //                    .map(Cookie::getValue)
 //                    .orElse(null);
 //        }
-        return null;
     }
 
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
