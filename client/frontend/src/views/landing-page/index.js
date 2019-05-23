@@ -38,6 +38,14 @@ export default {
       this.onSelectFile(this.imageList[0]);
       e.target.value = "";
     },
+    async handleChange(file,fileList){
+      const files = _.map(fileList,item=>item.raw);
+      await this.buildGallery(files);
+      this.onSelectFile(this.imageList[0]);
+    },
+    beforeAvatarUpload(){
+      return false;
+    },
     onSelectFile(file) {
       if(file)
       {
@@ -89,6 +97,7 @@ export default {
     async buildGallery(images) {
       this.selectedImage = null;
       this.imageList = [];
+      //$("#imageList").carousel({pause: true,interval: false}).carousel(0);
       for (let i = 0; i < images.length; i++) {
         let item = images[i];
         let src = await this.loadImage(item);
@@ -197,6 +206,7 @@ export default {
     },
     reset(){
       Object.assign(this.$data, this.$options.data())
+      //$("#imageList").carousel({pause: true,interval: false}).carousel(0);
       this.init();
     }
   },

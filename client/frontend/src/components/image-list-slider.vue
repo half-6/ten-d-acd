@@ -1,5 +1,5 @@
 <template>
-  <div :id="id" class="carousel slide carouselSlider" data-ride="carousel" data-interval="false" data-wrap="false">
+  <div :id="id" ref="carousel" class="carousel slide carouselSlider" data-ride="carousel" data-interval="false" data-wrap="false">
     <div class="carousel-inner" v-if="imageList.length>0">
       <div class="carousel-item" v-for="i in Math.ceil(imageList.length / 5)" :class="{active:i==1}">
         <div class="carousel-item-image w-20" v-for="item in imageList.slice((i - 1) * 5, i * 5)" :class="{active:selectedImage==item}" v-loading="item.loading">

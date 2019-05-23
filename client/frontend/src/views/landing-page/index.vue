@@ -19,7 +19,17 @@
           </div>
           <div class="img-container">
               <div class="img-rounded rounded fill">
-                <div class="table-center text-center" v-if="imageList.length==0"><div>{{ $t("home.roi-import-desc") }}</div></div>
+                <el-upload v-if="imageList.length===0"
+                        class="f-wh"
+                        action="http://www.google.com"
+                        :show-file-list="false"
+                        drag
+                        :multiple="true"
+                        :before-upload="beforeAvatarUpload"
+                        :on-change="handleChange"
+                  >
+                  <div class="table-center text-center"><div>{{ $t("home.roi-import-desc") }}</div></div>
+                </el-upload>
                 <img v-show="selectedImage!=null" :src="selectedImage?selectedImage.src:''"  ref="selectedImg">
               </div>
            </div>

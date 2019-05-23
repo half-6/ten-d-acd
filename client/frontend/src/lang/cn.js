@@ -29,7 +29,7 @@ export default {
         "cancer-type": "癌症类型",
         "machine-type": "B超机器类型",
         "enter-id": "输入记录ID",
-        "roi-import-desc": "请点击 \"导入影像\" 按钮导入B超影像。",
+        "roi-import-desc": "请拖拽图片到这里，或者点击 \"导入影像\" 按钮导入B超影像。",
         "roi-cut-desc": "请点击下方\"切ROI图\" 按钮生成ROI图。",
         "button-import": "导入影像",
         "button-cut-roi-image": "切ROI图",

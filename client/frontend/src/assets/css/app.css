@@ -38,6 +38,16 @@ body {
 .w-60 {width: 60% !important;}
 .w-80 {width: 80% !important;}
 
+.f-w{
+  width: 100%;
+}
+.f-h{
+  height: 100%;
+}
+.f-wh{
+  width: 100%;
+  height: 100%;
+}
 
 * {
   -webkit-user-select: none;

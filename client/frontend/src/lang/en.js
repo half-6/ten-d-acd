@@ -29,7 +29,7 @@ export default {
         "cancer-type": "Cancer type",
         "machine-type": "Machine type",
         "enter-id": "Please enter ID",
-        "roi-import-desc": "Please click \"Import Image\" button to choose a b-model image",
+        "roi-import-desc": "Please drop file here or click \"Import Image\" button to choose a b-model image",
         "roi-cut-desc": "Please click \"Cut ROI Image\" button on the bottom of the left image to cut an ROI image",
         "button-import": "Import Image",
         "button-cut-roi-image": "Cut ROI Image",
