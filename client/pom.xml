@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.tend</groupId>
 	<artifactId>com.tend.acd.client</artifactId>
-	<version>0.0.16-SNAPSHOT</version>
+	<version>0.0.17-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>Ultrasound Image Tumor Detection Client System</name>
 	<description>Ultrasound Image Tumor Detection Client System</description>
