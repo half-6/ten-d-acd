@@ -1,6 +1,9 @@
 package com.tend.acd;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.system.ApplicationHome;
@@ -11,18 +14,18 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Base64;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Created by Cyokin
  * on 4/22/2016.
  */
+@SuppressWarnings("Duplicates")
 public class Util {
     public final static org.slf4j.Logger logger = LoggerFactory.getLogger("com.tend.acd.backend");
 
@@ -104,6 +107,9 @@ public class Util {
     private static String getAppUploadPath(){
         return Paths.get(getAppStaticPath().toString(),"uploads").toString();
     }
+    public static String getAppCertPath(){
+        return Paths.get(getAppStaticPath().toString(),"hospital.cert").toString();
+    }
     static Path getAppStaticPath(){
         return Paths.get(getAppPath(),"static");
     }
@@ -121,5 +127,44 @@ public class Util {
 
     public static String fileNameFormat(String input){
         return input.replaceAll("[^a-zA-Z0-9_\\-\\S+]", "");
+    }
+
+    public static Path readResourcePath(String resourceFilePath) throws URISyntaxException {
+        return Paths.get(Util.class.getClassLoader().getResource(resourceFilePath).toURI());
+    }
+    public static byte[] readResourceFile(String resourceFilePath) throws IOException {
+        return IOUtils.toByteArray( Util.class.getClassLoader().getResourceAsStream(resourceFilePath));
+    }
+
+    public static <T> T fromJson(String jsonString, Class<T> parametrizedClass,Class<?>... parameterClasses) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        if(parameterClasses.length ==0)
+        {
+            return mapper.readValue(jsonString,parametrizedClass);
+        }
+        else
+        {
+            ArrayList<Class<?>> subClass = new ArrayList<>();
+            subClass.add(parametrizedClass);
+            subClass.addAll(Arrays.asList(parameterClasses));
+            JavaType parameterType=null;
+            for (int i = subClass.size()-1;i>=0;i--)
+            {
+                if(parameterType==null)
+                {
+                    parameterType = mapper.getTypeFactory().constructParametricType(subClass.get(i-1),subClass.get(i));
+                    i--;
+                }
+                else
+                {
+                    parameterType = mapper.getTypeFactory().constructParametricType(subClass.get(i) ,parameterType);
+                }
+            }
+            return mapper.readValue(jsonString,parameterType);
+        }
+    }
+    public static String toJson(Object user) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        return  mapper.writeValueAsString(user);
     }
 }

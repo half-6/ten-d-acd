@@ -97,7 +97,6 @@ export default {
     async buildGallery(images) {
       this.selectedImage = null;
       this.imageList = [];
-      //$("#imageList").carousel({pause: true,interval: false}).carousel(0);
       for (let i = 0; i < images.length; i++) {
         let item = images[i];
         let src = await this.loadImage(item);
@@ -206,7 +205,6 @@ export default {
     },
     reset(){
       Object.assign(this.$data, this.$options.data())
-      //$("#imageList").carousel({pause: true,interval: false}).carousel(0);
       this.init();
     }
   },

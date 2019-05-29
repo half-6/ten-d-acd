@@ -5,10 +5,12 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
+import org.apache.commons.io.IOUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.system.ApplicationHome;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -19,6 +21,7 @@ import java.util.List;
  * Created by Cyokin
  * on 4/22/2016.
  */
+@SuppressWarnings("Duplicates")
 public class Util {
     public final static org.slf4j.Logger logger = LoggerFactory.getLogger("com.tend.acd.backend");
     public static String toJson(Object user) throws JsonProcessingException {
@@ -68,5 +71,13 @@ public class Util {
 
     public static String fileNameFormat(String input){
         return input.replaceAll("[^a-zA-Z0-9_\\-\\S+]", "");
+    }
+
+    public static byte[] readResourceFile(String resourceFilePath) throws IOException {
+        return IOUtils.toByteArray( Util.class.getClassLoader().getResourceAsStream(resourceFilePath));
+    }
+
+    public static Path readResourcePath(String resourceFilePath) throws URISyntaxException {
+        return Paths.get(Util.class.getClassLoader().getResource(resourceFilePath).toURI());
     }
 }

@@ -21,6 +21,7 @@ import java.util.zip.ZipOutputStream;
 /**
  * Module Name: ImageRecognitionService Project Name: com.tend.acd Created by Cyokin on 1/18/2019
  */
+@SuppressWarnings("Duplicates")
 @Service
 public class RecordService {
 

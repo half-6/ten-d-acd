@@ -1,6 +1,8 @@
 .idea
 com.tend.acd.iml
 cloud.yml
+start-admin-local.bat
 /logs/
 /bin/logs/
 /bin/static/
+keys/

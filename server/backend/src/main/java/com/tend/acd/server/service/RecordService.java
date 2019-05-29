@@ -23,6 +23,7 @@ import java.util.zip.ZipOutputStream;
 /**
  * Module Name: ImageRecognitionService Project Name: com.tend.acd Created by Cyokin on 1/18/2019
  */
+@SuppressWarnings("Duplicates")
 @Service
 public class RecordService {
 
@@ -54,7 +55,7 @@ public class RecordService {
             }
 
             String originalImageId = item.get("original_image").toString();
-            String originalImageName = originalImageId + ".png";
+            String originalImageName = originalImageId + "_" + loginUser.userId  + ".png";
             if(!entryExists.contains(originalImageName)) {
               putImageToZip(zos, originalImageId, "original/" + originalImageName);
               entryExists.add(originalImageName);

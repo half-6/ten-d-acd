@@ -1,13 +1,10 @@
 package com.tend.acd.server.repository;
 
 import LinkFuture.DB.DBHelper.DBRepository;
-import LinkFuture.DB.DBHelper.GenericDBHelper;
 import com.tend.acd.server.model.request.UserEntity;
 import org.json.JSONObject;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Repository;
-
-import javax.annotation.Resource;
 
 /**
  * Module Name: JwtRepository
@@ -17,9 +14,6 @@ import javax.annotation.Resource;
 @SuppressWarnings("unused")
 @Repository
 public class UserRepository extends DBRepository<UserEntity,Integer> {
-
-    @Resource
-    GenericDBHelper dbHelper;
 
     public UserRepository() {
         super("public.user");

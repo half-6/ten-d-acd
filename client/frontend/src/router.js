@@ -3,7 +3,7 @@ import Router from "vue-router";
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
   mode: "history",
   base: process.env.BASE_URL,
   routes: [
@@ -18,6 +18,11 @@ export default new Router({
       component: require("@/views/about-page/index.vue").default
     },
     {
+      path: "/expire",
+      name: "expire-page",
+      component: require("@/views/expire-page/index.vue").default
+    },
+    {
       path: "/list",
       name: "list-page",
       component: require("@/views/list-page/index.vue").default
@@ -29,3 +34,23 @@ export default new Router({
     }
   ]
 });
+router.beforeEach(async (to, from, next) => {
+  console.log(`nav to ${to.path}`)
+  if (to.path === '/expire') {
+    next();
+  }
+  else
+  {
+    const expiredDate = new Date(window.tendConfig.certificateEntity.expired_time)
+    if(expiredDate > new Date())
+    {
+      next();
+    }
+    else
+    {
+      next({ path: "expire" })
+    }
+  }
+})
+
+export default router;

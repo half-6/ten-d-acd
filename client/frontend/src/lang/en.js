@@ -80,6 +80,7 @@ export default {
         "table-tn": "TN",
         "table-fp": "FP",
         "table-fn": "FN",
+        "expire-on": "Expires on",
         "table-accuracy": "Accuracy(T)",
         "table-tpr": "TPR(T)",
         "table-tnr": "TNR(T)",
@@ -87,6 +88,13 @@ export default {
         "table-total": "Total",
         "app-version": "Application Version number",
         "recognition-version": "Recognition Version number",
+        "power-by": "Powered by The University of Buckingham",
+    },
+    "expire": {
+        "title": "Ultrasound Image Tumor Detection System",
+        "desc": "Powered by Ten-D Innovation's J-Eye Cancer Diagnosis Engine, and under the licensing agreement with the University of Buckingham",
+        "expire": "Your license has expired,Please contact your support representative",
+        "expire-on": "Expires on",
         "power-by": "Powered by The University of Buckingham",
     },
     "import":{
