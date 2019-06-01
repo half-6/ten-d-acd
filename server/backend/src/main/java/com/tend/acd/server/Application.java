@@ -51,8 +51,8 @@ public class Application {
         HashMap<String, String> initParameters = new HashMap<>();
         initParameters.put("DBConnectionString", DBConnectionString);
         initParameters.put("enableDelete", "false");
-        initParameters.put("enableInsert", "false");
-        initParameters.put("enableUpdate", "false");
+        //initParameters.put("enableInsert", "false");
+        //initParameters.put("enableUpdate", "false");
         Util.logger.trace("init DB API =>" + DBConnectionString);
         srb.setInitParameters(initParameters);
         return srb;

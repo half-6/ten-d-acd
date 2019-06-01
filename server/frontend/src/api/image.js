@@ -50,6 +50,13 @@ async function getHospital(params) {
     params,
   })
 }
+async function updateHospital(data) {
+  return await request({
+    url: '/db/public.hospital',
+    method: 'post',
+    data,
+  })
+}
 async function getAIVersion(params) {
   return await request({
     url: '/db/public.v_ai_version',
@@ -69,6 +76,7 @@ async function getImage(key) {
 export default {
   getCancerType,
   getHospital,
+  updateHospital,
   getAIVersion,
   getMachineType,
   getAggTable,

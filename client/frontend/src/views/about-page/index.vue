@@ -10,7 +10,7 @@
             <hr class="my-4">
             <p class="pt-3">{{$t('about.app-version')}}:{{$tendConfig.applicationVersion}}</p>
             <p>{{$t('about.recognition-version')}}:{{$tendConfig.recognitionVersion}}</p>
-            <p>{{$t('about.expire-on')}}:{{new Date($tendConfig.certificateEntity.expired_time)}}</p>
+            <p>{{$t('about.expire-on')}}:{{new Date($tendConfig.certificateEntity.expire_date)}}</p>
             <p class="power"><img :src="require('../../assets/i/logo.png')" >{{$t('about.power-by')}}</p>
           </div>
         </div>

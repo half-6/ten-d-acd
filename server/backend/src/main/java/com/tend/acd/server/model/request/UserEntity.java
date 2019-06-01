@@ -13,7 +13,7 @@ import java.util.List;
 public class UserEntity implements Principal {
 
     @JsonProperty("user_id")
-    public String userId;
+    public Integer userId;
 
     @NotNull
     public String username;

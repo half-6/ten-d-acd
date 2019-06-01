@@ -1,4 +1,4 @@
-version: '2'
+﻿version: '2'
 services:
   db:
     image: postgres:11.2
@@ -11,7 +11,7 @@ services:
       - POSTGRES_PASSWORD=qazwsx123
       - POSTGRES_USER=postgres
   web:
-    image: cyokin/tend:0.0.17
+    image: cyokin/tend:0.0.18
     build: tend
     container_name: tend_web
     restart: always
@@ -26,7 +26,7 @@ services:
     links:
       - db
   admin:
-    image: cyokin/tend-admin:0.0.3
+    image: cyokin/tend-admin:0.0.4
     build: tend-admin
     container_name: tend_admin
     restart: always

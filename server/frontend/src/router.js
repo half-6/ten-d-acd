@@ -78,6 +78,27 @@ export default new Router({
         }
       ]
     },
+    {
+      path: "/hospital",
+      component: Layout,
+      redirect: 'noredirect',
+      meta: { title: 'Hospital Manage',  icon: 'list', noCache: true, affix: true, auth:true  },
+      children: [
+        {
+          path: '',
+          component: () => import('@/views/hospital/index.vue'),
+          name: 'hospital',
+          meta: { title: 'Hospital Manage',  icon: 'table', noCache: true, affix: true, auth:true  }
+        },
+        {
+          path: 'certificate/:hospitalId',
+          component: () => import('@/views/certificate/index.vue'),
+          name: 'certificate',
+          meta: { title: 'Certificate Manage',  icon: 'lock', noCache: true,  auth:true },
+          hidden:true
+        }
+      ]
+    },
     { path: '*', redirect: '/404', hidden: true }
   ]
 });

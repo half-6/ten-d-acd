@@ -25,8 +25,9 @@ public class SecurityService {
     DBRepository dbRepository;
 
     public CertificateEntity readCertificate() throws Exception {
-        Util.logger.trace("reading certificate");
-        FileInputStream inputStream = new FileInputStream(Util.getAppCertPath());
+        String certificatePath = Util.getAppCertPath();
+        Util.logger.trace("reading certificate {}",certificatePath);
+        FileInputStream inputStream = new FileInputStream(certificatePath);
         String encrypt = null;
         String sign = null;
         try (ZipInputStream zos=new ZipInputStream(inputStream)){
@@ -53,13 +54,13 @@ public class SecurityService {
                 if(hospital!=null)
                 {
                     Date now = new Date();
-                    if(certificate.expiredTime.after(now))
+                    if(certificate.expiredDate.after(now))
                     {
-                        Util.logger.trace("The application will expire on {}", certificate.expiredTime);
+                        Util.logger.trace("The application will expire on {}", certificate.expiredDate);
                     }
                     else
                     {
-                        Util.logger.error("Your license has expired on {},Please contact your support representative", certificate.expiredTime);
+                        Util.logger.error("Your license has expired on {},Please contact your support representative", certificate.expiredDate);
                     }
                     return certificate;
                 }

@@ -30,7 +30,7 @@ public class SecurityFilter implements Filter {
         HttpServletRequest request =  (HttpServletRequest)servletRequest;
         HttpServletResponse response =  (HttpServletResponse)servletResponse;
         Date now = new Date();
-        if(WriteList.contains(request.getRequestURI()) || configEntity.certificateEntity.expiredTime.after(now))
+        if(WriteList.contains(request.getRequestURI()) || configEntity.certificateEntity.expiredDate.after(now))
         {
             filterChain.doFilter(servletRequest,servletResponse);
         }

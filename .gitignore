@@ -3,7 +3,7 @@ com.tend.acd.iml
 cloud.yml
 start-admin-local.bat
 start-local.bat
-/logs/
+logs/
 /bin/logs/
 /bin/static/
 keys/

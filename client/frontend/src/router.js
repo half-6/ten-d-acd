@@ -41,7 +41,7 @@ router.beforeEach(async (to, from, next) => {
   }
   else
   {
-    const expiredDate = new Date(window.tendConfig.certificateEntity.expired_time)
+    const expiredDate = new Date(window.tendConfig.certificateEntity.expire_date)
     if(expiredDate > new Date())
     {
       next();

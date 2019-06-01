@@ -1,4 +1,4 @@
-# Ultrasound Image Tumor Detection System
+﻿# Ultrasound Image Tumor Detection System
 A web based automatic ultrasound cancer diagnosis system
 
 > ## Architecture
@@ -32,17 +32,17 @@ A web based automatic ultrasound cancer diagnosis system
 - under application root folder
 - mvn package //create release package
 - execute table.sql and data.sql on PostgreSQL
-- java -jar backend\target\com.tend.acd.backend-0.0.17-SNAPSHOT.jar
+- java -jar backend\target\com.tend.acd.backend-0.0.18-SNAPSHOT.jar
 - start http://localhost:8080/
 
 > ## How to run as demo
-- java -jar backend\target\com.tend.acd.backend-0.0.17-SNAPSHOT.jar --spring.profiles.active=demo
+- java -jar backend\target\com.tend.acd.backend-0.0.18-SNAPSHOT.jar --spring.profiles.active=demo
 
 > ## How to run it as backend windows service in windows. 
 - download nssm from https://nssm.cc
 - create start.bat file with following command  
   ``
-  java -jar backend\target\com.tend.acd.backend-0.0.17-SNAPSHOT.jar --spring.profiles.active=demo
+  java -jar backend\target\com.tend.acd.backend-0.0.18-SNAPSHOT.jar --spring.profiles.active=demo
   ``
 - run "nssm install tend-d-acd" and popup a nssm configuration window.  
 - select that "start.bat" on application path on application tab 
@@ -65,14 +65,14 @@ export LD_LIBRARY_PATH=/opt/mcr/v95/runtime/glnxa64/:/opt/mcr/v95/bin/glnxa64/:/
 
 > ## How to overwrite DB connection string via command line      
 ``
-java -jar com.tend.acd.backend-0.0.17-SNAPSHOT.jar --postgreSQL.connection=jdbc:postgresql://127.0.0.1:5432/tend?user=<user>&password=<password>
+java -jar com.tend.acd.backend-0.0.18-SNAPSHOT.jar --postgreSQL.connection=jdbc:postgresql://127.0.0.1:5432/tend?user=<user>&password=<password>
 ``
 
 > ## How to overwrite DB connection string via environment variables 
 ``
 SET tend.postgreSQL.host=192.168.201.110
 SET tend.postgreSQL.port=5432
-java -jar com.tend.acd.backend-0.0.17-SNAPSHOT.jar --spring.profiles.active=env
+java -jar com.tend.acd.backend-0.0.18-SNAPSHOT.jar --spring.profiles.active=env
 ``
 
 > ## How to run under docker environment

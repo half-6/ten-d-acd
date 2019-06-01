@@ -2,7 +2,9 @@ package com.tend.acd.server.service;
 
 import com.tend.acd.server.Util;
 import com.tend.acd.server.model.request.CertificateEntity;
+import com.tend.acd.server.repository.CertificateRepository;
 import com.tend.acd.server.repository.SecurityRepository;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +29,16 @@ public class SecurityService {
     @Autowired
     SecurityRepository securityRepository;
 
-    public void generateCertificate(CertificateEntity certificateEntity, OutputStream outputStream) throws IOException, NoSuchPaddingException, NoSuchAlgorithmException, BadPaddingException, IllegalBlockSizeException, InvalidKeyException, InvalidKeySpecException, SignatureException {
+    @Autowired
+    CertificateRepository certificateRepository;
+
+    public void generateCertificate(String certificateId, OutputStream outputStream) throws Exception {
+        JSONObject where = new JSONObject();
+        where.put("certificate_id",certificateId);
+        CertificateEntity certificateEntity = certificateRepository.findOneWhere(where);
+        generateCertificate(certificateEntity,outputStream);
+    }
+    public void generateCertificate(CertificateEntity certificateEntity, OutputStream outputStream) throws IOException, NoSuchAlgorithmException, InvalidKeyException, SignatureException, IllegalBlockSizeException, BadPaddingException, InvalidKeySpecException, NoSuchPaddingException {
         String input = Util.toJson(certificateEntity);
         String encrypt = securityRepository.encrypt(input);
         String sigingure = securityRepository.signature(encrypt);

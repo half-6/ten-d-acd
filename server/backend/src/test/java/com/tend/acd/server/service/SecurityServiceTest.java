@@ -33,8 +33,8 @@ public class SecurityServiceTest extends ApplicationTests {
         c.setTime(now);
         c.add(Calendar.MONTH,1);
 
-        certificateEntity.startTime = now;
-        certificateEntity.expiredTime = c.getTime();
+        certificateEntity.startDate = now;
+        certificateEntity.expiredDate = c.getTime();
         certificateEntity.hospitalId = UUID.randomUUID();
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream ();
@@ -43,8 +43,8 @@ public class SecurityServiceTest extends ApplicationTests {
         ByteArrayInputStream inputStream = new ByteArrayInputStream(outputStream.toByteArray());
         CertificateEntity decryptEntity = securityService.readCertificate(inputStream);
 
-        Assert.assertEquals(certificateEntity.startTime,decryptEntity.startTime);
-        Assert.assertEquals(certificateEntity.expiredTime,decryptEntity.expiredTime);
+        Assert.assertEquals(certificateEntity.startDate,decryptEntity.startDate);
+        Assert.assertEquals(certificateEntity.expiredDate,decryptEntity.expiredDate);
         Assert.assertEquals(certificateEntity.hospitalId,decryptEntity.hospitalId);
     }
 
@@ -57,8 +57,8 @@ public class SecurityServiceTest extends ApplicationTests {
         //c.add(Calendar.MONTH,1);
         c.add(Calendar.HOUR,1);
 
-        certificateEntity.startTime = now;
-        certificateEntity.expiredTime = c.getTime();
+        certificateEntity.startDate = now;
+        certificateEntity.expiredDate = c.getTime();
         certificateEntity.hospitalId = UUID.fromString("82b988ee-c2ab-4960-8ac2-c073f426ee96");
 
         File file = Paths.get(Util.getAppPath(),"hospital.cert").toFile();
