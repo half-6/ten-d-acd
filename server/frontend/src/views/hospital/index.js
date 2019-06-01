@@ -10,10 +10,10 @@ export default {
           {name: "hospital_id", label: "#", width: 300, readonly: true, list: false, identity: true},
           {name: "hospital_name", label: "Hospital Name",rules:[{required:true,message:"Hospital name is required"}]},
           {name: "hospital_chinese_name", label: "Chinese Name" ,rules:[{required:true,message:"Hospital chinese name is required"}]},
-          {name: "start_date", label: "Start Date", width: 140, readonly: true,formatter: this.format},
-          {name: "expire_date", label: "Expire Date", width: 140, readonly: true,formatter: this.format},
-          {name: "status", label: "Status", width: 80, readonly: true, list: false,formatter: this.format},
-          {name: "date_registered", label: "Date Registered", width: 140,formatter: this.format, readonly: true},
+          {name: "start_date", label: "Start Date", width: 140, readonly: true,formatter: this.$functions.dateFormat.dateTime},
+          {name: "expire_date", label: "Expire Date", width: 140, readonly: true,formatter: this.$functions.dateFormat.dateTime},
+          {name: "status", label: "Status", width: 80, readonly: true, list: false,formatter: this.$functions.dateFormat.dateTime},
+          {name: "date_registered", label: "Date Registered", width: 140, readonly: true,formatter: this.$functions.dateFormat.dateTime},
         ],
         api: {
           remove: async (row) => {
@@ -39,15 +39,11 @@ export default {
   },
   methods: {
     init(){
-
+      //console.log("aaa" + JSON.stringify(this.$formatters.dateFormat.dateTime))
     },
     add(){
       this.$refs.hospitalTable.insertDialogFormVisible = true;
     },
-    format(input){
-      return moment(input).format("YYYY-MM-DD HH:mm");
-    },
-
   },
   mounted: function() {
     this.$nextTick(this.init);

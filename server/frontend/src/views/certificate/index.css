@@ -1,3 +1,6 @@
-.hospital-page{
+.certificate-page{
     display: block;
+}
+.certificate-page .title{
+    line-height: 40px;
 }

@@ -35,15 +35,23 @@ async function init(){
   Vue.prototype.$hospital = await readData(api.getHospital)
   Vue.prototype.$aiVersion = await readData(api.getAIVersion)
   Vue.prototype.$pathology = [{"value":"Malignant","text":"Malignant"},{"value":"Benign","text":"Benign"}];
+  Vue.prototype.$tendConfig = window.tendConfig;
+
   Vue.prototype.$filters = filters
   Vue.prototype.$directives = directives
-  Vue.prototype.$tendConfig = window.tendConfig;
+
   Vue.prototype.$formatters = {};
+  Vue.prototype.$functions = {};
   _.forIn(filters,(f,k)=>{
         _.forIn(f,(sf,sk)=>{
+          //register formatter for element ui components
+          console.log(`register $formatters ${k}.${sk}`)
           _.set(Vue.prototype.$formatters,`${k}.${sk}`,(r,c,v,i)=>{
             return sf(v);
           })
+          //register global function
+          console.log(`register $functions ${k}.${sk}`)
+          _.set(Vue.prototype.$functions,`${k}.${sk}`,sf)
         })
       }
   )

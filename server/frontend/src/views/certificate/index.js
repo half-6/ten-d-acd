@@ -30,9 +30,9 @@ export default {
           {name: "hospital_id", label: "Hospital Id",list: false, readonly: true, default: this.hospital.hospital_id},
           {name: "display_name", label: "User Name",readonly: true },
           {name: "hospital_name", label: "Hospital Name", list: false ,readonly: true},
-          {name: "start_date", label: "Start Date" , control:{type:"date-picker",placeholder:"Start Date"}, formatter: this.format, rules:[{required:true,message:"Start date is required"}]},
-          {name: "expire_date", label: "Expire Date", control:{type:"date-picker",placeholder:"Expire Date"},formatter: this.format, rules:[{required:true,message:"Expire date is required"},{validator:this.expireDateValidate,trigger:'blur'}] },
-          {name: "date_registered", label: "Date Registered", width: 140, formatter: this.format, readonly: true},
+          {name: "start_date", label: "Start Date" , control:{type:"date-picker",placeholder:"Start Date"}, formatter: this.$functions.dateFormat.dateTime, rules:[{required:true,message:"Start date is required"}]},
+          {name: "expire_date", label: "Expire Date", control:{type:"date-picker",placeholder:"Expire Date"},formatter: this.$functions.dateFormat.dateTime, rules:[{required:true,message:"Expire date is required"},{validator:this.expireDateValidate,trigger:'blur'}] },
+          {name: "date_registered", label: "Date Registered", width: 140, formatter: this.$functions.dateFormat.dateTime, readonly: true},
         ],
         api: {
           insertTableName: "certificate",
@@ -54,9 +54,6 @@ export default {
     },
     add(){
       this.$refs.certificateTable.insertDialogFormVisible = true;
-    },
-    format(input){
-      return moment(input).format("YYYY-MM-DD HH:mm");
     },
     expireDateValidate(rule, value, callback){
       const startDate = _.get(this.$refs.certificateTable,"newItem.start_date") || _.get(this.$refs.certificateTable,"selectedItem.start_date")
