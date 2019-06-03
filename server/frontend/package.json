@@ -11,6 +11,7 @@
     "axios": "^0.18.0",
     "axios-extensions": "^3.0.5",
     "element-ui": "^2.8.2",
+    "idle-vue": "^2.0.5",
     "js-cookie": "^2.2.0",
     "lodash": "^4.17.11",
     "moment": "^2.24.0",

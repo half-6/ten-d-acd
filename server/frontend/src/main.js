@@ -4,7 +4,9 @@ import Vue from "vue";
 import App from "./App";
 import router from "./router";
 import store from "./store";
-import _ from 'lodash'
+import _ from 'lodash';
+import IdleVue from 'idle-vue';
+
 
 //import "./assets/css/source-sans-pro/source-sans-pro.css";
 //import "./assets/css/app.css";
@@ -56,12 +58,29 @@ async function init(){
       }
   )
   i18n.loadLanguageAsync();
+  Vue.use(IdleVue, {
+    eventEmitter: new Vue(),
+    idleTime: 1000 * 60 * 20 //20m
+  })
   new Vue({
     el:'#app',
     router,
     store,
     i18n,
-    render: h => h(App)
+    render: h => h(App),
+    onIdle() {
+      if(this.$router.currentRoute.path!=='/login')
+      {
+        console.log("i am idle and auto logout");
+        this.$store.dispatch('LogOut').then(() => {
+          location.reload()
+        })
+      }
+      else
+      {
+        console.log("i am idle");
+      }
+    }
   })
 }
 async function readData(asyncFun,defaultValue) {
