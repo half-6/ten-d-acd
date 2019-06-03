@@ -28,19 +28,16 @@
     <el-dialog :visible.sync="insertDialogFormVisible" title="Create" @open="onCreate" @closed="reset" :close-on-click-modal="false">
       <el-form ref="insertForm" :model="newItem">
         <el-form-item v-for="item in newFieldList" :key="item.name" :label="item.label" :rules="item.rules" :prop="item.name">
-          <template v-if="!item.readonly">
-            <template v-if="item.control">
-              <el-input v-if="item.control.type==='input'" v-model="newItem[item.name]" :placeholder="item.control.placeholder"/>
-              <el-date-picker
-                      v-if="item.control.type==='date-picker'"
-                      v-model="newItem[item.name]"
-                      type="date"
-                      :placeholder="item.control.placeholder"
-              />
-            </template>
-            <el-input v-else v-model="newItem[item.name]"/>
+          <template v-if="item.control">
+            <el-input v-if="item.control.type==='input'" v-model="newItem[item.name]" :placeholder="item.control.placeholder"/>
+            <el-date-picker
+                    v-if="item.control.type==='date-picker'"
+                    v-model="newItem[item.name]"
+                    type="date"
+                    :placeholder="item.control.placeholder"
+            />
           </template>
-          <template v-else>{{item.formatter? item.formatter(newItem[item.name]):newItem[item.name]}}</template>
+          <el-input v-else v-model="newItem[item.name]"/>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -51,7 +48,7 @@
     <el-dialog :visible.sync="updateDialogFormVisible" title="Update" @closed="reset" :close-on-click-modal="false">
       <el-form ref="updateForm" :model="selectedItem">
         <el-form-item v-for="item in updateFieldList" :key="item.name" :label="item.label" :rules="item.rules" :prop="item.name">
-          <template v-if="!item.readonly">
+          <template v-if="item.update!==false">
             <template v-if="item.control">
               <el-input v-if="item.control.type==='input'" v-model="selectedItem[item.name]" :placeholder="item.control.placeholder"/>
               <el-date-picker

@@ -25,7 +25,8 @@ export default {
           // name: field name
           // label: label for the field
           // width: field width for list table
-          // readonly: [optional(false)] updateable or insertable
+          // insert: [optional(true)] insertable
+          // update: [optional(true)] updateable
           // list: [optional(true)] show on the list
           // identity: id for the row, design for delete
           // formatter: a function to format value
@@ -101,7 +102,7 @@ export default {
   methods: {
     init(){
         this.fieldList = _.filter(this.meta.definedFieldList,item=>item.list!==false);
-        this.newFieldList = _.filter(this.meta.definedFieldList,item=>!item.readonly);
+        this.newFieldList = _.filter(this.meta.definedFieldList,item=>item.insert!=false);
         this.updateFieldList = _.filter(this.meta.definedFieldList,item=>item.list!==false);
         this.api = {
             select:_.partial(api.select, this.meta.api.selectTableName || this.meta.tableName),
@@ -171,7 +172,7 @@ export default {
                 for(let index in this.meta.definedFieldList)
                 {
                     let item = this.meta.definedFieldList[index];
-                    if(!item.readonly && !item.identity)
+                    if(item.update!==false && !item.identity)
                     {
                         updatedField[item.name] = this.selectedItem[item.name];
                     }
