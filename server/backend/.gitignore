@@ -16,6 +16,8 @@
 *.iml
 *.ipr
 *.log
+*.pfx
+pfx-password.txt
 
 ### NetBeans ###
 /nbproject/private/
