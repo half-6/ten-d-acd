@@ -70,11 +70,18 @@ public class Application {
 
     @Bean("imageService")
     @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
-    public Recognition getImageService() throws Exception {
-        Recognition recognition = new Recognition();
-        configEntity.recognitionVersion = recognition.recognitionVersion;
-        configEntity.certificateEntity = securityService.readCertificate();
-        return recognition;
+    public Recognition getImageService() {
+        try{
+            Recognition recognition = new Recognition();
+            configEntity.recognitionVersion = recognition.recognitionVersion;
+            configEntity.certificateEntity = securityService.readCertificate();
+            return recognition;
+        }
+        catch (Exception e){
+            String errMsg = "load image recognition jar failed with " + e.getMessage();
+            Util.logger.error(errMsg);
+            throw new RuntimeException(errMsg);
+        }
     }
 
     @Bean
