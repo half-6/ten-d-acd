@@ -1,5 +1,6 @@
 CREATE DATABASE tend;
-\c tend-- CREATE DATABASE tend;
+\c tend
+-- CREATE DATABASE tend;
 /*****************************
 CREATE TABLE
 *****************************/
@@ -210,5 +211,4 @@ values (1,'Philips','飞利浦'),
        (7,'Supersonic','声科'),
        (8,'Hitachi','日立')
        ;
-INSERT INTO public.hospital(hospital_name,hospital_chinese_name) values ('Renji Hospital','仁济医院');
-
+INSERT INTO public.hospital(hospital_id,hospital_name,hospital_chinese_name) values ('<hospital_id>','<Hospital name>','<Hospital chinese name>');
