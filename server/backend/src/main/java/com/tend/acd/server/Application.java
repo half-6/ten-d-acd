@@ -18,10 +18,7 @@ import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 
-import javax.naming.NamingException;
 import javax.sql.DataSource;
-import java.io.IOException;
-import java.sql.SQLException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Properties;
@@ -65,9 +62,17 @@ public class Application {
     }
 
     @Bean
-    public GenericDBHelper dbHelper() throws SQLException, NamingException, IOException, ClassNotFoundException {
+    public GenericDBHelper dbHelper(){
         Util.logger.trace("init GenericDBHelper");
-        return new GenericDBHelper(this.dataSource.getConnection());
+        try {
+            return new GenericDBHelper(this.dataSource.getConnection());
+        }
+        catch (Exception e)
+        {
+            String errMsg = "init GenericDBHelper failed with " + e.getMessage();
+            Util.logger.error(errMsg);
+            throw new RuntimeException(errMsg);
+        }
     }
 
     @Bean

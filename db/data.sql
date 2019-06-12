@@ -1,7 +1,7 @@
 /*****************************
 INJECT DATE
 *****************************/
-TRUNCATE public.cancer_type, public.machine_type, public.user,public.hospital RESTART IDENTITY CASCADE;
+TRUNCATE public.cancer_type, public.machine_type, public.hospital RESTART IDENTITY CASCADE;
 insert into public.cancer_type(cancer_type_id,cancer_type_name,cancer_type_short_name,cancer_type_chinese_name,status)
 values (1,'Thyroid nodules','TH','甲状腺癌','active'),
        (2,'Breast tumours','BR','乳腺癌','active'),

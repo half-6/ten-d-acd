@@ -1,4 +1,4 @@
-﻿set /P version=Enter version(default is 0.0.18): || SET "version=0.0.18"
+set /P version=Enter version(default is 1.0.0): || SET "version=1.0.0"
 echo your application version is %version%
 set /P port=Enter http port(default is 8080): || SET "port=8080"
 echo you http port is %port%
@@ -8,4 +8,4 @@ set /P tend.postgreSQL.port=Enter database port(default is 5432): || SET "tend.p
 echo your database port is %tend.postgreSQL.port%
 
 SET image.recognition.path=D:\codes\qyotech\ten-d-acd\client\backend\lib\Image_Recognition.jar
-java -jar com.tend.acd.backend-%version%-SNAPSHOT.jar --server.port=%port% --spring.profiles.active=env
+java -jar com.tend.acd.backend-%version%.jar --server.port=%port% --spring.profiles.active=env

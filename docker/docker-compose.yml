@@ -1,4 +1,4 @@
-﻿version: '2'
+version: '2'
 services:
   db:
     image: postgres:11.2
@@ -10,8 +10,10 @@ services:
     environment:
       - POSTGRES_PASSWORD=qazwsx123
       - POSTGRES_USER=postgres
+    networks:
+      - tend_network
   web:
-    image: cyokin/tend:0.0.18
+    image: cyokin/tend:1.0.0
     build: tend
     container_name: tend_web
     restart: always
@@ -23,37 +25,11 @@ services:
     volumes:
       - ./static:/opt/static
       - ./logs:/logs
-    links:
+    depends_on:
       - db
-  admin:
-    image: cyokin/tend-admin:0.0.4
-    build: tend-admin
-    container_name: tend_admin
-    restart: always
-    environment:
-      - tend.postgreSQL.host=db
-      - tend.postgreSQL.port=5432
-      - tend.postgreSQL.user=db
-      - tend.postgreSQL.password=5432
-    ports:
-      - "8080:8080"
-    volumes:
-      - ./static:/opt/static
-      - ./logs:/logs
-    links:
-      - db
-  exporter:
-    image: cyokin/tend-exporter:0.0.2
-    build: tend-exporter
-    container_name: tend_exporter
-    restart: always
-    environment:
-      - tend.postgreSQL.host=db
-      - tend.postgreSQL.port=5432
-      - tend.postgreSQL.user=db
-      - tend.postgreSQL.password=5432
-      - spring.profiles.active=env
-    volumes:
-      - ./static:/opt/static
+    networks:
+      - tend_network
 volumes:
   postgres:
+networks:
+  tend_network:
