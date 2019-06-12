@@ -14,6 +14,7 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.Scope;
 
 import javax.sql.DataSource;
@@ -59,7 +60,23 @@ public class Application {
         return srb;
     }
 
+    @Bean("imageService")
+    @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
+    public Recognition getImageService() {
+        try{
+            Recognition recognition = new Recognition();
+            configEntity.recognitionVersion = recognition.recognitionVersion;
+            return recognition;
+        }
+        catch (Exception e){
+            String errMsg = "load image recognition jar failed with " + e.getMessage();
+            Util.logger.error(errMsg);
+            throw new RuntimeException(errMsg);
+        }
+    }
+
     @Bean
+    @DependsOn({"imageService"})
     public GenericDBHelper dbHelper(){
         Util.logger.trace("init GenericDBHelper");
         try {
@@ -73,28 +90,21 @@ public class Application {
         }
     }
 
-    @Bean("imageService")
-    @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
-    public Recognition getImageService() {
-        try{
-            Recognition recognition = new Recognition();
-            configEntity.recognitionVersion = recognition.recognitionVersion;
+    @Bean
+    public FilterRegistrationBean getSecurityRegistration() {
+        try {
             configEntity.certificateEntity = securityService.readCertificate();
-            return recognition;
+            FilterRegistrationBean registration = new FilterRegistrationBean();
+            registration.setFilter(new SecurityFilter(configEntity));
+            registration.addUrlPatterns("/api/*");
+            Util.logger.trace("register security servlet");
+            return registration;
         }
-        catch (Exception e){
-            String errMsg = "load image recognition jar failed with " + e.getMessage();
+        catch (Exception e)
+        {
+            String errMsg = "register security servlet failed with " + e.getMessage();
             Util.logger.error(errMsg);
             throw new RuntimeException(errMsg);
         }
-    }
-
-    @Bean
-    public FilterRegistrationBean getSecurityRegistration() {
-        FilterRegistrationBean registration = new FilterRegistrationBean();
-        registration.setFilter(new SecurityFilter(configEntity));
-        registration.addUrlPatterns("/api/*");
-        Util.logger.trace("register security servlet");
-        return registration;
     }
 }
