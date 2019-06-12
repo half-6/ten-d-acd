@@ -1,0 +1,33 @@
+﻿version: '2'
+services:
+  admin:
+    image: cyokin/tend-admin:0.0.4
+    container_name: tend_admin
+    restart: always
+    environment:
+      - tend.postgreSQL.host=${tend_postgreSQL_host}
+      - tend.postgreSQL.port=${tend_postgreSQL_port}
+      - tend.postgreSQL.user=${tend_postgreSQL_user}
+      - tend.postgreSQL.password=${tend_postgreSQL_password}
+      - oss.accessKeyId=${oss_accessKeyId}
+      - oss.accessKeySecret=${oss_accessKeySecret}
+      - spring.profiles.active=env
+    ports:
+      - "443:443"
+      - "80:8080"
+    volumes:
+      - ./logs:/logs
+  exporter:
+    image: cyokin/tend-exporter:0.0.2
+    container_name: tend_exporter
+    restart: always
+    environment:
+      - tend.postgreSQL.host=${tend_postgreSQL_host}
+      - tend.postgreSQL.port=${tend_postgreSQL_port}
+      - tend.postgreSQL.user=${tend_postgreSQL_user}
+      - tend.postgreSQL.password=${tend_postgreSQL_password}
+      - oss.accessKeyId=${oss_accessKeyId}
+      - oss.accessKeySecret=${oss_accessKeySecret}
+      - spring.profiles.active=env
+    volumes:
+      - ./static:/opt/static
