@@ -48,7 +48,7 @@ public class Application implements CommandLineRunner {
         }
         try {
             String version = getClass().getPackage().getImplementationVersion();
-            Util.logger.error("Running with app version {}", version);
+            Util.logger.trace("Running with app version {}", version);
             if(args[0].equalsIgnoreCase("import"))
             {
                 recordService.load();

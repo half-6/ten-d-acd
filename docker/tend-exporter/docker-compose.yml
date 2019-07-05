@@ -1,0 +1,34 @@
+﻿version: '2'
+services:
+  exporter:
+    image: cyokin/tend-exporter:0.0.2
+    container_name: tend_exporter
+    restart: always
+    command: java -jar com.tend.acd.exporter.jar export
+    environment:
+      - spring.profiles.active=env
+      - app.image.dir=/opt/static/uploads
+      - tend.postgreSQL.host=${tend_postgreSQL_host}
+      - tend.postgreSQL.port=${tend_postgreSQL_port}
+      - tend.postgreSQL.user=${tend_postgreSQL_user}
+      - tend.postgreSQL.password=${tend_postgreSQL_password}
+      - oss.accessKeyId=${oss_accessKeyId}
+      - oss.accessKeySecret=${oss_accessKeySecret}
+    volumes:
+      - ./static:/opt/static
+  import:
+    image: cyokin/tend-exporter:0.0.2
+    container_name: tend_exporter
+    restart: always
+    command: java -jar com.tend.acd.exporter.jar import
+    environment:
+      - spring.profiles.active=env
+      - backup.dir=/opt/static/201905110139
+      - tend.postgreSQL.host=${tend_postgreSQL_host}
+      - tend.postgreSQL.port=${tend_postgreSQL_port}
+      - tend.postgreSQL.user=${tend_postgreSQL_user}
+      - tend.postgreSQL.password=${tend_postgreSQL_password}
+      - oss.accessKeyId=${oss_accessKeyId}
+      - oss.accessKeySecret=${oss_accessKeySecret}
+    volumes:
+      - ./static:/opt/static
