@@ -13,7 +13,7 @@ services:
     networks:
       - tend_network
   web:
-    image: cyokin/tend:1.0.0
+    image: cyokin/tend:1.0.1
     container_name: tend_web
     restart: always
     environment:

@@ -10,8 +10,8 @@ RUN apt-get update && \
 # Install MATLAB runtime
 RUN \
 	cd /mcr-install && \
-	wget -nv http://ssd.mathworks.com/supportfiles/downloads/R2018b/deployment_files/R2018b/installers/glnxa64/MCR_R2018b_glnxa64_installer.zip && \
-	unzip MCR_R2018b_glnxa64_installer.zip && \
+	wget -nv http://ssd.mathworks.com/supportfiles/downloads/R2019a/Release/3/deployment_files/installer/complete/glnxa64/MATLAB_Runtime_R2019a_Update_3_glnxa64.zip && \
+	unzip MATLAB_Runtime_R2019a_Update_3_glnxa64.zip && \
 	mkdir /opt/mcr && \
 	./install -inputFile /mcr-install/matlab.txt && \
 	cd / && \

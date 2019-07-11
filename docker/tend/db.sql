@@ -200,7 +200,7 @@ values (1,'Thyroid nodules','TH','甲状腺癌','active'),
        (3,'Prostate lesions','PR','前列腺癌','deleted'),
        (4,'Kidney lesions','KD','肾脏癌','deleted'),
        (5,'Lymphoma','LY','淋巴癌','deleted'),
-       (6,'Liver','LR','肝癌','deleted');
+       (6,'Liver','LR','肝癌','active');
 insert into public.machine_type(machine_type_id, machine_type_name,machine_type_chinese_name)
 values (1,'Philips','飞利浦'),
        (2,'Samsung','三星'),
