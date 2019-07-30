@@ -13,17 +13,22 @@ Vue.mixin({
                 type: 'warning'
             })
         },
-        $crop:function (image,imgPos) {
-            let canvas=document.createElement("CANVAS");
-            canvas.width = imgPos.width;
-            canvas.height = imgPos.height;
-            let ctx=canvas.getContext("2d");
-            ctx.save();
-            let img = new Image;
-            img.src = image;
-            ctx.drawImage(img,imgPos.x, imgPos.y, canvas.width, canvas.height, 0, 0, canvas.width, canvas.height);
-            ctx.restore();
-            return canvas.toDataURL()
+        $prediction_format:function (prediction,probability) {
+            if (prediction==="Malignant")
+            {
+                if(probability>=0.8)
+                {
+                    return 'attention-closely';
+                }
+                else
+                {
+                    return 'attention';
+                }
+            }
+            else
+            {
+                return 'not-concerned'
+            }
         }
     }
 })

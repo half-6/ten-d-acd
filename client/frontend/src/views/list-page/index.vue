@@ -74,7 +74,7 @@
                     <el-radio-button v-for="item in pathologyList" :key="item.text" :label="item.text">{{$t('master.pathology-' + item.text)}}</el-radio-button>
                   </el-radio-group>
                 </td>
-                <td>{{$t('master.pathology-' + item.prediction)}}</td>
+                <td>{{$t('master.' + $prediction_format(item.prediction,item.probability))}}</td>
                 <td>{{item.probability | number-format('0.[00]%')}}</td>
                 <td>{{item.date_registered | date-format('YYYY-MM-DD HH:mm')}}</td>
                 <td class="operation">
