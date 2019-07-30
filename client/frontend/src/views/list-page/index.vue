@@ -51,7 +51,7 @@
               <th scope="col">{{$t('list.table-machine-type')}}</th>
               <th scope="col">{{$t('list.table-pathology')}}</th>
               <th scope="col">{{$t('list.table-prediction')}}</th>
-              <th scope="col">{{$t('list.table-probability')}}</th>
+<!--              <th scope="col">{{$t('list.table-probability')}}</th>-->
               <th scope="col">{{$t('list.table-date')}}</th>
               <th scope="col">{{$t('list.table-operation')}}</th>
             </tr>
@@ -75,7 +75,7 @@
                   </el-radio-group>
                 </td>
                 <td>{{$t('master.' + $prediction_format(item.prediction,item.probability))}}</td>
-                <td>{{item.probability | number-format('0.[00]%')}}</td>
+<!--                <td>{{item.probability | number-format('0.[00]%')}}</td>-->
                 <td>{{item.date_registered | date-format('YYYY-MM-DD HH:mm')}}</td>
                 <td class="operation">
                   <button v-if="!item.$edit" @click="edit(item)" type="button" class="btn btn-outline btn-primary btn-sm pl-1"><i class="fa fa-edit fa-fw"></i>{{$t('list.button-edit')}}</button>
