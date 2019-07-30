@@ -35,6 +35,7 @@ export default {
         "button-cut-roi-image": "切ROI图",
         "button-cut-roi-image-loading": "检测中...",
         "button-delete": "删除",
+        "button-Pen": "钢笔",
         "button-save": "保存记录",
         "button-saving": "保存中...",
         "button-export": "导出图片",

@@ -35,6 +35,7 @@ export default {
         "button-cut-roi-image": "Cut ROI Image",
         "button-cut-roi-image-loading": "Start detecting...",
         "button-delete": "Delete",
+        "button-Pen": "Pen",
         "button-save": "Save record",
         "button-saving": "Saving...",
         "button-export": "Export",

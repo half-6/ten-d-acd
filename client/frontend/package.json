@@ -8,6 +8,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@linkfuture/cropper": "0.0.3",
     "axios": "^0.18.0",
     "axios-extensions": "^3.0.5",
     "bootstrap": "^4.2.1",

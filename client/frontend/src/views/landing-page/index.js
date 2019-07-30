@@ -1,5 +1,4 @@
-import Cropper from 'cropperjs/dist/cropper.js';
-import 'cropperjs/dist/cropper.css';
+import $cropper from '@linkfuture/cropper';
 import _ from 'lodash';
 import uuid from 'uuid/v4';
 import api from '@/api'
@@ -32,6 +31,9 @@ export default {
       isDetecting:false
     };
   },
+  computed:{
+
+  },
   methods: {
     async openFile(e) {
       await this.buildGallery(e.target.files);
@@ -50,7 +52,15 @@ export default {
       if(file)
       {
         this.selectedImage = file;
-        this.cropper.replace(this.selectedImage.src,false);
+        if(!this.cropper)
+        {
+          this.cropper = new $cropper('canvas');
+        }
+        else
+        {
+          this.cropper.clear();
+        }
+        this.cropper.setImage(this.selectedImage.src);
       }
     },
     onSelectCroppedImage(file){
@@ -59,12 +69,14 @@ export default {
         this.cropImg = file;
       }
     },
+    startPen(){
+      if(this.cropper) this.cropper.startPen();
+    },
     delSelectedImage(){
       this.$util_confirm('master.msg-delete').then(() => {
         this.imageList.splice( this.imageList.indexOf(this.selectedImage), 1 );
-        if(this.imageList.length ==0)
+        if(this.imageList.length === 0)
         {
-          this.cropper.destroy();
           this.init();
         }
         else
@@ -76,7 +88,7 @@ export default {
     delCroppedImage(){
       this.$util_confirm('master.msg-delete').then(() => {
         this.croppedImageList.splice(this.croppedImageList.indexOf(this.cropImg), 1);
-        if (this.croppedImageList.length == 0) {
+        if (this.croppedImageList.length === 0) {
           this.cropImg = null;
         } else {
           this.onSelectCroppedImage(this.croppedImageList[0]);
@@ -103,20 +115,36 @@ export default {
         this.imageList.push({src,id:uuid(),name:item.name});
       }
     },
+    increaseBounds(bounds){
+      const increasePercentage = 0.08;
+      bounds.width = bounds.width + bounds.width * increasePercentage;
+      bounds.height = bounds.height + bounds.height * increasePercentage;
+      bounds.x = bounds.x - bounds.width * increasePercentage /2;
+      bounds.y = bounds.y - bounds.height * increasePercentage /2;
+    },
     crop(){
-      let tmpImg = this.cropper.getCroppedCanvas().toDataURL();
-      if(!_.find(this.croppedImageList,{src:tmpImg}))
+      let imgPosList = this.cropper.getPos();
+      for(let i=0;i < imgPosList.length; i++ )
       {
-        this.cropImg = {
-          src:this.cropper.getCroppedCanvas().toDataURL(),
-          roi_image_id:uuid(),
-          original_image_id:this.selectedImage.id,
-          coordinate:_.pick(this.cropper.getData(false),["x","y","width","height"]),
-          prediction:null,
-          pathology:undefined,
-        };
-        this.croppedImageList.splice(0,0,this.cropImg);
-        this.detect(this.cropImg);
+        let imgPos = imgPosList[i];
+        let newBounds = _.clone(imgPos.bounds)
+        this.increaseBounds(newBounds);
+        let tmpImg = this.cropper.cropBounds({bounds:newBounds});
+        if(!_.find(this.croppedImageList,{src:tmpImg}))
+        {
+           delete imgPos.boundPos;
+           let cropImgObj = {
+             src:tmpImg,
+             roi_image_id:uuid(),
+             original_image_id:this.selectedImage.id,
+             coordinate:imgPos,
+             prediction:null,
+             pathology:undefined,
+           };
+          this.croppedImageList.splice(0,0,cropImgObj);
+          this.detect(cropImgObj);
+        }
+        this.cropImg = this.croppedImageList[0];
       }
     },
     async detect(img){
@@ -192,16 +220,18 @@ export default {
             && _.filter(this.croppedImageList,img=>{return img.prediction}).length === this.croppedImageList.length;
 
     },
+    enableCutButton(){
+      return this.selectedImage && this.record.cancer_type && this.cropper && this.cropper.getPos().length > 0;
+    },
     init(){
       this.selectedImage=null;
+      //this.cropper = null;
       this.pathologyList = this.$pathology;
       this.cancerTypeList = this.$cancerType;
       this.machineTypeList = this.$machineType;
       this.record.hospital_id = this.$hospital[0].hospital_id;
       this.record.cancer_type = storage.get(KEY_CANCER_ID) || "";
       this.record.machine_type_id = storage.get(KEY_MACHINE_ID) || "";
-      if(this.cropper) this.cropper.destroy();
-      this.cropper = new Cropper(this.$refs.selectedImg,{autoCrop:false});
     },
     reset(){
       Object.assign(this.$data, this.$options.data())

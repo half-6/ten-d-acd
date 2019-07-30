@@ -30,7 +30,7 @@
                   >
                   <div class="table-center text-center"><div>{{ $t("home.roi-import-desc") }}</div></div>
                 </el-upload>
-                <img v-show="selectedImage!=null" :src="selectedImage?selectedImage.src:''"  ref="selectedImg">
+                <canvas v-show="imageList.length>0" id="canvas" resize></canvas>
               </div>
            </div>
           <div class="container bottom">
@@ -39,6 +39,9 @@
                 <ul class="nav nav-pills float-md-left">
                   <li class="nav-item">
                     <file-uploader class="btn btn-primary btn-file" :title="$t('home.button-import')" @change="openFile"></file-uploader>
+                  </li>
+                  <li class="nav-item">
+                    <button :class="{disabled:selectedImage==null}" :disabled="selectedImage==null" class="btn btn-primary btn-file" @click="startPen">{{$t('home.button-Pen')}}</button>
                   </li>
                   <li class="nav-item">
                     <loading-button v-on:click="crop" :disabled="selectedImage==null || !record.cancer_type" :value="$t('home.button-cut-roi-image')" :isLoading="isDetecting" :loadingLabel="$t('home.button-cut-roi-image-loading')" />

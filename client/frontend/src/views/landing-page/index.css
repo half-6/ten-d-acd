@@ -9,6 +9,10 @@
   right: 5px;
   z-index: 99;
 }
+.landing-page canvas{
+  width: 100%;
+  height: 100%;
+}
 .landing-page .nav-item{
   z-index: 100;
 }
