@@ -42,7 +42,7 @@ public class RecordService {
       HashSet<String> entryExists = new HashSet<>();
       try(ZipOutputStream zos = new ZipOutputStream(response.getOutputStream())) {
         try(CSVPrinter csvPrinter = new CSVPrinter(sw, CSVFormat.DEFAULT
-                .withHeader("ID","External ID", "ORIGINAL Image ID", "ROI Image ID", "Prediction", "Pathology", "Probability","Processing Time","Cancer Type","Machine Type","Date Registered")))
+                .withHeader("ID","External ID", "ORIGINAL Image ID", "ROI Image ID", "Prediction", "Pathology", "Probability","Processing Time","Cancer Type","Machine Type","Coordinate","Date Registered")))
         {
           for(int i=0;i<oriImage.length();i++)
           {
@@ -74,6 +74,7 @@ public class RecordService {
                     ,item.has("processing_time")?item.getDouble("processing_time"):null
                     ,item.has("cancer_type_name")?item.getString("cancer_type_name"):null
                     ,item.has("machine_type_name")?item.getString("machine_type_name"):null
+                    ,item.has("coordinate")?item.get("coordinate").toString():null
                     ,item.has("date_registered")?item.getString("date_registered"):null
             );
           }
