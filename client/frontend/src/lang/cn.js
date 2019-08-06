@@ -20,9 +20,6 @@ export default {
         "pathology-Malignant":"恶性",
         "pathology-Benign":"良性",
         "pathology-null":"[未选]",
-        "attention-closely":"密切关注",
-        "attention":"关注",
-        "not-concerned":"不关注",
     },
     "pagination": {
         "total": "总计 {total} 条记录",

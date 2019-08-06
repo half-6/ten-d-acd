@@ -20,9 +20,6 @@ export default {
         "pathology-Malignant":"Malignant",
         "pathology-Benign":"Benign",
         "pathology-null":"[Null]",
-        "attention-closely":"Attention Closely",
-        "attention":"Attention",
-        "not-concerned":"Not Concerned",
     },
     "pagination": {
         "total": "Total {total} records",
