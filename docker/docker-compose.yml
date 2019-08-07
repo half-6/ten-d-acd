@@ -11,7 +11,7 @@ services:
       - POSTGRES_PASSWORD=qazwsx123
       - POSTGRES_USER=postgres
   web:
-    image: cyokin/tend:1.0.2
+    image: cyokin/tend:1.0.3
     build: tend
     container_name: tend_web
     restart: always
