@@ -10,8 +10,8 @@ RUN apt-get update && \
 # Install MATLAB runtime
 RUN \
 	cd /mcr-install && \
-	wget -nv http://ssd.mathworks.com/supportfiles/downloads/R2019a/Release/3/deployment_files/installer/complete/glnxa64/MATLAB_Runtime_R2019a_Update_3_glnxa64.zip && \
-	unzip MATLAB_Runtime_R2019a_Update_3_glnxa64.zip && \
+	wget -nv https://ssd.mathworks.com/supportfiles/downloads/R2019a/Release/5/deployment_files/installer/complete/glnxa64/MATLAB_Runtime_R2019a_Update_5_glnxa64.zip && \
+	unzip MATLAB_Runtime_R2019a_Update_5_glnxa64.zip && \
 	mkdir /opt/mcr && \
 	./install -inputFile /mcr-install/matlab.txt && \
 	cd / && \
@@ -20,7 +20,8 @@ RUN \
 ADD com.tend.acd.backend.jar /opt/com.tend.acd.backend.jar
 ADD Image_Recognition.jar /opt/lib/Image_Recognition.jar
 
-ENV LD_LIBRARY_PATH=/opt/mcr/v96/runtime/glnxa64/:/opt/mcr/v96/bin/glnxa64/:/opt/mcr/v96/sys/os/glnxa64/:/opt/mcr/v96/sys/opengl/lib/glnxa64/
+ENV LD_LIBRARY_PATH=/opt/mcr/v96/runtime/glnxa64/:/opt/mcr/v96/bin/glnxa64/:/opt/mcr/v96/sys/os/glnxa64/:/opt/mcr/v96/sys/opengl/lib/glnxa64/:/opt/mcr/v96/extern/bin/glnxa64/
+
 
 EXPOSE 8080
 

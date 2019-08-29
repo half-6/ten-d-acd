@@ -70,7 +70,15 @@
 .landing-page .bottom{
   bottom: 20px;
 }
-
+.landing-page .detection-detail{
+  height: 100%;
+}
+.landing-page .detection-detail ul{
+  margin-left: 20px;
+}
+.landing-page .detection-detail .row{
+  height: 50%;
+}
 
 .landing-page h2{
   font-size: inherit;
@@ -85,6 +93,7 @@
 .landing-page .image-prediction{
 
 }
+
 .landing-page .prediction{
   text-align: center;
   float:left;

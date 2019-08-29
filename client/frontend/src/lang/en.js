@@ -45,6 +45,27 @@ export default {
         "result-Probability": "Probability",
         "save-success": "Save success",
         "save-failed": "Save failed",
+        "result-roi": "ROI",
+        "result-echos": "Echos",
+        "result-Not-Uniform": "Not Uniform",
+        "result-Uniform": "Uniform",
+
+        "result-Shape": "Shape",
+        "result-Ratio": "Ratio",
+        "result-Taller": "Taller than Wider",
+        "result-Wider": "Wider than Tall",
+
+
+        "result-Calcification-title": "Calcification",
+        "result-Calcification": "Calcification",
+        "result-No-Calcification": "No Calcification",
+        "result-Amount": "Amount",
+
+        "result-Margin": "Margin",
+        "result-Irregularity": "Irregularity",
+        "result-detect-failed": "Detect failed, please make sure drawing properly and at lease have 5 points to resolve the quadratic equation of an ellipse",
+
+
     },
     "list": {
         "cancer-type": "Cancer type",

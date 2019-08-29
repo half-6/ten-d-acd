@@ -2,8 +2,6 @@ package com.tend.acd.controller;
 
 import com.tend.acd.Util;
 import com.tend.acd.model.response.ResponseBaseEntity;
-import java.util.ArrayList;
-import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -15,6 +13,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Module Name: ${FILE_NAME}
@@ -61,7 +62,7 @@ public class RestErrorHandler {
     {
         ResponseBaseEntity output = new ResponseBaseEntity();
         output.code = HttpStatus.INTERNAL_SERVER_ERROR.value();
-        output.message = "Unknown error,Please try later";
+        output.message =  "Unknown error,Please try later";
         Util.logger.error(ex.getClass().getName() + "=>" + ex.getMessage());
         return output;
     }

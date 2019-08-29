@@ -72,7 +72,53 @@
             </div>
           </div>
           <div class="img-container">
-            <img v-if="cropImg" class="img-rounded rounded fill cropImg"  :src="cropImg.src">
+            <div class="detection-detail" v-if="cropImg">
+                 <div class="row">
+                   <div class="col">
+                     <b>{{$t('home.result-roi')}}</b>
+                     <ul v-if="cropImg.prediction">
+                         <li>{{$t('home.result-echos')}}:{{cropImg.prediction.Echos}}</li>
+                         <li>{{$t(('home.result-' + cropImg.prediction.isUni).replace(" ","-"))}}</li>
+                     </ul>
+                   </div>
+                   <div class="col">
+                     <img class="img-rounded rounded fill cropImg roi"  :src="cropImg.src">
+                   </div>
+                   <div class="col">
+                     <b>{{$t('home.result-Shape')}}</b>
+                     <ul v-if="cropImg.prediction">
+                       <li v-if="cropImg.prediction.Shape_Ratio>1">{{$t('home.result-Taller')}}</li>
+                       <li v-if="cropImg.prediction.Shape_Ratio<1">{{$t('home.result-Wider')}}</li>
+                       <li>{{$t('home.result-Ratio')}}:{{cropImg.prediction.Shape_Ratio}}</li>
+                     </ul>
+                   </div>
+                   <div class="col">
+                     <img class="img-rounded rounded fill cropImg sharp"  :src="cropImg.sharpSrc">
+                   </div>
+                 </div>
+              <div class="row">
+                <div class="col">
+                  <b>{{$t('home.result-Calcification-title')}}</b>
+                  <ul v-if="cropImg.prediction">
+                    <li v-if="cropImg.prediction.Calcification_index>0">{{$t('home.result-Calcification')}}</li>
+                    <li v-if="cropImg.prediction.Calcification_index===0">{{$t('home.result-No-Calcification')}}</li>
+                    <li>{{$t('home.result-Amount')}}:{{cropImg.prediction.Calcification_index | number-format('0.[00]%') }}</li>
+                  </ul>
+                </div>
+                <div class="col">
+                    <img class="img-rounded rounded fill cropImg calc"  :src="cropImg.calcSrc">
+                </div>
+                <div class="col">
+                  <b>{{$t('home.result-Margin')}}</b>
+                  <ul>
+                    <li v-if="cropImg.prediction">{{$t('home.result-Irregularity')}}:{{cropImg.prediction.Margin_Ratio | number-format('0.[00]%') }}</li>
+                  </ul>
+                </div>
+                <div class="col">
+                    <img class="img-rounded rounded fill cropImg sharp"  :src="cropImg.marginSrc">
+                </div>
+              </div>
+            </div>
             <div class="table-center text-center img-rounded rounded" v-else><div>{{ $t("home.roi-cut-desc") }}</div></div>
           </div>
           <div class="image-prediction container bottom">

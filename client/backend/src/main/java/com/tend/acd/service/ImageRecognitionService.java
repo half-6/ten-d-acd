@@ -24,7 +24,9 @@ public class ImageRecognitionService {
           throws Exception {
     String base64Image = Util.getBase64FromImage(input.getString("roi_image_src"));
     String cancerType = input.getString("cancer_type");
-    ResponseImageRecognitionEntity output =  imageRecognitionRepository.recognition(base64Image,cancerType);
+    String roi_coordinates = input.getString("roi_coordinates");
+    String roi_corners = input.getString("roi_corners");
+    ResponseImageRecognitionEntity output =  imageRecognitionRepository.recognition(base64Image,cancerType,roi_coordinates,roi_corners);
     input.put("prediction",output.prediction);
     input.put("probability",output.probability);
     input.put("processing_time",output.processingTime);

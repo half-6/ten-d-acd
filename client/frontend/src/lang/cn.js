@@ -45,6 +45,26 @@ export default {
         "result-Probability": "可能性",
         "save-success": "保存成功",
         "save-failed": "保存失败",
+
+        "result-roi": "ROI",
+        "result-echos": "Echos",
+        "result-Not-Uniform": "不统一的",
+        "result-Uniform": "统一的",
+
+        "result-Shape": "形状",
+        "result-Ratio": "比率",
+        "result-Taller": "高大于宽",
+        "result-Wider": "宽大于高",
+
+
+        "result-Calcification-title": "钙化",
+        "result-Calcification": "钙化",
+        "result-No-Calcification": "没有钙化",
+        "result-Amount": "总数",
+
+        "result-Margin": "边缘",
+        "result-Irregularity": "不规则",
+        "result-detect-failed": "检测失败，请画一个合适的图形，并且至少5个点。",
     },
     "list": {
         "cancer-type": "癌症类型",

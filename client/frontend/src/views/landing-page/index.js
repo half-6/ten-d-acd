@@ -142,26 +142,156 @@ export default {
              pathology:undefined,
            };
           this.croppedImageList.splice(0,0,cropImgObj);
-          this.detect(cropImgObj);
+          this.detect(cropImgObj,newBounds);
         }
         this.cropImg = this.croppedImageList[0];
       }
     },
-    async detect(img){
+    pointsToString(points){
+       let output = [];
+       points.forEach(point=>{
+         output.push(`[${point.x},${point.y}]`)
+       })
+       return `[${output.join(";")}]`;
+    },
+    boundsToString(bounds){
+      let points = [];
+      points.push({x:bounds.x,y:bounds.y});
+      points.push({x:bounds.x + bounds.width,y:bounds.y});
+      points.push({x:bounds.x + bounds.width,y:bounds.y + bounds.height});
+      points.push({x:bounds.x,y:bounds.y + bounds.height});
+      return this.pointsToString(points)
+    },
+    async detect(img,newBounds){
       this.isDetecting = true;
       img.loading = true;
-      img.prediction =  await api.detectImage(
-          {
-            roi_image_src:img.src,
-            coordinate:img.coordinate,
-            original_image_src:this.selectedImage.src,
-            hospital_id:this.$hospital[0].hospital_id,
-            cancer_type_id:this.record.cancer_type.cancer_type_id,
-            cancer_type:this.record.cancer_type.cancer_type_short_name
-          });
-      img.loading = false;
-      this.isDetecting = false;
-      console.log("detected " + img.roi_image_id + ">" + JSON.stringify(img.prediction));
+      try{
+          img.prediction =  await api.detectImage(
+              {
+                  roi_image_src:img.src,
+                  //roi_image_src:this.selectedImage.src,
+                  coordinate:img.coordinate,
+                  roi_coordinates:this.pointsToString(img.coordinate.points),
+                  roi_corners:this.boundsToString(newBounds),
+                  original_image_src:this.selectedImage.src,
+                  hospital_id:this.$hospital[0].hospital_id,
+                  cancer_type_id:this.record.cancer_type.cancer_type_id,
+                  cancer_type:this.record.cancer_type.cancer_type_short_name
+              });
+          img.loading = false;
+          img.sharpSrc = await this.drawLine(this.selectedImage.src,img.prediction.Shape_Axises,newBounds);
+          img.calcSrc = await this.drawDots(this.selectedImage.src,img.prediction.Calcification_Coods,newBounds);
+          img.marginSrc = await this.drawDots(this.selectedImage.src,img.prediction.Margin_Levels,newBounds);
+          this.isDetecting = false;
+          console.log("detected " + img.roi_image_id + ">" + JSON.stringify(img.prediction));
+      }
+      catch (e) {
+          this.isDetecting = false;
+          console.warn("detected failed");
+          this.croppedImageList.shift();
+          this.cropImg = _.get(this.croppedImageList,"[0]",null);
+          this.$util_alert("home.result-detect-failed");
+      }
+    },
+    async drawLine(imgSrc,lines,bounds){
+        return new Promise((resolve, reject) =>{
+            let image = new Image();
+            image.src = imgSrc;
+            image.onload = async ()=>{
+                let canvas=document.createElement("CANVAS");
+                canvas.width = image.width;
+                canvas.height = image.height;
+                let ctx=canvas.getContext("2d");
+                ctx.save();
+                ctx.drawImage(image,0, 0, canvas.width, canvas.height);
+                ctx.strokeStyle = 'white';
+                ctx.lineWidth=2;
+                for(let i = 0; i < lines.length; i = i +2)
+                {
+                    ctx.beginPath();
+                    ctx.moveTo(lines[i][0], lines[i][1]);
+                    ctx.lineTo(lines[i+1][0], lines[i+1][1]);
+                    ctx.closePath();
+                    ctx.stroke();
+                }
+                resolve(await this.cropBounds(canvas.toDataURL(),this.findBounds(lines,bounds)));
+            }
+        })
+    },
+    findBounds(points,bounds){
+        let minX = bounds.x;
+        let minY = bounds.y;
+        let maxX = bounds.x + bounds.width;
+        let maxY = bounds.y + bounds.height;
+        for(let i = 0; i < points.length; i++){
+            let newX = points[i][points[i].length -2];
+            let newY = points[i][points[i].length -1];
+            if(minX>newX) minX = newX;
+            if(maxX<newX) maxX = newX;
+            if(minY>newY) minY = newY;
+            if(maxY<newY) maxY = newY;
+        }
+        let boundWidth = maxX-minX;
+        let boundHeight = maxY-minY;
+        return {x:minX,y:minY,width:boundWidth,height:boundHeight}
+    },
+    async drawDots(imgSrc,dots,bounds){
+        return new Promise((resolve, reject) =>{
+            let image = new Image();
+            image.src = imgSrc;
+            image.onload = async ()=>{
+                let canvas=document.createElement("CANVAS");
+                canvas.width = image.width;
+                canvas.height = image.height;
+                let ctx=canvas.getContext("2d");
+                ctx.save();
+                ctx.drawImage(image,0, 0, canvas.width, canvas.height);
+
+                ctx.lineWidth=1;
+                for(let i = 0; i < dots.length; i = i +1)
+                {
+                    ctx.beginPath();
+                    let dot = dots[i];
+                    let x,y;
+                    if(dot.length===3)
+                    {
+                        x = dot[1];
+                        y = dot[2];
+                        let colorIndex = dot[0];
+                        let colors=["#17FF11","#FFFF11","#FF0016"];
+                        ctx.strokeStyle = colors[colorIndex-1];
+                        ctx.fillStyle = colors[colorIndex-1];
+                    }
+                    else
+                    {
+                        x = dot[0];
+                        y = dot[1];
+                        ctx.strokeStyle = ctx.fillStyle = '#EC7C0C';
+                    }
+                    ctx.arc(x, y, 3, 0, 2 * Math.PI);
+                    ctx.stroke();
+                    ctx.fill();
+
+                }
+                resolve(await this.cropBounds(canvas.toDataURL(),this.findBounds(dots,bounds)));
+            }
+        })
+    },
+    async cropBounds(imgSrc, bounds){
+        return new Promise((resolve, reject) =>{
+            let canvas=document.createElement("CANVAS");
+            canvas.width = bounds.width;
+            canvas.height = bounds.height;
+            let ctx=canvas.getContext("2d");
+            ctx.save();
+            let img = new Image();
+            img.src = imgSrc;
+            img.onload = ()=>{
+                ctx.drawImage(img,bounds.x, bounds.y, canvas.width, canvas.height, 0, 0, canvas.width, canvas.height);
+                ctx.restore();
+                resolve(canvas.toDataURL())
+            }
+        } )
     },
     save(){
       //build save object

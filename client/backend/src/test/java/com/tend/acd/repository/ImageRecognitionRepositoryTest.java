@@ -5,16 +5,12 @@ import com.mathworks.toolbox.javabuilder.MWException;
 import com.tend.acd.ApplicationTests;
 import com.tend.acd.Util;
 import com.tend.acd.model.response.ResponseImageRecognitionEntity;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.concurrent.ThreadLocalRandom;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.ResourceUtils;
+
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.nio.file.Paths;
 
 /**
  * Module Name: ImageRecognitionRepositoryTest Project Name: com.feifanuniv.search.api Created by
@@ -28,13 +24,13 @@ public class ImageRecognitionRepositoryTest extends ApplicationTests {
   @Test
   public void recognition() throws IOException, MWException, InvocationTargetException, IllegalAccessException {
     String base64String = Util.getBase64String("B39.jpg");
-    ResponseImageRecognitionEntity test = imageRecognitionRepository.recognition(base64String,"TH");
+    ResponseImageRecognitionEntity test = imageRecognitionRepository.recognition(base64String,"TH","[[0,0];[0,10];[10,9];[10,0];[10,10]]", "[[0,0];[0,10];[10,0];[10,10]]");
     Util.logger.trace("recognizing " + Utility.toJson(test));
   }
   @Test
   public void recognitionFromFile() throws IOException, MWException, InvocationTargetException, IllegalAccessException {
     String base64String = Util.getBase64String(Paths.get("D:\\test\\2.jpg"));
-    ResponseImageRecognitionEntity test = imageRecognitionRepository.recognition(base64String,"TH");
+    ResponseImageRecognitionEntity test = imageRecognitionRepository.recognition(base64String,"TH","[[0,0];[0,10];[10,9];[10,0];[10,10]]", "[[0,0];[0,10];[10,0];[10,10]]");
     Util.logger.trace("recognizing " + Utility.toJson(test));
   }
   @Test
