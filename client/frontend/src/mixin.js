@@ -13,5 +13,22 @@ Vue.mixin({
                 type: 'warning'
             })
         },
+        $prediction_format:function (prediction,probability) {
+            if (prediction==="Malignant")
+            {
+                if(probability>=0.8)
+                {
+                    return 'attention-closely';
+                }
+                else
+                {
+                    return 'attention';
+                }
+            }
+            else
+            {
+                return 'not-concerned'
+            }
+        }
     }
 })

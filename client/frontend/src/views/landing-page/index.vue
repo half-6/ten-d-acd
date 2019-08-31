@@ -58,31 +58,28 @@
           </div>
         </div>
         <div class="col-md-6 right line">
-          <div class="btn-toolbar">
-            <div class="btn-group float-md-left">
-              <div class="diagnostic-type" v-if="cropImg">
-                <span class="mr-2">{{$t('home.label-pathology')}}:</span>
-                <el-radio-group v-model="cropImg.pathology">
-                  <el-radio-button v-for="item in pathologyList" :key="item.text" :label="item.text">{{$t('master.pathology-' + item.text)}}</el-radio-button>
-                </el-radio-group>
-              </div>
-            </div>
-            <div class="btn-group float-md-right">
-              <loading-button v-on:click="save" :disabled="!enableSaveButton()" :value="$t('home.button-save')" :isLoading="isSaving" :loadingLabel="$t('home.button-saving')" />
-            </div>
-          </div>
-          <div class="img-container">
+<!--          <div class="btn-toolbar">-->
+<!--            <div class="btn-group float-md-left">-->
+<!--              <div class="diagnostic-type" v-if="cropImg">-->
+<!--                <span class="mr-2">{{$t('home.label-pathology')}}:</span>-->
+<!--                <el-radio-group v-model="cropImg.pathology">-->
+<!--                  <el-radio-button v-for="item in pathologyList" :key="item.text" :label="item.text">{{$t('master.pathology-' + item.text)}}</el-radio-button>-->
+<!--                </el-radio-group>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            <div class="btn-group float-md-right">-->
+<!--              <loading-button v-on:click="save" :disabled="!enableSaveButton()" :value="$t('home.button-save')" :isLoading="isSaving" :loadingLabel="$t('home.button-saving')" />-->
+<!--            </div>-->
+<!--          </div>-->
+          <div class="img-container" :class="{'active':cropImg!=null}">
             <div class="detection-detail" v-if="cropImg">
-                 <div class="row">
+                 <div class="row title-row">
                    <div class="col">
                      <b>{{$t('home.result-roi')}}</b>
                      <ul v-if="cropImg.prediction">
                          <li>{{$t('home.result-echos')}}:{{cropImg.prediction.Echos}}</li>
                          <li>{{$t(('home.result-' + cropImg.prediction.isUni).replace(" ","-"))}}</li>
                      </ul>
-                   </div>
-                   <div class="col">
-                     <img class="img-rounded rounded fill cropImg roi"  :src="cropImg.src">
                    </div>
                    <div class="col">
                      <b>{{$t('home.result-Shape')}}</b>
@@ -92,11 +89,16 @@
                        <li>{{$t('home.result-Ratio')}}:{{cropImg.prediction.Shape_Ratio}}</li>
                      </ul>
                    </div>
+                 </div>
+                 <div class="row image-row">
                    <div class="col">
+                     <img class="img-rounded rounded fill cropImg roi"  :src="cropImg.src">
+                   </div>
+                   <div class="col" v-loading="isDetecting==true">
                      <img class="img-rounded rounded fill cropImg sharp"  :src="cropImg.sharpSrc">
                    </div>
                  </div>
-              <div class="row">
+              <div class="row title-row">
                 <div class="col">
                   <b>{{$t('home.result-Calcification-title')}}</b>
                   <ul v-if="cropImg.prediction">
@@ -106,15 +108,17 @@
                   </ul>
                 </div>
                 <div class="col">
-                    <img class="img-rounded rounded fill cropImg calc"  :src="cropImg.calcSrc">
-                </div>
-                <div class="col">
                   <b>{{$t('home.result-Margin')}}</b>
                   <ul>
                     <li v-if="cropImg.prediction">{{$t('home.result-Irregularity')}}:{{cropImg.prediction.Margin_Ratio | number-format('0.[00]%') }}</li>
                   </ul>
                 </div>
-                <div class="col">
+              </div>
+              <div class="row image-row">
+                <div class="col" v-loading="isDetecting==true">
+                    <img class="img-rounded rounded fill cropImg calc"  :src="cropImg.calcSrc">
+                </div>
+                <div class="col" v-loading="isDetecting==true">
                     <img class="img-rounded rounded fill cropImg sharp"  :src="cropImg.marginSrc">
                 </div>
               </div>
@@ -124,32 +128,14 @@
           <div class="image-prediction container bottom">
             <div class="row">
               <div class="col">
-                <div class="d-flex justify-content-between">
-                  <div class="pb-2 d-flex align-items-end">
-                    <a :href="cropImg && cropImg.src" class="btn btn-primary m-l10" download="crop.png" :class="{disabled:!cropImg}">{{$t('home.button-export')}}</a>
-                  </div>
+                <div class="d-flex justify-content-center">
                   <div class="pb-2" v-if="cropImg && cropImg.prediction">
                     <div class="prediction">
-                      <div class="p-title">{{$t('master.pathology-' + cropImg.prediction["Prediction"])}}</div>
-                      <div>{{$t('home.result-Prediction')}}</div>
+                      <div class="p-title">{{$t('home.result-inspection')}}:{{$t('master.' + $prediction_format(cropImg.prediction["Prediction"],cropImg.prediction["Probability"]))}}</div>
                     </div>
-                    <!--<div class="prediction">-->
-                      <!--<div class="p-title">{{cropImg.prediction["ProcessingTime"] | number-format('0.[0000]')  }}</div>-->
-                      <!--<div>{{$t('home.result-ProcessingTime')}}</div>-->
-                    <!--</div>-->
-                    <div class="prediction">
-                      <div class="p-title">{{cropImg.prediction["Probability"] | number-format('0.[00]%')  }}</div>
-                      <div>{{$t('home.result-Probability')}}</div>
-                    </div>
-                  </div>
-                  <div class="pb-2 d-flex align-items-end">
-                    <button @click="delCroppedImage" data-slide-to="0" class="btn btn-danger float-md-right" :class="{disabled:cropImg==null}" :disabled="cropImg==null" >{{ $t("home.button-delete") }}</button>
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="row">
-              <image-list-slider id="roiImageList"  class="col" :imageList="croppedImageList" :selectedImage="cropImg"  v-on:select-image="onSelectCroppedImage"/>
             </div>
           </div>
         </div>

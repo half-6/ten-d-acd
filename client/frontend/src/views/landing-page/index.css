@@ -35,6 +35,13 @@
     height: 100vh;
     top: 0;
   }
+  .landing-page .right .img-container.active{
+    position: absolute;
+    padding: 60px 15px 80px;
+    left: 0;
+    height: 100vh;
+    top: 0;
+  }
   .landing-page .bottom{
     position: absolute;
     width: 100%;
@@ -76,10 +83,17 @@
 .landing-page .detection-detail ul{
   margin-left: 20px;
 }
-.landing-page .detection-detail .row{
-  height: 50%;
+.landing-page .detection-detail .title-row{
+  height: 80px;
+  padding-top: 5px;
 }
-
+.landing-page .detection-detail .image-row{
+  height: calc(50% - 80px);
+}
+.landing-page .detection-detail .image-row .col{
+  max-height: 100%;
+  max-width: 100%;
+}
 .landing-page h2{
   font-size: inherit;
   font-weight: bold;

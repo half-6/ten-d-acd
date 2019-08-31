@@ -20,6 +20,9 @@ export default {
         "pathology-Malignant":"Malignant",
         "pathology-Benign":"Benign",
         "pathology-null":"[Null]",
+        "attention-closely":"Attention Closely",
+        "attention":"Attention",
+        "not-concerned":"Not Concerned",
     },
     "pagination": {
         "total": "Total {total} records",
@@ -65,6 +68,7 @@ export default {
         "result-Irregularity": "Irregularity",
         "result-detect-failed": "Detect failed, please make sure drawing properly and at lease have 5 points to resolve the quadratic equation of an ellipse",
 
+        "result-inspection":"Test opinion"
 
     },
     "list": {

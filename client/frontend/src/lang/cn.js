@@ -20,6 +20,9 @@ export default {
         "pathology-Malignant":"恶性",
         "pathology-Benign":"良性",
         "pathology-null":"[未选]",
+        "attention-closely":"密切关注",
+        "attention":"关注",
+        "not-concerned":"不关注",
     },
     "pagination": {
         "total": "总计 {total} 条记录",
@@ -65,6 +68,8 @@ export default {
         "result-Margin": "边缘",
         "result-Irregularity": "不规则",
         "result-detect-failed": "检测失败，请画一个合适的图形，并且至少5个点。",
+
+        "result-inspection":"检测意见"
     },
     "list": {
         "cancer-type": "癌症类型",
