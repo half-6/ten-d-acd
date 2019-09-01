@@ -1,6 +1,6 @@
 export default {
     "master": {
-        "title": "超声影像肿瘤辅助检测系统",
+        "title": "超声影像辅助检测",
         "menu-home": "首页",
         "menu-list-view": "记录列表",
         "menu-import": "导入",
@@ -95,7 +95,7 @@ export default {
         "table-operation": "操作",
     },
     "about": {
-        "title": "超声影像肿瘤辅助检测系统",
+        "title": "超声影像辅助检测",
         "desc": "Powered by Ten-D Innovation's J-Eye Cancer Diagnosis Engine, and under the licensing agreement with the University of Buckingham",
         "table-cancer-type": "癌症类型",
         "table-diagnostics": "检测次数",
@@ -117,7 +117,7 @@ export default {
         "power-by": "Powered by The University of Buckingham",
     },
     "expire": {
-        "title": "超声影像肿瘤辅助检测系统",
+        "title": "超声影像辅助检测",
         "desc": "Powered by Ten-D Innovation's J-Eye Cancer Diagnosis Engine, and under the licensing agreement with the University of Buckingham",
         "expire": "你的序列号已经过期，请联系售后支持。",
         "expire-on": "有效期",

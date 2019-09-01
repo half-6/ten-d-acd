@@ -1,6 +1,6 @@
 export default {
     "master": {
-        "title": "Ultrasound Image Tumor Detection System",
+        "title": "Ultrasound Image Detection",
         "menu-home": "Home",
         "menu-list-view": "List View",
         "menu-import": "Import",
@@ -95,7 +95,7 @@ export default {
         "table-operation": "Operation",
     },
     "about": {
-        "title": "Ultrasound Image Tumor Detection System",
+        "title": "Ultrasound Image Detection",
         "desc": "Powered by Ten-D Innovation's J-Eye Cancer Diagnosis Engine, and under the licensing agreement with the University of Buckingham",
         "table-cancer-type": "Cancer Type",
         "table-diagnostics": "# of diagnostics",
@@ -117,7 +117,7 @@ export default {
         "power-by": "Powered by The University of Buckingham",
     },
     "expire": {
-        "title": "Ultrasound Image Tumor Detection System",
+        "title": "Ultrasound Image Detection",
         "desc": "Powered by Ten-D Innovation's J-Eye Cancer Diagnosis Engine, and under the licensing agreement with the University of Buckingham",
         "expire": "Your license has expired,Please contact your support representative",
         "expire-on": "Expires on",
