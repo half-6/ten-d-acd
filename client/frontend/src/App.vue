@@ -12,12 +12,12 @@
           <li class="nav-item active">
             <router-link to="/" class="nav-link active" data-toggle="collapse" data-target="#navbarSupportedContent">{{$t('master.menu-home')}}</router-link>
           </li>
-          <li class="nav-item">
-            <router-link to="/list" class="nav-link" data-toggle="collapse" data-target="#navbarSupportedContent">{{$t('master.menu-list-view')}}</router-link>
-          </li>
-          <li class="nav-item">
-            <router-link to="/import" class="nav-link" data-toggle="collapse" data-target="#navbarSupportedContent">{{$t('master.menu-import')}}</router-link>
-          </li>
+<!--          <li class="nav-item">-->
+<!--            <router-link to="/list" class="nav-link" data-toggle="collapse" data-target="#navbarSupportedContent">{{$t('master.menu-list-view')}}</router-link>-->
+<!--          </li>-->
+<!--          <li class="nav-item">-->
+<!--            <router-link to="/import" class="nav-link" data-toggle="collapse" data-target="#navbarSupportedContent">{{$t('master.menu-import')}}</router-link>-->
+<!--          </li>-->
           <li class="nav-item">
             <router-link to="/about" class="nav-link" data-toggle="collapse" data-target="#navbarSupportedContent">{{$t('master.menu-about')}}</router-link>
           </li>

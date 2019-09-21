@@ -29,8 +29,8 @@ export default {
         "per-page": "{num} records per page",
     },
     "home": {
-        "cancer-type": "Cancer type",
-        "machine-type": "Machine type",
+        "cancer-type": "Organ",
+        "machine-type": "Machine Brand",
         "enter-id": "Please enter ID",
         "roi-import-desc": "Please drop file here or click \"Import Image\" button to choose a b-model image",
         "roi-cut-desc": "Please click \"Cut ROI Image\" button on the bottom of the left image to cut an ROI image",
@@ -50,12 +50,15 @@ export default {
         "save-failed": "Save failed",
         "result-roi": "ROI",
         "result-echos": "Echos",
+        "result-echo-low": "L",
+        "result-echo-medium": "M",
+        "result-echo-high": "H",
         "result-Not-Uniform": "Not Uniform",
         "result-Uniform": "Uniform",
 
         "result-Shape": "Shape",
         "result-Ratio": "Ratio",
-        "result-Taller": "Taller than Wider",
+        "result-Taller": "Taller than Wide",
         "result-Wider": "Wider than Tall",
 
 

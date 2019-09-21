@@ -166,6 +166,8 @@ export default {
       this.isDetecting = true;
       img.loading = true;
       try{
+          storage.set(KEY_CANCER_ID,this.record.cancer_type)
+          storage.set(KEY_MACHINE_ID,this.record.machine_type_id)
           img.prediction =  await api.detectImage(
               {
                   roi_image_src:img.src,
@@ -370,5 +372,8 @@ export default {
   },
   mounted: function() {
     this.$nextTick(this.init);
+  },
+  destroyed:function () {
+      if(this.cropper) this.cropper.destroy();
   }
 };

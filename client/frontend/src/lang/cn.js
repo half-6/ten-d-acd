@@ -29,8 +29,8 @@ export default {
         "per-page": "每页 {num} 条记录",
     },
     "home": {
-        "cancer-type": "癌症类型",
-        "machine-type": "B超机器类型",
+        "cancer-type": "器官",
+        "machine-type": "超声设备品牌",
         "enter-id": "输入记录ID",
         "roi-import-desc": "请拖拽图片到这里，或者点击 \"导入影像\" 按钮导入B超影像。",
         "roi-cut-desc": "请点击下方\"切ROI图\" 按钮生成ROI图。",
@@ -50,23 +50,26 @@ export default {
         "save-failed": "保存失败",
 
         "result-roi": "ROI",
-        "result-echos": "Echos",
-        "result-Not-Uniform": "不统一的",
-        "result-Uniform": "统一的",
+        "result-echos": "回声比例",
+        "result-echo-low": "低",
+        "result-echo-medium": "中",
+        "result-echo-high": "高",
+        "result-Not-Uniform": "不均质",
+        "result-Uniform": "均质",
 
         "result-Shape": "形状",
-        "result-Ratio": "比率",
+        "result-Ratio": "纵横比",
         "result-Taller": "高大于宽",
         "result-Wider": "宽大于高",
 
 
-        "result-Calcification-title": "钙化",
-        "result-Calcification": "钙化",
-        "result-No-Calcification": "没有钙化",
+        "result-Calcification-title": "钙化比例",
+        "result-Calcification": "有钙化",
+        "result-No-Calcification": "无钙化",
         "result-Amount": "总数",
 
         "result-Margin": "边缘",
-        "result-Irregularity": "不规则",
+        "result-Irregularity": "不规则度",
         "result-detect-failed": "检测失败，请画一个合适的图形，并且至少5个点。",
 
         "result-inspection":"检测意见"

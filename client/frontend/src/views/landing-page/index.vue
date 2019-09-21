@@ -77,7 +77,7 @@
                    <div class="col">
                      <b>{{$t('home.result-roi')}}</b>
                      <ul v-if="cropImg.prediction">
-                         <li>{{$t('home.result-echos')}}:{{cropImg.prediction.Echos}}</li>
+                         <li>{{$t('home.result-echos')}}: {{$t('home.result-echo-low')}}{{cropImg.prediction.Echos[0]}} {{$t('home.result-echo-medium')}}{{cropImg.prediction.Echos[1]}} {{$t('home.result-echo-high')}}{{cropImg.prediction.Echos[2]}}</li>
                          <li>{{$t(('home.result-' + cropImg.prediction.isUni).replace(" ","-"))}}</li>
                      </ul>
                    </div>
@@ -86,7 +86,7 @@
                      <ul v-if="cropImg.prediction">
                        <li v-if="cropImg.prediction.Shape_Ratio>1">{{$t('home.result-Taller')}}</li>
                        <li v-if="cropImg.prediction.Shape_Ratio<1">{{$t('home.result-Wider')}}</li>
-                       <li>{{$t('home.result-Ratio')}}:{{cropImg.prediction.Shape_Ratio}}</li>
+                       <li>{{$t('home.result-Ratio')}}: {{cropImg.prediction.Shape_Ratio}}</li>
                      </ul>
                    </div>
                  </div>
@@ -104,13 +104,13 @@
                   <ul v-if="cropImg.prediction">
                     <li v-if="cropImg.prediction.Calcification_index>0">{{$t('home.result-Calcification')}}</li>
                     <li v-if="cropImg.prediction.Calcification_index===0">{{$t('home.result-No-Calcification')}}</li>
-                    <li>{{$t('home.result-Amount')}}:{{cropImg.prediction.Calcification_index | number-format('0.[00]%') }}</li>
+                    <li>{{$t('home.result-Amount')}}: {{cropImg.prediction.Calcification_index | number-format('0.[00]%') }}</li>
                   </ul>
                 </div>
                 <div class="col">
                   <b>{{$t('home.result-Margin')}}</b>
                   <ul>
-                    <li v-if="cropImg.prediction">{{$t('home.result-Irregularity')}}:{{cropImg.prediction.Margin_Ratio | number-format('0.[00]%') }}</li>
+                    <li v-if="cropImg.prediction">{{$t('home.result-Irregularity')}}: {{cropImg.prediction.Margin_Ratio | number-format('0.[00]%') }}</li>
                   </ul>
                 </div>
               </div>

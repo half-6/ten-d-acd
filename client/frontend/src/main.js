@@ -28,8 +28,11 @@ Vue.prototype.$pathology = [{"value":"Malignant","text":"Malignant"},{"value":"B
 Vue.config.productionTip = false;
 
 async function init(){
+
   Vue.prototype.$machineType = (await api.getMachineType()).data
-  Vue.prototype.$cancerType = (await api.getCancerType()).data
+  //Vue.prototype.$cancerType = (await api.getCancerType()).data
+  Vue.prototype.$cancerType =[{"cancer_type_name":"Thyroid","cancer_type_chinese_name":"甲状腺","cancer_type_id":1,"cancer_type_short_name":"TH","date_registered":"2019-05-15 22:52:32.733+0000","status":"active"}]
+
   Vue.prototype.$hospital = (await api.getHospital({$limit:1})).data
   i18n.loadLanguageAsync();
   new Vue({
