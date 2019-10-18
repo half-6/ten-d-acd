@@ -69,6 +69,7 @@ export default {
 
         "result-Margin": "Margin",
         "result-Irregularity": "Irregularity",
+        "result-Smoothness": "Smoothness",
         "result-detect-failed": "Detect failed, please make sure drawing properly and at lease have 5 points to resolve the quadratic equation of an ellipse",
 
         "result-inspection":"Test opinion"

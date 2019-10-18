@@ -76,6 +76,7 @@ CREATE TABLE public.roi_image(
 
   coordinate jsonb,
   ai_version VARCHAR(50),
+  detection_result jsonb,
 
   pathology tp_pathology_status,
   status tp_status default 'active',
@@ -96,6 +97,7 @@ CREATE TABLE public.roi_history(
 
    coordinate jsonb,
    ai_version VARCHAR(50),
+   detection_result jsonb,
 
    prediction VARCHAR(50),
    probability decimal,

@@ -53,4 +53,9 @@ router.beforeEach(async (to, from, next) => {
   }
 })
 
+Router.prototype.open = function (routeObject) {
+  const {href} = this.resolve(routeObject)
+  window.open(href, '_blank')
+}
+
 export default router;

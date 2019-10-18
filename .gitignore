@@ -8,3 +8,5 @@ logs/
 /bin/static/
 keys/
 com.tend.acd.server.backend-*.jar
+*.cert
+

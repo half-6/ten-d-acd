@@ -22,7 +22,7 @@ public class Recognition {
     public String recognitionVersion;
 
     public Recognition() throws ClassNotFoundException, IllegalAccessException, InstantiationException, IOException, NoSuchMethodException, InvocationTargetException {
-        //Path filePath = imageRecognitionPath!=null?Paths.get(imageRecognitionPath):Paths.get(Util.getAppPath(),"lib","Image_Recognition-0.0.3.jar");
+        //Path filePath = imageRecognitionPath!=null?Paths.get(imageRecognitionPath):Paths.get(Util.getAppPath(),"lib","Image_Recognition-0.0.6.jar");
         Path filePath = imageRecognitionPath!=null?Paths.get(imageRecognitionPath):Paths.get(Util.getAppPath(),"lib","Image_Recognition.jar");
         Util.logger.trace("loading external Matlab JAR =>" + filePath.toString());
         if(!Files.exists(filePath))

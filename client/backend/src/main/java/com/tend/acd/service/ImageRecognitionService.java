@@ -28,8 +28,9 @@ public class ImageRecognitionService {
     String roi_corners = input.getString("roi_corners");
     ResponseImageRecognitionEntity output =  imageRecognitionRepository.recognition(base64Image,cancerType,roi_coordinates,roi_corners);
     input.put("prediction",output.prediction);
-    input.put("probability",output.probability);
+    input.put("probability",output.probability / 100);
     input.put("processing_time",output.processingTime);
+    input.put("detection_result",Util.toJson(output));
     if(saveHistory){
       new Thread(() -> {
         try {

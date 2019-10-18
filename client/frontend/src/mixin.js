@@ -16,7 +16,7 @@ Vue.mixin({
         $prediction_format:function (prediction,probability) {
             if (prediction==="Malignant")
             {
-                if(probability>=0.8)
+                if(probability/100>=0.8)
                 {
                     return 'attention-closely';
                 }

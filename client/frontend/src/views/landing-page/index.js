@@ -255,7 +255,7 @@ export default {
                     ctx.beginPath();
                     let dot = dots[i];
                     let x,y;
-                    if(dot.length===3)
+                    if(dot.length>2)
                     {
                         x = dot[1];
                         y = dot[2];
@@ -268,7 +268,7 @@ export default {
                     {
                         x = dot[0];
                         y = dot[1];
-                        ctx.strokeStyle = ctx.fillStyle = '#EC7C0C';
+                        ctx.strokeStyle = ctx.fillStyle = '#126bec';
                     }
                     ctx.arc(x, y, 3, 0, 2 * Math.PI);
                     ctx.stroke();
@@ -323,8 +323,9 @@ export default {
           original_image_id:image.original_image_id,
           pathology:image.pathology,
           prediction:_.get(image.prediction,"Prediction"),
-          probability:_.get(image.prediction,"Probability"),
+          probability:_.get(image.prediction,"Probability")/100,
           processing_time:_.get(image.prediction,"ProcessingTime"),
+          detection_result:image.prediction
         })
       }
       console.log(this.record);

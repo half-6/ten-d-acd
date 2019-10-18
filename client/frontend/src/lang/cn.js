@@ -70,6 +70,7 @@ export default {
 
         "result-Margin": "边缘",
         "result-Irregularity": "不规则度",
+        "result-Smoothness": "平滑度",
         "result-detect-failed": "检测失败，请画一个合适的图形，并且至少5个点。",
 
         "result-inspection":"检测意见"

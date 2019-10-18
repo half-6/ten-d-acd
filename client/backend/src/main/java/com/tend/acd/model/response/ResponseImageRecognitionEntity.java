@@ -24,19 +24,22 @@ public class ResponseImageRecognitionEntity {
     public double[][] shapeAxises;
 
     @JsonProperty("Shape_Ratio")
-    public double shapeRatio;
+    public String shapeRatio;
 
     @JsonProperty("Margin_Levels")
     public double[][] marginLevels;
 
-    @JsonProperty("Margin_Ratio")
-    public double marginRatio;
+    @JsonProperty("Smoothness_Ratio")
+    public double smoothnessRatio;
+
+    @JsonProperty("Irregularity_Ratio")
+    public double irregularityRatio;
 
     @JsonProperty("Echos")
     public double[] echos;
 
-    @JsonProperty("isUni")
-    public String isUni;
+    @JsonProperty("Echo_Label")
+    public String echoLabel;
 
     @JsonProperty("Calcification_Coods")
     public double[][] calcificationCoods;

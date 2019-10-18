@@ -12,14 +12,16 @@
           <li class="nav-item active">
             <router-link to="/" class="nav-link active" data-toggle="collapse" data-target="#navbarSupportedContent">{{$t('master.menu-home')}}</router-link>
           </li>
-<!--          <li class="nav-item">-->
+          <li class="nav-item">
 <!--            <router-link to="/list" class="nav-link" data-toggle="collapse" data-target="#navbarSupportedContent">{{$t('master.menu-list-view')}}</router-link>-->
-<!--          </li>-->
+            <a href="javascript:void(0)" @click="$router.open({name: 'list-page'})" class="nav-link" data-toggle="collapse" data-target="#navbarSupportedContent" >{{$t('master.menu-list-view')}}</a>
+          </li>
 <!--          <li class="nav-item">-->
 <!--            <router-link to="/import" class="nav-link" data-toggle="collapse" data-target="#navbarSupportedContent">{{$t('master.menu-import')}}</router-link>-->
 <!--          </li>-->
           <li class="nav-item">
-            <router-link to="/about" class="nav-link" data-toggle="collapse" data-target="#navbarSupportedContent">{{$t('master.menu-about')}}</router-link>
+<!--            <router-link to="/about" class="nav-link" data-toggle="collapse" data-target="#navbarSupportedContent">{{$t('master.menu-about')}}</router-link>-->
+            <a href="javascript:void(0)" @click="$router.open({name: 'about-page'})" class="nav-link" data-toggle="collapse" data-target="#navbarSupportedContent" >{{$t('master.menu-about')}}</a>
           </li>
         </ul>
       </div>
