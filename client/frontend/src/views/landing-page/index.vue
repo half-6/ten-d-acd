@@ -133,7 +133,7 @@
                 <div class="d-flex justify-content-center">
                   <div class="pb-2" v-if="cropImg && cropImg.prediction">
                     <div class="prediction">
-                      <div class="p-title">{{$t('home.result-inspection')}}:{{$t('master.' + $prediction_format(cropImg.prediction["Prediction"],cropImg.prediction["Probability"]))}}</div>
+<!--                      <div class="p-title">{{$t('home.result-inspection')}}:{{$t('master.' + $prediction_format(cropImg.prediction["Prediction"],cropImg.prediction["Probability"]))}}</div>-->
                     </div>
                   </div>
                 </div>
