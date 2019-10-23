@@ -20,7 +20,7 @@ services:
       - tend.postgreSQL.host=db
       - tend.postgreSQL.port=5432
     ports:
-      - "8081:8080"
+      - "80:8080"
     volumes:
       - ./static:/opt/static
       - ./logs:/logs
