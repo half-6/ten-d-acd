@@ -13,6 +13,7 @@ export default {
       isSearching:false,
       message:null,
       selectedRoiImage:null,
+      showDetailDialog:null,
       search:{
         machine_type_id:"",
         cancer_type_id:"",
@@ -60,6 +61,10 @@ export default {
     edit(item){
        item.$edit = true;
        item.$back = item.pathology;
+    },
+    detail(item){
+       this.selectedRoiImage = item;
+       this.showDetailDialog = true;
     },
     del(item){
       this.selectedRoiImage = item;

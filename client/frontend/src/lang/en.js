@@ -85,6 +85,7 @@ export default {
         "button-searching": "Searching...",
         "button-download": "Download",
         "button-edit": "Edit",
+        "button-detail": "Detail",
         "button-delete": "Delete",
         "button-save": "Save",
         "button-cancel": "Cancel",

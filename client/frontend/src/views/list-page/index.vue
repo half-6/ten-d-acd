@@ -16,25 +16,25 @@
                  <option v-for="item in cancerTypeList" :value="item.cancer_type_id">{{$t('master.cancer-type-' + item.cancer_type_id)}}</option>
                </select>
              </div>
-             <div class="form-group col-lg-2 col-md col-sm">
-               <select class="custom-select" v-model="search.pathology">
-                 <option selected value="">{{ $t('list.pathology') }}</option>
-                 <option selected value="null">{{ $t('master.pathology-null')}}</option>
-                 <option v-for="item in pathologyList" :value="item.value">{{ $t('master.pathology-' + item.value)}}</option>
-               </select>
-             </div>
-             <div class="form-group col-lg-2 col-md col-sm">
-               <select class="custom-select" v-model="search.prediction">
-                 <option selected value="">{{ $t('list.prediction') }}</option>
-                 <option v-for="item in predictionList" :value="item.value">{{ $t('master.pathology-' + item.value)}}</option>
-               </select>
-             </div>
+<!--             <div class="form-group col-lg-2 col-md col-sm">-->
+<!--               <select class="custom-select" v-model="search.pathology">-->
+<!--                 <option selected value="">{{ $t('list.pathology') }}</option>-->
+<!--                 <option selected value="null">{{ $t('master.pathology-null')}}</option>-->
+<!--                 <option v-for="item in pathologyList" :value="item.value">{{ $t('master.pathology-' + item.value)}}</option>-->
+<!--               </select>-->
+<!--             </div>-->
+<!--             <div class="form-group col-lg-2 col-md col-sm">-->
+<!--               <select class="custom-select" v-model="search.prediction">-->
+<!--                 <option selected value="">{{ $t('list.prediction') }}</option>-->
+<!--                 <option v-for="item in predictionList" :value="item.value">{{ $t('master.pathology-' + item.value)}}</option>-->
+<!--               </select>-->
+<!--             </div>-->
              <div class="form-group col-lg-2 col-md col-sm">
                <input type="text" class="form-control" v-model="search.id" :placeholder="$t('list.keyword-placeholder')">
              </div>
              <div class="form-group col-lg-2">
                <loading-button v-on:click="searchImage" :value="$t('list.button-search')" :isLoading="isSearching" :loadingLabel="$t('list.button-searching')" />
-               <loading-button v-on:click="download" :value="$t('list.button-download')" class="float-right"  />
+<!--               <loading-button v-on:click="download" :value="$t('list.button-download')" class="float-right"  />-->
              </div>
            </div>
         </div>
@@ -49,9 +49,9 @@
               <th scope="col">{{$t('list.table-roi-image')}}</th>
               <th scope="col">{{$t('list.table-cancer-type')}}</th>
               <th scope="col">{{$t('list.table-machine-type')}}</th>
-              <th scope="col">{{$t('list.table-pathology')}}</th>
-              <th scope="col">{{$t('list.table-prediction')}}</th>
-              <th scope="col">{{$t('list.table-probability')}}</th>
+<!--              <th scope="col">{{$t('list.table-pathology')}}</th>-->
+<!--              <th scope="col">{{$t('list.table-prediction')}}</th>-->
+<!--              <th scope="col">{{$t('list.table-probability')}}</th>-->
               <th scope="col">{{$t('list.table-date')}}</th>
               <th scope="col">{{$t('list.table-operation')}}</th>
             </tr>
@@ -68,18 +68,19 @@
                     <option v-for="item in machineTypeList" :value="item.machine_type_id">{{$t('master.machine-type-' + item.machine_type_id)}}</option>
                   </select>
                 </td>
-                <td v-if="!item.$edit">{{item.pathology?$t('master.pathology-' + item.pathology):''}}</td>
-                <td v-else>
-                  <el-radio-group v-model="item.pathology">
-                    <el-radio-button v-for="item in pathologyList" :key="item.text" :label="item.text">{{$t('master.pathology-' + item.text)}}</el-radio-button>
-                  </el-radio-group>
-                </td>
-                <td>{{$t('master.pathology-' + item.prediction)}}</td>
-                <td>{{item.probability | number-format('0.[00]%')}}</td>
+<!--                <td v-if="!item.$edit">{{item.pathology?$t('master.pathology-' + item.pathology):''}}</td>-->
+<!--                <td v-else>-->
+<!--                  <el-radio-group v-model="item.pathology">-->
+<!--                    <el-radio-button v-for="item in pathologyList" :key="item.text" :label="item.text">{{$t('master.pathology-' + item.text)}}</el-radio-button>-->
+<!--                  </el-radio-group>-->
+<!--                </td>-->
+<!--                <td>{{$t('master.pathology-' + item.prediction)}}</td>-->
+<!--                <td>{{item.probability | number-format('0.[00]%')}}</td>-->
                 <td>{{item.date_registered | date-format('YYYY-MM-DD HH:mm')}}</td>
                 <td class="operation">
-                  <button v-if="!item.$edit" @click="edit(item)" type="button" class="btn btn-outline btn-primary btn-sm pl-1"><i class="fa fa-edit fa-fw"></i>{{$t('list.button-edit')}}</button>
-                  <button v-else @click="save(item)" type="button" class="btn btn-outline btn-primary btn-sm pl-1"><i class="fa fa-edit fa-fw"></i>{{$t('list.button-save')}}</button>
+                  <button v-if="item.detection_result" @click="detail(item)" type="button" class="btn btn-outline btn-primary btn-sm pl-1"><i class="fa fa-edit fa-fw"></i>{{$t('list.button-detail')}}</button>
+<!--                  <button v-if="!item.$edit" @click="edit(item)" type="button" class="btn btn-outline btn-primary btn-sm pl-1"><i class="fa fa-edit fa-fw"></i>{{$t('list.button-edit')}}</button>-->
+<!--                  <button v-else @click="save(item)" type="button" class="btn btn-outline btn-primary btn-sm pl-1"><i class="fa fa-edit fa-fw"></i>{{$t('list.button-save')}}</button>-->
                   <button v-if="!item.$edit" @click="del(item)" type="button" class="btn btn-outline btn-danger btn-sm pl-1"><i class="fa fa-edit fa-fw"></i>{{$t('list.button-delete')}}</button>
                   <button v-else @click="cancel(item)" type="button" class="btn btn-outline btn-secondary btn-sm pl-1"><i class="fa fa-edit fa-fw"></i>{{$t('list.button-cancel')}}</button>
                 </td>
@@ -103,6 +104,34 @@
         </div>
       </div>
     </div>
+    <el-dialog
+            :title="$t('list.prediction')"
+            :visible.sync="showDetailDialog"
+            width="50%"
+            center>
+      <div class="roi-detail" v-if="selectedRoiImage && selectedRoiImage.detection_result">
+          <b>{{$t('home.result-roi')}}</b>
+          <ul>
+            <li>{{$t('home.result-echos')}}: {{$t('home.result-echo-low')}}{{selectedRoiImage.detection_result.Echos[0] | number-format('0.[00]')}} {{$t('home.result-echo-medium')}}{{selectedRoiImage.detection_result.Echos[1] | number-format('0.[00]')}} {{$t('home.result-echo-high')}}{{selectedRoiImage.detection_result.Echos[2] | number-format('0.[00]')}}</li>
+            <li>{{$t(('home.result-' + selectedRoiImage.detection_result.Echo_Label).replace(" ","-"))}}</li>
+          </ul>
+          <b>{{$t('home.result-Shape')}}</b>
+          <ul>
+            <li>{{$t('home.result-Ratio')}}: {{$t('home.result-' + selectedRoiImage.detection_result.Shape_Ratio.split(" ")[0] )}}</li>
+          </ul>
+          <b>{{$t('home.result-Calcification-title')}}</b>
+          <ul>
+            <li v-if="selectedRoiImage.detection_result.Calcification_index>0">{{$t('home.result-Calcification')}}</li>
+            <li v-if="selectedRoiImage.detection_result.Calcification_index===0">{{$t('home.result-No-Calcification')}}</li>
+            <li>{{$t('home.result-Amount')}}: {{selectedRoiImage.detection_result.Calcification_index}}%</li>
+          </ul>
+          <b>{{$t('home.result-Margin')}}</b>
+          <ul>
+            <li v-if="selectedRoiImage.detection_result">{{$t('home.result-Irregularity')}}: {{selectedRoiImage.detection_result.Irregularity_Ratio}}%</li>
+            <li v-if="selectedRoiImage.detection_result">{{$t('home.result-Smoothness')}}: {{selectedRoiImage.detection_result.Smoothness_Ratio }}%</li>
+          </ul>
+      </div>
+    </el-dialog>
   </div>
 </template>
 <style src="./index.css"></style>

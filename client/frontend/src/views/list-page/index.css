@@ -16,3 +16,7 @@
 .list-page .operation>button{
   margin-left:5px;
 }
+
+.list-page .roi-detail{
+   padding: 0 30px;
+}

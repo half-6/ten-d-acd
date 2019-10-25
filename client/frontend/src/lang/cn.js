@@ -85,6 +85,7 @@ export default {
         "button-searching": "搜索中...",
         "button-download": "下载记录",
         "button-edit": "编辑",
+        "button-detail": "详细",
         "button-delete": "删除",
         "button-save": "保存",
         "button-cancel": "取消",
