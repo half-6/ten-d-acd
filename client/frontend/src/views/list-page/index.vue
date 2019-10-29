@@ -105,7 +105,7 @@
       </div>
     </div>
     <el-dialog
-            :title="$t('list.prediction')"
+            :title="$t('list.table-report')"
             :visible.sync="showDetailDialog"
             width="50%"
             center>

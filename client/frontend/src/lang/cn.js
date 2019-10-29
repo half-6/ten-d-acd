@@ -89,6 +89,7 @@ export default {
         "button-delete": "删除",
         "button-save": "保存",
         "button-cancel": "取消",
+        "table-report": "报告",
         "table-original-image": "原始影像",
         "table-roi-image": "Roi 影像",
         "table-cancer-type": "癌症类型",

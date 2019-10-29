@@ -89,6 +89,7 @@ export default {
         "button-delete": "Delete",
         "button-save": "Save",
         "button-cancel": "Cancel",
+        "table-report": "Report",
         "table-original-image": "Original Image",
         "table-roi-image": "Roi Image",
         "table-cancer-type": "Cancer Type",
