@@ -18,7 +18,7 @@ RUN \
 	rm -rf mcr-install
 
 ADD com.tend.acd.backend.jar /opt/com.tend.acd.backend.jar
-ADD Image_Recognition-0.0.6.jar /opt/lib/Image_Recognition.jar
+ADD Image_Recognition-0.0.7.jar /opt/lib/Image_Recognition.jar
 
 ENV LD_LIBRARY_PATH=/opt/mcr/v96/runtime/glnxa64/:/opt/mcr/v96/bin/glnxa64/:/opt/mcr/v96/sys/os/glnxa64/:/opt/mcr/v96/sys/opengl/lib/glnxa64/:/opt/mcr/v96/extern/bin/glnxa64/
 

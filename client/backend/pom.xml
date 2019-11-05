@@ -45,7 +45,7 @@
         <dependency>
             <groupId>com.matlab</groupId>
             <artifactId>javabuilder</artifactId>
-            <version>R2015b</version>
+            <version>R2019a</version>
         </dependency>
         <!--********************************************************************-->
         <!--DB																																	-->
@@ -116,7 +116,7 @@
                 <version>2.5.1</version>
                 <executions>
                     <execution>
-                        <id>install-javabuilder</id>
+                        <id>install-javabuilder-R2019a</id>
                         <goals>
                             <goal>install-file</goal>
                         </goals>
@@ -124,9 +124,24 @@
                         <configuration>
                             <groupId>com.matlab</groupId>
                             <artifactId>javabuilder</artifactId>
-                            <version>R2015b</version>
+                            <version>R2019a</version>
                             <packaging>jar</packaging>
-                            <file>${basedir}/lib/javabuilder.jar</file>
+                            <file>${basedir}/lib/javabuilder-R2019a.jar</file>
+                            <generatePom>true</generatePom>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>install-javabuilder-R2018b</id>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <phase>validate</phase>
+                        <configuration>
+                            <groupId>com.matlab</groupId>
+                            <artifactId>javabuilder</artifactId>
+                            <version>R2018b</version>
+                            <packaging>jar</packaging>
+                            <file>${basedir}/lib/javabuilder-R2018b.jar</file>
                             <generatePom>true</generatePom>
                         </configuration>
                     </execution>
